@@ -1,0 +1,117 @@
+import numpy as np
+from PIL import Image
+import tensorrt as trt
+import pycuda.driver as cuda
+import pycuda.autoinit
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+# Constants
+ENGINE_PATH = "./yolov8n.trt"
+INPUT_SHAPE = (640, 640)
+CONF_THRESHOLD = 0.25
+LABELS_FILE = "./coco_labels.txt"
+
+# Load class labels
+def load_labels(file_path):
+    with open(file_path, 'r') as f:
+        return [line.strip() for line in f.readlines()]
+
+CLASS_NAMES = load_labels(LABELS_FILE)
+
+class YOLOv8nDetector:
+    def __init__(self, engine_path):
+        logger.info("Initializing YOLOv8n TensorRT detector...")
+        self.logger = trt.Logger(trt.Logger.INFO)
+
+        # Load the TensorRT engine
+        with open(engine_path, 'rb') as f:
+            runtime = trt.Runtime(self.logger)
+            self.engine = runtime.deserialize_cuda_engine(f.read())
+
+        # Create execution context
+        self.context = self.engine.create_execution_context()
+        self.stream = cuda.Stream()
+
+        # Allocate buffers
+        self.input_shape = (1, 3, *INPUT_SHAPE)
+        self.output_shape = (1, 8400, 85)  # YOLOv8 output format
+
+        input_size = int(np.prod(self.input_shape))  # Explicitly convert to Python int
+        output_size = int(np.prod(self.output_shape))  # Explicitly convert to Python int
+
+        self.d_input = cuda.mem_alloc(input_size * np.dtype(np.float32).itemsize)
+        self.d_output = cuda.mem_alloc(output_size * np.dtype(np.float32).itemsize)
+
+        self.h_input = cuda.pagelocked_empty(input_size, dtype=np.float32)
+        self.h_output = cuda.pagelocked_empty(output_size, dtype=np.float32)
+
+        logger.info("YOLOv8n TensorRT detector initialized successfully.")
+
+
+    def preprocess(self, image_path):
+        """Preprocess the image for YOLOv8n."""
+        image = Image.open(image_path).convert("RGB")
+        image_resized = image.resize(INPUT_SHAPE, Image.BICUBIC)
+        image_array = np.asarray(image_resized, dtype=np.float32) / 255.0
+        image_transposed = np.transpose(image_array, (2, 0, 1))  # HWC to CHW
+        return np.expand_dims(image_transposed, axis=0), image
+
+    def postprocess(self, detections):
+        """Postprocess the model output."""
+        detections = detections.reshape(-1, 85)
+        boxes = detections[:, :4]
+        confidences = detections[:, 4]
+        class_scores = detections[:, 5:]
+        class_ids = np.argmax(class_scores, axis=1)
+
+        mask = confidences > CONF_THRESHOLD
+        boxes = boxes[mask]
+        confidences = confidences[mask]
+        class_ids = class_ids[mask]
+
+        return boxes, confidences, class_ids
+
+    def infer(self, image_path):
+        """Run inference on a single image."""
+        input_data, original_image = self.preprocess(image_path)
+        np.copyto(self.h_input, input_data.ravel())
+
+        # Transfer input to device
+        cuda.memcpy_htod(self.d_input, self.h_input)
+
+        # Run inference
+        self.context.execute_v2(bindings=[int(self.d_input), int(self.d_output)])
+
+        # Transfer output back to host
+        cuda.memcpy_dtoh(self.h_output, self.d_output)
+
+        boxes, scores, class_ids = self.postprocess(self.h_output)
+        return boxes, scores, class_ids, original_image
+
+def main(image_path):
+    detector = YOLOv8nDetector(ENGINE_PATH)
+
+    # Run inference
+    boxes, scores, class_ids, image = detector.infer(image_path)
+
+    # Log detections
+    logger.info(f"Detections:")
+    for box, score, class_id in zip(boxes, scores, class_ids):
+        logger.info(f"Class: {CLASS_NAMES[class_id]}, Score: {score:.2f}, Box: {box}")
+
+if __name__ == "__main__":
+    main("stopsign.jpg")  # Replace with your image path
+
+
+
+
+=============
+
+
+
+ln -s  /home/pomo/.local/lib/python3.8/site-packages/torch/  ~/DriveGXO/venv/lib/python3.8/site-packages/torch
+ln -s <path_to_torchvision> ~/DriveGXO/venv/lib/python3.8/site-packages/torchvision

@@ -1,0 +1,2 @@
+./sample_sygnalpomo_controller --driver=can.socket --params=device=vcan0,bitrate=500000 --dbc-path=/usr/local/driveworks/dbc --plugin-path=./libsygnalpomo_can_plugin.so
+./sample_sygnalpomo_interpreter --driver=can.socket --params="port=can0,bitrate=500000" --plugin-path="./libsygnalpomo_can_plugin.so" --dbc-path="/usr/local/driveworks/dbc"
