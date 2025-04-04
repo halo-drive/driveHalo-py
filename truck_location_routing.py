@@ -102,7 +102,7 @@ def simulate_movement_along_route(route):
     if SIMULATE_DEVIATION and elapsed_time >= DEVIATION_START_TIME and elapsed_time <= (DEVIATION_START_TIME + DEVIATION_DURATION):
         if not is_deviating:
             is_deviating = True
-            log("🔄 Simulating deviation from route")
+            log("Simulating deviation from route")
         
         # Generate a position that's off the route
         if len(route) > 0:
@@ -117,7 +117,7 @@ def simulate_movement_along_route(route):
     else:
         if is_deviating and elapsed_time > (DEVIATION_START_TIME + DEVIATION_DURATION):
             is_deviating = False
-            log("🔄 Returning to route after deviation")
+            log(" Returning to route after deviation")
             # Reset deviation direction for next time
             deviation_direction = None
         
@@ -134,7 +134,7 @@ def read_gps_position(serial_conn):
     if USE_MOCK_LOCATION:
         if SIMULATE_DEVIATION and current_route:
             position = simulate_movement_along_route(current_route)
-            log(f"🧪 Using mock GPS position: {position} {'(DEVIATING)' if is_deviating else ''}")
+            log(f"Using mock GPS position: {position} {'(DEVIATING)' if is_deviating else ''}")
             return position
         else:
             return MOCK_COORDINATES
@@ -147,16 +147,16 @@ def read_gps_position(serial_conn):
             if ',A,' in line:
                 pos = extract_lat_lon(line)
                 if pos:
-                    log(f"✅ Parsed GPS: {pos}")
+                    log(f"Parsed GPS: {pos}")
                     return pos
             else:
-                log("⚠️  GPRMC has no valid GPS fix (status=V)")
+                log(" GPRMC has no valid GPS fix (status=V)")
 
 # === ROUTING & DEVIATION ===
 def get_truck_route(origin, destination):
     global current_route, route_index
     
-    log(f"🚛 Routing from {origin} to {destination}")
+    log(f" Routing from {origin} to {destination}")
     
     # Format coordinates correctly (lat,lon without parentheses)
     origin_str = f"{origin[0]},{origin[1]}"
@@ -185,7 +185,7 @@ def get_truck_route(origin, destination):
         
         if response.ok:
             data = response.json()
-            log("✅ Route fetched successfully")
+            log(" Route fetched successfully")
             
             # Extract the polyline safely
             if 'routes' in data and len(data['routes']) > 0:
@@ -199,21 +199,21 @@ def get_truck_route(origin, destination):
                         route_index = 0
                         return decoded_route
                     else:
-                        log("❌ No polyline in response")
+                        log(" No polyline in response")
                 else:
-                    log("❌ No sections in route")
+                    log(" No sections in route")
             else:
-                log("❌ No routes in response")
+                log(" No routes in response")
                 
             # If we got here, something was wrong with the response structure
             log(f"Response content: {data}")
             return []
         else:
-            log(f"❌ Error response from API: {response.status_code}")
+            log(f" Error response from API: {response.status_code}")
             log(f"Error details: {response.text}")
             return []
     except Exception as e:
-        log(f"❌ Exception during routing request: {str(e)}")
+        log(f" Exception during routing request: {str(e)}")
         return []
 
 def decode_polyline(polyline_str):
@@ -223,12 +223,12 @@ def decode_polyline(polyline_str):
         # Convert to simple (lat, lng) tuples
         return [(point[0], point[1]) for point in points]
     except Exception as e:
-        log(f"❌ Error decoding polyline: {str(e)}")
+        log(f" Error decoding polyline: {str(e)}")
         return []
 
 def is_deviated(current_pos, route):
     if not route:
-        log("⚠️ No route to check deviation against")
+        log(" No route to check deviation against")
         return True
     
     # Check if any point on the route is close to our current position
@@ -239,7 +239,7 @@ def is_deviated(current_pos, route):
         if distance <= DEVIATION_THRESHOLD_METERS:
             return False
     
-    log(f"⚠️ Distance to nearest route point: {min_distance:.1f} meters (threshold: {DEVIATION_THRESHOLD_METERS} meters)")
+    log(f" Distance to nearest route point: {min_distance:.1f} meters (threshold: {DEVIATION_THRESHOLD_METERS} meters)")
     return True
 
 # === MAIN LOOP ===
@@ -256,15 +256,15 @@ def main():
         else:
             ser = None
 
-        log("⏳ Waiting for valid GPS lock (GPRMC with status A)...")
+        log(" Waiting for valid GPS lock (GPRMC with status A)...")
         initial_pos = read_gps_position(ser)
-        log(f"🚦 Starting from GPS: {initial_pos}")
+        log(f" Starting from GPS: {initial_pos}")
 
         route = get_truck_route(initial_pos, destination)
         
         # Initial route check
         if not route:
-            log("❌ Could not get initial route, retrying in 5 seconds...")
+            log(" Could not get initial route, retrying in 5 seconds...")
             time.sleep(5)
             route = get_truck_route(initial_pos, destination)
             
@@ -272,46 +272,44 @@ def main():
             current_pos = read_gps_position(ser)
 
             if is_deviated(current_pos, route):
-                log("🚨 Off-route detected. Recalculating...")
+                log(" Off-route detected. Recalculating...")
                 route = get_truck_route(current_pos, destination)
                 if not route:
-                    log("⚠️ Could not recalculate route, will try again later")
+                    log(" Could not recalculate route, will try again later")
             else:
-                log("🛣️  On route.")
+                log("  On route.")
 
             # if route:
             #     next_waypoints = route[:5]
-            #     log(f"➡️  Next waypoints for control: {next_waypoints}")
+            #     log(f"  Next waypoints for control: {next_waypoints}")
 
             if route:
                 next_waypoints = route[:5]
-                log(f"➡️  Next waypoints for control: {next_waypoints}")
+                log(f"  Next waypoints for control: {next_waypoints}")
                 
                 # Display distances between consecutive waypoints
                 if len(next_waypoints) > 1:
-                    log("📏 Distances between waypoints:")
+                    log(" Distances between waypoints:")
                     for i in range(len(next_waypoints) - 1):
                         distance = haversine(next_waypoints[i], next_waypoints[i+1], unit=Unit.METERS)
                         log(f"   • {i+1} to {i+2}: {distance:.1f} meters")
 
             else:
-                log("⚠️ No route available")
+                log(" No route available")
 
             time.sleep(2)
 
     except KeyboardInterrupt:
-        log("🛑 Interrupted by user. Shutting down.")
+        log(" Interrupted by user. Shutting down.")
     except Exception as e:
-        log(f"❌ Error: {e}")
+        log(f" Error: {e}")
     finally:
         if 'ser' in locals() and ser is not None and ser.is_open:
             ser.close()
-            log("📴 Serial port closed.")
+            log(" Serial port closed.")
 
 if __name__ == "__main__":
     main()
-
-
 
 # import serial
 # import time
