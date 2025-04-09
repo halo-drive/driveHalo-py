@@ -24,8 +24,7 @@ def get_cuda_version():
 def get_cudnn_info():
     """Get CUDNN information"""
     cudnn_paths = [
-        '/usr/lib/aarch64-linux-gnu/libcudnn.so',
-        '/usr/local/cuda/lib64/libcudnn.so'
+        '/usr/lib/aarch64-linux-gnu/libcudnn.so'
     ]
 
     for path in cudnn_paths:
