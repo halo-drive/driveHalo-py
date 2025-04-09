@@ -14,8 +14,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+cuda.init()
+
 # Constants
-ENGINE_PATH = "./yolov8n.trt"
+ENGINE_PATH = "./yolov8n.engine"
 INPUT_SHAPE = (640, 640)
 CONF_THRESHOLD = 0.4
 CLASS_NAMES = [
@@ -39,6 +41,7 @@ class YOLOv8nDetector:
         logger.info("Initializing YOLOv8n TensorRT detector...")
         self.logger = trt.Logger(trt.Logger.INFO)
 
+        self.cuda_ctx = cuda.Device(0).make_context()
         # Load the TensorRT engine
         with open(engine_path, 'rb') as f:
             runtime = trt.Runtime(self.logger)
@@ -168,26 +171,30 @@ class YOLOv8nDetector:
         return final_boxes, final_scores, final_class_ids
 
     def infer(self, image):
-        """Run inference with proper shape handling"""
-        # Preprocess image
-        input_data, preprocess_info = self.preprocess(image)
+        self.cuda_ctx.push()
+        try:
+            """Run inference with proper shape handling"""
+            # Preprocess image
+            input_data, preprocess_info = self.preprocess(image)
 
-        # Copy input data to GPU
-        cuda.memcpy_htod_async(self.d_input, input_data.ravel(), self.stream)
+            # Copy input data to GPU    
+            cuda.memcpy_htod_async(self.d_input, input_data.ravel(), self.stream)
 
-        # Run inference
-        self.context.execute_async_v2(
-            bindings=[int(self.d_input), int(self.d_output)],
-            stream_handle=self.stream.handle
-        )
+            # Run inference
+            self.context.execute_async_v2(
+                bindings=[int(self.d_input), int(self.d_output)],
+                stream_handle=self.stream.handle
+            )
 
-        # Copy output back to CPU
-        output = np.empty(self.output_shape, dtype=np.float32)
-        cuda.memcpy_dtoh_async(output, self.d_output, self.stream)
-        self.stream.synchronize()
+            # Copy output back to CPU
+            output = np.empty(self.output_shape, dtype=np.float32)
+            cuda.memcpy_dtoh_async(output, self.d_output, self.stream)
+            self.stream.synchronize()
 
-        # Post-process detections
-        return self.postprocess(output, preprocess_info)
+            # Post-process detections
+            return self.postprocess(output, preprocess_info)
+        finally:
+            self.cuda_ctx.pop()
 
     def __del__(self):
         """Cleanup resources"""
@@ -200,6 +207,9 @@ class YOLOv8nDetector:
                 del self.context
             if hasattr(self, 'engine'):
                 del self.engine
+            if hasattr(self, 'cuda_ctx'):
+                self.cuda_ctx.pop()
+                del self.cuda_ctx 
         except Exception as e:
             logger.error(f"Error during cleanup: {e}")
 
@@ -262,24 +272,74 @@ def draw_detections(image, boxes, scores, class_ids):
 
 
 def init_camera():
-    """Initialize USB camera with optimized GStreamer pipeline"""
-    logger.info("Initializing USB camera with GStreamer pipeline...")
-    gst_pipeline = (
-        "v4l2src device=/dev/video0 ! "
-        "video/x-raw, width=640, height=480, format=YUY2, framerate=30/1 ! "
+    """Initialize camera with smart fallback pipeline selection"""
+    # Try CSI camera first
+    logger.info("Trying CSI camera...")
+    csi_pipeline = (
+        "nvarguscamerasrc sensor-id=0 ! "
+        "video/x-raw(memory:NVMM), width=1280, height=720, format=NV12, framerate=30/1 ! "
+        "nvvidconv ! "
+        "video/x-raw, format=BGRx ! "
         "videoconvert ! "
         "video/x-raw, format=BGR ! "
         "appsink max-buffers=1 drop=true"
     )
-
-    cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
-    if not cap.isOpened():
-        raise RuntimeError("Failed to initialize camera with GStreamer pipeline")
-
-    # Set optimal buffer size
-    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-    return cap
-
+    
+    cap = cv2.VideoCapture(csi_pipeline, cv2.CAP_GSTREAMER)
+    if cap.isOpened():
+        # Check if we can actually read a frame
+        ret, _ = cap.read()
+        if ret:
+            logger.info("CSI camera working properly")
+            return cap
+        else:
+            logger.warning("CSI camera opened but can't read frames")
+            cap.release()
+    
+    # Try USB camera with hardware acceleration
+    logger.info("Trying USB camera with hardware acceleration...")
+    usb_pipeline = (
+        "v4l2src device=/dev/video0 ! "
+        "video/x-raw, width=640, height=480, framerate=30/1 ! "
+        "videoconvert ! "  # Standard conversion, more compatible
+        "video/x-raw, format=BGR ! "
+        "appsink max-buffers=1 drop=true"
+    )
+    
+    cap = cv2.VideoCapture(usb_pipeline, cv2.CAP_GSTREAMER)
+    if cap.isOpened():
+        ret, _ = cap.read()
+        if ret:
+            logger.info("USB camera with hardware acceleration working properly")
+            return cap
+        else:
+            logger.warning("USB GStreamer pipeline opened but can't read frames")
+            cap.release()
+    
+    # Fall back to standard V4L2 capture
+    logger.info("Falling back to standard V4L2 capture...")
+    cap = cv2.VideoCapture(0)
+    if cap.isOpened():
+        ret, _ = cap.read()
+        if ret:
+            logger.info("Standard V4L2 capture working properly")
+            return cap
+        else:
+            logger.warning("V4L2 camera opened but can't read frames")
+            cap.release()
+    
+    # Last resort: try a specific device with standard OpenCV
+    logger.warning("Trying one last approach with direct device access...")
+    for device_id in range(4):  # Try a few device numbers
+        cap = cv2.VideoCapture(f"/dev/video{device_id}")
+        if cap.isOpened():
+            ret, _ = cap.read()
+            if ret:
+                logger.info(f"Direct camera access to /dev/video{device_id} working")
+                return cap
+            cap.release()
+    
+    raise RuntimeError("Failed to initialize any camera - please check connections")
 
 def main():
     detector = YOLOv8nDetector(ENGINE_PATH)
@@ -317,7 +377,7 @@ def main():
 
             # Display
             cv2.namedWindow("v8-nano Inference", cv2.WINDOW_NORMAL)
-            cv2.resizeWindow("v8-nano Inference", 1280, 720)
+            cv2.resizeWindow("v8-nano Inference", 640, 480)
             cv2.imshow("v8-nano Inference", frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break

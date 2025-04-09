@@ -48,8 +48,19 @@ class TRTInference:
         for binding_idx in range(self.engine.num_bindings):
             binding_name = self.engine.get_binding_name(binding_idx)
             binding_shape = self.engine.get_binding_shape(binding_idx)
-            binding_dtype = trt.nptype(self.engine.get_binding_dtype(binding_idx))
-
+            try:
+                binding_dtype = trt.nptype(self.engine.get_binding_dtype(binding_idx))
+            except AttributeError:
+                if self.engine.get_binding_dtype(binding_idx) == trt.bool:
+                    binding_dtype = np.bool_ if hasattr(np, 'bool_') else bool
+                else:
+                    dtype_map = {
+                        trt.int8: np.int8,
+                        trt.int32: np.int32,
+                        trt.float16: np.float16,
+                        trt.float32: np.float32
+                    }
+                    binding_dtype = dtype_map.get(self.engine.get_binding_dtype(binding_idx), np.float32)
             # Calculate buffer size
             size = trt.volume(binding_shape) * np.dtype(binding_dtype).itemsize
 
