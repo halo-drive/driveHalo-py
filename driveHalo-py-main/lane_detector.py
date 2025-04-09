@@ -25,8 +25,8 @@ class LaneDetector:
         self.cuda_processor = CUDAProcessor()
 
         # 2. Basic Lane Parameters
-        self.ym_per_pix = 0.0224
-        self.xm_per_pix = 0.01395
+        self.ym_per_pix = 0.03
+        self.xm_per_pix = 0.0122
         self.lane_colors = [(0, 255, 0), (0, 255, 255), (255, 0, 255)]
         self.conf_threshold = 0.05
 
@@ -41,7 +41,7 @@ class LaneDetector:
         self.warped_width = 300
         self.warped_height = 400
         self.birdeye_src = np.float32([
-            [177.0, 170.0], [410.0, 164.0], [58.0, 336.0], [544.0, 327.0]
+            [[283.0, 273.0], [458.0, 270.0], [4.0, 380.0], [593.0, 473.0]]
         ])
         self.birdeye_dst = np.float32([
             [0, 0],

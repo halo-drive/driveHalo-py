@@ -15,7 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-ENGINE_PATH = "./yolov8n.trt"
+ENGINE_PATH = "/home/pomo/DriveGXO/Models/yolov8n.trt"
 INPUT_SHAPE = (640, 640)
 CONF_THRESHOLD = 0.4
 CLASS_NAMES = [
