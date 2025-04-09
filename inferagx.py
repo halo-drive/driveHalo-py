@@ -15,7 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-ENGINE_PATH = "./yolov8n.trt"
+ENGINE_PATH = "./yolov8n.engine"
 INPUT_SHAPE = (640, 640)
 CONF_THRESHOLD = 0.4
 CLASS_NAMES = [
