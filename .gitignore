@@ -1,0 +1,26 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+venv/
+ENV/
+.venv/
+
+# Large folders you want to ignore
+opencv/
+opencv_contrib/
+pycuda/
+ultralytics/
+vision/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# IDE or editor directories and files
+.vscode/
+.idea/
+*.swp
