@@ -8,8 +8,6 @@ import argparse
 import logging
 import time
 import os
-from typing import Tuple, Optional, List, Dict, Any
-import warnings
 
 # Configure logging
 logging.basicConfig(
@@ -413,42 +411,102 @@ class EnhancedLaneTracker:
         
         return np.array([A, B, C], dtype=np.float32)
 
-    def fit_and_smooth(
-            self,
-            contour: np.ndarray,
-            old_poly: Optional[np.ndarray],
-            alpha: float = 0.8
-    ) -> Optional[np.ndarray]:
+    def ransac_poly_fit(self, points, degree=2, max_trials=100, residual_threshold=2.0):
         """
-        Given a contour in bird's-eye space, fit a 2nd-degree polynomial x = a*(y_shifted^2) + b*y_shifted + c,
-        then exponentially smooth with the old polynomial if available.
+        RANSAC polynomial fit with improved numerical stability
         """
-        if contour is None or len(contour) < 3:
-            return old_poly
-        # Extract (x, y) from the contour (bird's-eye coords)
-        points = contour.reshape(-1, 2)
-        x_coords = points[:, 0].astype(np.float32)
-        y_coords = points[:, 1].astype(np.float32)
-        if len(points) < 3:
-            return old_poly
-        # 1) SHIFT Y to reduce numeric range => helps avoid ill-conditioned fits
-        y_min = y_coords.min()
-        y_shifted = y_coords - y_min
-        # You could also scale if needed: y_shifted /= 10.0
-        # 2) Fit polynomial
-        with warnings.catch_warnings():
-            warnings.simplefilter("error", np.RankWarning)  # treat RankWarning as error
-            try:
-                fit_new = np.polyfit(y_shifted, x_coords, 2)  # => [a, b, c]
-            except (np.RankWarning, ValueError):
-                # fallback to old polynomial if fit fails
-                return old_poly
-        # 3) Exponential smoothing
-        if old_poly is None:
-            return fit_new
-        else:
-            return alpha * old_poly + (1.0 - alpha) * fit_new
+        if points is None or len(points) < 5:
+            return None, 0.0
 
+        x_coords = points[:, 0].astype(np.float64)  # Use double precision
+        y_coords = points[:, 1].astype(np.float64)
+
+        # Check for sufficient variation in the data
+        if np.std(y_coords) < 1e-6:
+            logger.warning("Insufficient variation in y coordinates for reliable fitting")
+            return None, 0.0
+
+        # Calculate global shift and scale for enhanced numerical stability
+        y_min = y_coords.min()
+        y_max = y_coords.max()
+        y_range = max(y_max - y_min, 1.0)
+
+        SHIFT = y_min
+        SCALE = y_range / 100.0  # Normalize to reasonable range
+
+        # Apply y' = (y - SHIFT)/SCALE for all points
+        y_shifted_full = (y_coords - SHIFT) / SCALE
+
+        # Set rcond parameter for np.polyfit to control conditioning
+        rcond = 1e-10  # Smaller values keep more information but may be less stable
+
+        best_model = None
+        best_score = 0.0
+        best_inliers = None
+
+        for _ in range(max_trials):
+            # Sample minimal set with sufficient spacing
+            if len(points) <= (degree + 1):
+                sample_idx = np.arange(len(points))
+            else:
+                # Try to get well-distributed sample points
+                sample_idx = np.random.choice(len(points), degree + 1, replace=False)
+
+                # Check if selected points have good spread
+                if np.std(y_coords[sample_idx]) < y_range * 0.1:
+                    continue  # Skip this sample if points are too clustered
+
+            try:
+                # Fit in shifted domain with explicit rcond parameter
+                sample_y_shifted = y_shifted_full[sample_idx]
+                sample_x = x_coords[sample_idx]
+
+                # Suppress warnings during trial fitting
+                with np.errstate(all='ignore'):
+                    model_shifted = np.polyfit(sample_y_shifted, sample_x, degree, rcond=rcond)
+            except:
+                continue
+
+            # Evaluate residuals
+            x_pred = np.polyval(model_shifted, y_shifted_full)
+            residuals = np.abs(x_coords - x_pred)
+            inliers = residuals < residual_threshold
+            inlier_count = np.sum(inliers)
+
+            # Score: more inliers + lower sum of residual
+            if inlier_count > degree + 1:  # Ensure we have sufficient inliers
+                score = inlier_count / (1.0 + np.sum(residuals[inliers]))
+            else:
+                score = 0.0
+
+            if score > best_score:
+                best_score = score
+                best_model = model_shifted
+                best_inliers = inliers
+
+        # Refit using all inliers with more robust parameters
+        if best_model is not None and best_inliers is not None and np.sum(best_inliers) >= 5:
+            y_in = y_shifted_full[best_inliers]
+            x_in = x_coords[best_inliers]
+
+            try:
+                # Use vandermode matrix with better conditioning for final fit
+                V = np.vander(y_in, degree + 1)
+                final_shifted = np.linalg.lstsq(V, x_in, rcond=1e-13)[0]
+
+                # Expand shifted poly back into original domain
+                unshifted_poly = self.expand_shifted_model(final_shifted, SHIFT, SCALE)
+                return unshifted_poly, best_score
+            except np.linalg.LinAlgError:
+                # Fall back to polyfit if vandermode approach fails
+                try:
+                    final_shifted = np.polyfit(y_in, x_in, degree, rcond=1e-10)
+                    unshifted_poly = self.expand_shifted_model(final_shifted, SHIFT, SCALE)
+                    return unshifted_poly, best_score * 0.9  # Reduce confidence slightly
+                except:
+                    pass
+
+        return None, 0.0
     def predict_lane_polynomial(self, lane_side, timestamp):
         """Predict lane polynomial during detection gaps using weighted history"""
         history = self.lane_history[lane_side]
@@ -749,26 +807,30 @@ class EnhancedLaneTracker:
     def process_frame(self, frame):
         """Process a single frame with enhanced lane tracking"""
         t_start = time.time()
-
+        
         # Lane detection -> warp
         lane_mask, warped_mask = self.detect_lanes(frame)
-
+        
         # Contour analysis
         l_cnt, r_cnt, l_conf, r_conf = self.find_lane_contours(warped_mask)
-
-        # Simplified polynomial fitting with temporal smoothing
+        
+        # RANSAC polynomial fitting
         if l_cnt is not None:
-            self.left_fit = self.fit_and_smooth(l_cnt, self.left_fit)
-            self.left_confidence = l_conf
+            points_l = l_cnt.reshape(-1, 2)
+            self.left_fit, ls = self.ransac_poly_fit(points_l)
+            self.left_confidence = min(l_conf * ls, 1.0)
         else:
+            self.left_fit = None
             self.left_confidence = 0.0
-
+        
         if r_cnt is not None:
-            self.right_fit = self.fit_and_smooth(r_cnt, self.right_fit)
-            self.right_confidence = r_conf
+            points_r = r_cnt.reshape(-1, 2)
+            self.right_fit, rs = self.ransac_poly_fit(points_r)
+            self.right_confidence = min(r_conf * rs, 1.0)
         else:
+            self.right_fit = None
             self.right_confidence = 0.0
-
+        
         # Update history
         timestamp = time.time()
         self.lane_history['left'].append(self.left_fit)
@@ -776,45 +838,45 @@ class EnhancedLaneTracker:
         self.lane_timestamps.append(timestamp)
         self.lane_confidences['left'].append(self.left_confidence)
         self.lane_confidences['right'].append(self.right_confidence)
-
+        
         # Update lane selection state
         state = self.update_lane_selection()
-
+        
         # Calculate target polynomial
         target_poly, active_state = self.calculate_target_polynomial()
-
+        
         # Calculate control parameters
         lateral_error = self.calculate_lateral_offset(target_poly)
         heading_error = self.estimate_heading_error(target_poly)
         curvature = self.calculate_lookahead_curvature(target_poly)
-
+        
         # Stanley control calculation for lateral control
         steering = self.calculate_stanley_control(lateral_error, heading_error)
-
+        
         # Simplified longitudinal control based on curvature
         throttle = 0.5  # Base throttle
         brake = 0.0
-
+        
         # Adjust for curves
         if abs(curvature) > 0.01:
             throttle *= max(0.5, 1.0 - abs(curvature) * 30.0)
             if abs(curvature) > 0.03:
                 brake = min(0.3, abs(curvature) * 10.0)
-
+        
         # Create visualization
         main_view, bev_view = self.create_visualization(frame, warped_mask, target_poly, active_state)
-
+        
         # Add control information to visualization
         cv2.putText(main_view, f"Steering: {steering:.3f}", (20, 120),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         cv2.putText(main_view, f"Throttle: {throttle:.2f}, Brake: {brake:.2f}", (20, 150),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
-
+        
         # Processing time
         proc_time = (time.time() - t_start) * 1000
         cv2.putText(main_view, f"Processing: {proc_time:.1f}ms", (20, 180),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
-
+        
         return main_view, bev_view, (steering, throttle, brake)
     
     def run(self):
