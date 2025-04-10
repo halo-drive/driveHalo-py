@@ -25,6 +25,7 @@ def get_cudnn_info():
     """Get CUDNN information"""
     cudnn_paths = [
         '/usr/lib/aarch64-linux-gnu/libcudnn.so'
+
     ]
 
     for path in cudnn_paths:
