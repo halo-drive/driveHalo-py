@@ -1,3 +1,6 @@
 venv/
 *.engine
 *.onnx
+__pycache__/
+sygnal_dbc/
+
