@@ -4,6 +4,8 @@ import time
 import asyncio
 from typing import Tuple, Optional, Dict, Any
 
+from utils import measure_execution_time
+
 
 class SteeringController:
     """Steering control logic with optimized calculations"""
@@ -12,9 +14,9 @@ class SteeringController:
         self.logger = logging.getLogger("SteeringController")
 
         # Steering control parameters
-        self.max_torque = 0.5
-        self.min_curvature_radius = 11.0
-        self.torque_smoothing = 0.7
+        self.max_torque = 0.1
+        self.min_curvature_radius = 1.0
+        self.torque_smoothing = 0.3
         self.prev_torque = 0.0
 
         #Lateral control parameters
@@ -84,6 +86,7 @@ class SteeringController:
 
         return throttle
 
+    @measure_execution_time
     async def coordinate_controls(self, curve_radius: float, lateral_offset: float = 0.0) -> Tuple[float, float, float]:
         """Coordinate steering, throttle, and brake controls"""
         current_time = time.time()

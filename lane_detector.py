@@ -4,7 +4,7 @@ import logging
 from typing import Tuple, Optional, List, Dict, Any
 import time
 import warnings
-
+from utils import measure_execution_time
 from trt_inference import TRTInference
 from cuda_kernels import CUDAProcessor
 
@@ -161,6 +161,7 @@ class LaneDetector:
 
         return offset_meters
 
+    @measure_execution_time
     def detect_lane(self, frame: np.ndarray) -> Tuple[np.ndarray, float]:
         """
         1. Run YOLOv8-seg inference => final_mask

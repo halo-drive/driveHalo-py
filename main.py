@@ -7,13 +7,13 @@ import time
 import threading
 from typing import Tuple, Optional
 import os
-
+import collections
 # Original components
 from lane_detector import LaneDetector
 from steering_controller import SteeringController
 from vehicle_interface import MCMController
 from gearshifter import GearController, GearPositions
-
+from utils import measure_execution_time
 # New components for sensor fusion
 from ros_interface import ROSInterface
 from imu_processor import IMUProcessor
@@ -22,7 +22,7 @@ from sensor_fusion import SensorFusion
 from vehicle_state import VehicleStateManager
 
 
-def configure_camera(source=0, width=640, height=480, fps=30):
+def configure_camera(source=0, width=640, height=480, fps=10):
     """Configure camera with explicit format selection for optimal performance on Tegra"""
     if isinstance(source, int):
         # Explicitly request MJPG format to achieve 30fps
@@ -74,6 +74,10 @@ class MultiSensorAutonomousSystem:
             self.mcm = MCMController(can_channel)
             self.gear_controller = GearController(can_channel)
 
+            # adding buffers for lane and imu data
+            self.imu_data_buffer = collections.deque(maxlen=100)
+            self.lane_data_buffer = collections.deque(maxlen=100)
+
             # Initialize new multi-sensor components
             self.vehicle_state = VehicleStateManager()
             self.sensor_fusion = SensorFusion()
@@ -103,8 +107,9 @@ class MultiSensorAutonomousSystem:
         """Callback for IMU data from ROS"""
         try:
             # Process IMU data
-            imu_data = self.imu_processor.process_imu_data(imu_msg)
 
+            imu_data = self.imu_processor.process_imu_data(imu_msg)
+            self.imu_data_buffer.append((time.time(), imu_msg))
             # Update pose estimator with IMU data
             self.pose_estimator.update_from_imu(imu_data)
 
@@ -120,61 +125,80 @@ class MultiSensorAutonomousSystem:
         np.ndarray, Optional[Tuple[float, float, float]]]:
         """Process frame with sensor fusion integration"""
         try:
+            # copying frame for visualisation
+            original_frame = frame.copy()
+
             # Detect lane and calculate curvature
-            annotated_frame, radius = self.lane_detector.detect_lane(frame)
+            annotated_frame, radius, lateral_offset = self.lane_detector.detect_lane(frame)
 
-            # Create lane data dictionary
-            lane_data = {
-                "curvature_radius": radius,
-                "lateral_offset": 0.0,  # Would need dedicated lane position calculation
-                "heading_error": 0.0,  # Would need lane orientation calculation
-                "confidence": 0.8 if radius != float('inf') else 0.0,
-                "timestamp": time.time()
-            }
+            display_frame = annotated_frame.copy()
 
-            # Update pose estimator with lane data
-            self.pose_estimator.update_from_lane_detection(lane_data)
+            if self.use_ros:
+                frame_time = time.time()
+                # Create lane data dictionary
+                lane_data = {
+                    "curvature_radius": radius,
+                    "lateral_offset": lateral_offset,  # Would need dedicated lane position calculation
+                    "heading_error": 0.0,  # Would need lane orientation calculation
+                    "confidence": 0.8 if radius != float('inf') else 0.0,
+                    "timestamp": time.time()
+                }
+                self.lane_data_buffer.append((frame_time, lane_data))
 
-            # Update sensor fusion
-            self.sensor_fusion.update_from_lane_detection(lane_data)
+                # Update fusion states  with lane data
+                self.pose_estimator.update_from_lane_detection(lane_data)
+                self.sensor_fusion.update_from_lane_detection(lane_data)
+                self.vehicle_state.update_from_camera(lane_data)
 
-            # Update vehicle state
-            self.vehicle_state.update_from_camera(lane_data)
+                # Get fused state for control decisions
+                fused_state = self.sensor_fusion.get_fused_state()
+                self.vehicle_state.update_from_sensor_fusion(fused_state)
 
-            # Get fused state for control decisions
-            fused_state = self.sensor_fusion.get_fused_state()
+                # Calculate control signals using sensor fusion
+                heading, lateral_offset, curvature = self.sensor_fusion.calculate_control_inputs()
 
-            # Update vehicle state with fused data
-            self.vehicle_state.update_from_sensor_fusion(fused_state)
+                # Calculate final control signals
+                steering, throttle, brake = await self.steering_controller.coordinate_controls(curvature)
 
-            # Calculate control signals using sensor fusion
-            heading, lateral_offset, curvature = self.sensor_fusion.calculate_control_inputs()
+                # Update vehicle state with control signals
+                self.vehicle_state.update_control_signals(steering, throttle, brake)
 
-            # Calculate final control signals
-            steering, throttle, brake = await self.steering_controller.coordinate_controls(curvature)
+                # Update display with control and state information
+                info_text = [
+                    f'Curve Radius: {curvature:.1f}m',
+                    f'Steering: {steering:.3f}',
+                    f'Throttle: {throttle:.3f}',
+                    f'Brake: {brake:.3f}',
+                    f'Lateral Offset: {lateral_offset:.2f}m',
+                    f'Heading: {np.degrees(heading):.1f}°',
+                    f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
+                ]
+            else:
+                # Simple lane-detection-only path (like in mainonmain.py)
+                steering, throttle, brake = await self.steering_controller.coordinate_controls(radius)
 
-            # Update vehicle state with control signals
-            self.vehicle_state.update_control_signals(steering, throttle, brake)
-
-            # Update display with control and state information
+                # Simpler info text
+                info_text = [
+                    f'Curve Radius: {radius:.1f}m',
+                    f'Steering: {steering:.3f}',
+                    f'Throttle: {throttle:.3f}',
+                    f'Brake: {brake:.3f}',
+                    f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
+                ]
             height = frame.shape[0]
-            info_text = [
-                f'Curve Radius: {curvature:.1f}m',
-                f'Steering: {steering:.3f}',
-                f'Throttle: {throttle:.3f}',
-                f'Brake: {brake:.3f}',
-                f'Lateral Offset: {lateral_offset:.2f}m',
-                f'Heading: {np.degrees(heading):.1f}°',
-                f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
-            ]
-
             for i, text in enumerate(info_text):
-                cv2.putText(annotated_frame, text,
-                            (20, height - 30 * (len(info_text) - i)),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+                cv2.putText(display_frame, text,
+                       (20, height - 30 * (len(info_text) - i)),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            #Adding FPS counter
+            fps = 0.0  # This will be filled in later
+            status = self.vehicle_state.get_state().system_status
+            cv2.putText(display_frame, f"Status: {status}", (20, 60),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8,
+                        (0, 255, 0) if status == "ACTIVE" else (0, 0, 255), 2)
 
-            return annotated_frame, (steering, throttle, brake)
-
+            # Return the properly annotated display frame and controls
+            return display_frame, (steering, throttle, brake)
         except Exception as e:
             self.logger.error(f"Frame processing error: {e}")
             return frame, None
@@ -255,14 +279,22 @@ class MultiSensorAutonomousSystem:
             self.vehicle_state.update_system_status("ERROR", f"Safe stop failed: {e}")
             raise
 
+    def _get_closest(self, buffer, target_time):
+        return min(buffer, key=lambda x: abs(x[0] - target_time), default=(None, None))[1]
+
     def _sensor_fusion_thread(self):
         """Thread for continuous sensor fusion updates"""
         try:
-            rate = 0.01  # 100Hz update rate
             while self.should_run:
                 # Predict forward at regular intervals
-                self.sensor_fusion.predict(rate)
-                time.sleep(rate)
+                now = time.time()
+                imu_msg = self._get_closest(self.imu_data_buffer, now)
+                lane_data = self._get_closest(self.lane_data_buffer, now)
+                if imu_msg and lane_data:
+                    imu_data = self.imu_processor.process_imu_data(imu_msg)
+                    self.sensor_fusion.update_from_imu(imu_data)
+                    self.sensor_fusion.update_from_lane_detection(lane_data)
+                    time.sleep(0.05)
         except Exception as e:
             self.logger.error(f"Sensor fusion thread error: {e}")
             self.vehicle_state.update_system_status("ERROR", f"Sensor fusion error: {e}")
@@ -273,16 +305,18 @@ class MultiSensorAutonomousSystem:
             # Start ROS interface if enabled
             if self.use_ros:
                 self.ros_interface.start()
+                # Start IMU calibration
+                threading.Thread(target=self.imu_processor.start_calibration, daemon=True).start()
 
-            # Start IMU calibration
-            self.imu_processor.start_calibration()
+                # Start sensor fusion thread
+                self.fusion_thread = threading.Thread(target=self._sensor_fusion_thread)
+                self.fusion_thread.daemon = True
+                self.fusion_thread.start()
 
-            # Start sensor fusion thread
-            self.fusion_thread = threading.Thread(target=self._sensor_fusion_thread)
-            self.fusion_thread.daemon = True
-            self.fusion_thread.start()
-
-            self.logger.info("Sensor threads started")
+                self.logger.info("Sensor threads started")
+            else:
+                # Log that we're running without sensor fusion
+                self.logger.info("Running without ROS/IMU - sensor fusion disabled")
         except Exception as e:
             self.logger.error(f"Failed to start sensor threads: {e}")
             self.vehicle_state.update_system_status("ERROR", f"Sensor thread start failed: {e}")
@@ -302,7 +336,7 @@ class MultiSensorAutonomousSystem:
 
         self.logger.info("Sensor threads stopped")
 
-    async def run(self, source=0, width=640, height=480, fps=30):
+    async def run(self, source=0, width=640, height=480, fps=10):
         """Main control loop with integrated sensor fusion"""
         self.logger.info(f"Opening video source: {source}")
         self.vehicle_state.update_system_status("INITIALIZING", "Starting sensor systems")
@@ -382,13 +416,6 @@ class MultiSensorAutonomousSystem:
                     fps_text = f"FPS: {frame_count / elapsed_time:.1f}"
                     cv2.putText(annotated_frame, fps_text, (20, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
-
-                    # Add system status
-                    status = self.vehicle_state.get_state().system_status
-                    cv2.putText(annotated_frame, f"Status: {status}", (20, 60),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.8,
-                                (0, 255, 0) if status == "ACTIVE" else (0, 0, 255), 2)
-
                     cv2.imshow('Multi-Sensor Autonomous System', annotated_frame)
 
                 if (cv2.waitKey(1) & 0xFF) == ord('q'):

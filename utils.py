@@ -28,7 +28,7 @@ def measure_execution_time(func):
         result = func(*args, **kwargs)
         execution_time = (time.time() - start_time) * 1000  # ms
         logger = logging.getLogger(func.__module__)
-        logger.debug(f"Function {func.__name__} executed in {execution_time:.2f} ms")
+        logger.debug(f"[PROFILE] {func.__qualname__} executed in {execution_time:.2f} ms")
         return result
 
     return wrapper

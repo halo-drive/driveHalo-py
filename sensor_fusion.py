@@ -7,6 +7,8 @@ from scipy.spatial.transform import Rotation
 from filterpy.kalman import UnscentedKalmanFilter, MerweScaledSigmaPoints
 from filterpy.common import Q_discrete_white_noise
 
+from utils import measure_execution_time
+
 
 class SensorFusion:
     """Sensor fusion implementation using Unscented Kalman Filter"""
@@ -85,6 +87,7 @@ class SensorFusion:
         # In this simple case, we directly observe the state
         return x
 
+    @measure_execution_time
     def update_from_imu(self, imu_data: Dict[str, Any]) -> None:
         """Update state using IMU data"""
         with self.lock:
@@ -143,6 +146,7 @@ class SensorFusion:
 
             self.last_update_time = current_time
 
+    @measure_execution_time
     def update_from_lane_detection(self, lane_data: Dict[str, Any]) -> None:
         """Update state using lane detection data"""
         with self.lock:

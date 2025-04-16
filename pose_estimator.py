@@ -5,6 +5,8 @@ import threading
 from typing import Dict, Any, Optional, Tuple, List
 from scipy.spatial.transform import Rotation
 
+from utils import measure_execution_time
+
 
 class PoseEstimator:
     """Fuse camera lane detection with IMU data for robust vehicle pose estimation"""
@@ -42,6 +44,7 @@ class PoseEstimator:
 
         self.logger.info("Pose estimator initialized")
 
+    @measure_execution_time
     def update_from_imu(self, imu_data: Dict[str, Any]) -> None:
         """Update state estimation using IMU data"""
         with self.lock:
