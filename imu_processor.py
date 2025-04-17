@@ -126,7 +126,12 @@ class IMUProcessor:
             # SLERP for quaternion filtering
             # For simplicity, just doing linear interpolation, but could be replaced with proper SLERP
             interp_quat = a * self.filtered_orientation + inv_a * orientation_q
-            self.filtered_orientation = interp_quat / np.linalg.norm(interp_quat)
+            norm = np.linalg.norm(interp_quat)
+            if norm > 1e-10:
+                self.filtered_orientation = interp_quat / norm
+            else:
+                self.logger.warning("Invalid quaternion with zero norm detected")
+                self.filtered_orientation = np.array([1.0,0.0,0.0,0.0])
 
         # Update state variables
         self.orientation_quaternion = orientation_q
