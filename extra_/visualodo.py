@@ -169,6 +169,16 @@ class EnhancedLaneTracker:
         self.camera_id = camera_id
         self.init_camera()
 
+        # velocity parameters calculations
+        self.previous_frame = None
+        self.current_velocity = 0.0
+        self.velocity_history = deque(maxlen=15)
+        self.marker_buffer = np.zeros((30, self.warped_width))
+        self.marker_idx = 0
+        self.last_fft_time = 0
+        self.frame_timestamps = deque(maxlen=30)
+        self.fps = 30.0  # Initial estimate, will be updated
+
         logger.info("Lane tracker initialized successfully")
 
     def init_tensorrt(self, engine_path):
@@ -854,6 +864,93 @@ class EnhancedLaneTracker:
 
         return np.array(trajectory)
 
+    def estimate_velocity_from_lane_markers(self, warped_mask):
+        """Estimate velocity using frequency analysis of lane markers"""
+        # Create detection line at bottom third of warped image
+        detection_line_y = int(self.warped_height * 2 / 3)
+
+        # Get pixel values along this horizontal line
+        line_values = warped_mask[detection_line_y, :]
+
+        # Update buffer
+        self.marker_buffer[self.marker_idx] = line_values
+        self.marker_idx = (self.marker_idx + 1) % 30
+
+        # Limit frequency of FFT calculation
+        if hasattr(self, 'last_fft_time') and time.time() - self.last_fft_time < 0.5:
+            return self.current_velocity
+
+        # Calculate mean signal along the width dimension to get a 1D time series
+        mean_signal = np.mean(self.marker_buffer, axis=1)  # Average across width
+
+        # Perform FFT on the 1D time series
+        fft_result = np.fft.fft(mean_signal)
+        freqs = np.fft.fftfreq(len(mean_signal), d=1 / self.fps)
+
+        # Get magnitude spectrum (only the positive frequencies)
+        magnitude = np.abs(fft_result[:len(mean_signal) // 2])
+
+        # Find the peak frequency (skip DC component)
+        if len(magnitude) > 1:
+            peak_idx = np.argmax(magnitude[1:]) + 1
+
+            # Safety check to prevent out-of-bounds access
+            if peak_idx < len(freqs):
+                dominant_freq = abs(freqs[peak_idx])
+
+                # Standard lane marker spacing (meters)
+                lane_marker_spacing = 6.0
+
+                # Velocity = frequency * wavelength
+                raw_velocity = dominant_freq * lane_marker_spacing
+
+                # Apply filtering
+                filtered_velocity = 0.8 * self.current_velocity + 0.2 * raw_velocity
+                self.current_velocity = filtered_velocity
+                self.velocity_history.append(filtered_velocity)
+
+                self.last_fft_time = time.time()
+                return filtered_velocity
+
+        # If we can't determine velocity, return current estimate
+        return self.current_velocity
+
+    def update_velocity_with_optical_flow(self, prev_frame, curr_frame):
+        """Backup method using optical flow for velocity estimation"""
+        if prev_frame is None or curr_frame is None:
+            return self.current_velocity
+
+        # Convert to grayscale for optical flow
+        prev_gray = cv2.cvtColor(prev_frame, cv2.COLOR_BGR2GRAY)
+        curr_gray = cv2.cvtColor(curr_frame, cv2.COLOR_BGR2GRAY)
+
+        # Define region of interest (lower part of image where road is visible)
+        h, w = prev_gray.shape
+        roi_mask = np.zeros_like(prev_gray)
+        roi_mask[int(h * 2 / 3):h, :] = 255
+
+        # Calculate optical flow (Farneback method)
+        flow = cv2.calcOpticalFlow(prev_gray, curr_gray, None, 0.5, 3, 15, 3, 5, 1.2, 0)
+
+        # Filter flow vectors in ROI
+        flow_y = flow[..., 1][roi_mask > 0]
+
+        # Get average flow magnitude in forward direction (negative y is forward)
+        valid_flow = flow_y[flow_y < 0]
+        if len(valid_flow) > 0:
+            mean_flow_y = np.mean(valid_flow)
+
+            # Convert to meters per second using calibration factor and frame rate
+            raw_velocity = -mean_flow_y * self.ym_per_pix * self.fps
+
+            # Apply filter
+            filtered_velocity = 0.7 * self.current_velocity + 0.3 * raw_velocity
+            self.current_velocity = filtered_velocity
+            self.velocity_history.append(filtered_velocity)
+
+        return self.current_velocity
+
+
     def draw_poly_on_original(self, poly, color, frame):
         """Draw polynomial on original camera image"""
         if poly is None:
@@ -990,6 +1087,15 @@ class EnhancedLaneTracker:
         # Lane detection -> warp
         lane_mask, warped_mask = self.detect_lanes(frame)
 
+        #estimate velocity using lane marker frequency
+        velocity = self.estimate_velocity_from_lane_markers(warped_mask)
+
+        #if lane marker method fails
+        if velocity < 0.5 and self.previous_frame is not None:
+            velocity = self.update_velocity_with_optical_flow(self.previous_frame, frame)
+
+        self.previous_frame = frame
+
         # Contour analysis - working in BEV space
         l_cnt, r_cnt, l_conf, r_conf = self.find_lane_contours(warped_mask)
 
@@ -1074,7 +1180,8 @@ class EnhancedLaneTracker:
         curvature = self.calculate_lookahead_curvature(middle_poly)
 
         # Stanley control calculation for lateral control
-        steering = self.calculate_stanley_control(lateral_error, heading_error)
+        steering = self.calculate_stanley_control(lateral_error, heading_error, velocity)
+
 
         # Simplified longitudinal control based on curvature
         throttle = 0.5  # Base throttle
@@ -1094,6 +1201,8 @@ class EnhancedLaneTracker:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         cv2.putText(main_view, f"Throttle: {throttle:.2f}, Brake: {brake:.2f}", (20, 150),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+        cv2.putText(main_view, f"velocity: {velocity:.2f}", (20, 210),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
         # Processing time
         proc_time = (time.time() - t_start) * 1000
@@ -1101,6 +1210,7 @@ class EnhancedLaneTracker:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
         return main_view, bev_view, (steering, throttle, brake)
+
     def run(self):
         """Main processing loop"""
         if not self.cap.isOpened():
@@ -1126,13 +1236,18 @@ class EnhancedLaneTracker:
                     time.sleep(0.01)
                     continue
 
+                current_time = time.time()
+                self.frame_timestamps.append(current_time)
+
                 # Calculate FPS
                 frame_count += 1
                 if frame_count % 30 == 0:
-                    fps = frame_count / (time.time() - fps_start_time)
+                    elapsed = current_time - fps_start_time
+                    fps = frame_count / elapsed
+                    self.fps = fps
                     logger.info(f"FPS: {fps:.2f}")
                     frame_count = 0
-                    fps_start_time = time.time()
+                    fps_start_time = current_time
 
                 # Process frame
                 main_view, bev_view, controls = self.process_frame(frame)
