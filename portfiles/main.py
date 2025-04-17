@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import math
 import cv2
 import numpy as np
 import argparse
@@ -21,8 +20,7 @@ from imu_processor import IMUProcessor
 from pose_estimator import PoseEstimator
 from sensor_fusion import SensorFusion
 from vehicle_state import VehicleStateManager
-from scipy.spatial.transform import Rotation
-from diagnostic_logger import DiagnosticLogger
+
 
 def configure_camera(source=0, width=640, height=480, fps=10):
     """Configure camera with explicit format selection for optimal performance on Tegra"""
@@ -60,168 +58,6 @@ def configure_camera(source=0, width=640, height=480, fps=10):
         logging.error("Failed to open camera source")
     return cap
 
-class IMUVisualizer:
-    def __init__(self, window_size=(640, 480)):
-        self.window_size = window_size
-        self.imu_data_buffer = collections.deque(maxlen=200)
-        self.accel_data = np.zeros((200, 3))
-        self.gyro_data = np.zeros((200, 3))
-        cv2.namedWindow("IMU Data", cv2.WINDOW_NORMAL)
-        self.orientation_history = collections.deque(maxlen=100)
-        cv2.resizeWindow("IMU Data", *window_size)
-        
-    def update(self, imu_data):
-        self.imu_data_buffer.append(imu_data)
-        self._update_plot_data()
-        if "orientation_quaternion" in imu_data:
-            self.orientation_history.append(imu_data["orientation_quaternion"])
-        
-    def _update_plot_data(self):
-        # Extract data for plotting
-        for i, data in enumerate(self.imu_data_buffer):
-            if i < 200:
-                self.accel_data[i] = data["linear_acceleration"]
-                self.gyro_data[i] = data["angular_velocity"]
-                
-    def render(self):
-        # Create visualization canvas
-        canvas = np.zeros((self.window_size[1], self.window_size[0], 3), dtype=np.uint8)
-        
-        # Plot accelerometer data
-        self._plot_time_series(canvas, self.accel_data, (0, 255, 0), offset=80, 
-                              label="Accel (m/s²)")
-        
-        # Plot gyroscope data
-        self._plot_time_series(canvas, self.gyro_data, (0, 165, 255), offset=240, 
-                              label="Gyro (rad/s)")
-        
-        # Add orientation visualization
-        self._render_orientation(canvas)
-        
-        cv2.imshow("IMU Data", canvas)
-    
-    def _plot_time_series(self, canvas, data, color, offset=80, label="Data"):
-        height, width = canvas.shape[:2]
-        
-        # Draw label
-        cv2.putText(canvas, label, (10, offset-15), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-        
-        # Draw axes
-        cv2.line(canvas, (50, offset), (width-20, offset), (50, 50, 50), 1)  # x-axis
-        
-        # Normalize data for plotting
-        if data.shape[0] > 0:
-            min_val = np.min(data) if np.min(data) != np.max(data) else -1
-            max_val = np.max(data) if np.min(data) != np.max(data) else 1
-            scale = 60.0 / max(0.1, max_val - min_val)
-            
-            # Plot each axis (x,y,z) with different brightness
-            colors = [(color[0], color[1], color[2]), 
-                    (color[0]//2, color[1]//2, color[2]//2),
-                    (color[0]//3, color[1]//3, color[2]//3)]
-            
-            for axis in range(3):
-                axis_label = ["X", "Y", "Z"][axis]
-                cv2.putText(canvas, axis_label, (20, offset+15+(axis*15)), 
-                        cv2.FONT_HERSHEY_PLAIN, 1, colors[axis], 1)
-                
-                # Draw time series
-                points = []
-                for i in range(min(data.shape[0]-1, width-70)):
-                    x1 = width - 20 - i
-                    x2 = width - 20 - (i+1)
-                    
-                    y1 = int(offset - data[data.shape[0]-1-i, axis] * scale)
-                    y2 = int(offset - data[data.shape[0]-1-i-1, axis] * scale)
-                    
-                    cv2.line(canvas, (x1, y1), (x2, y2), colors[axis], 1)
-
-    def _render_orientation(self, canvas):
-        height, width = canvas.shape[:2]
-        
-        # Draw orientation visualization at the bottom
-        center_x, center_y = width // 2, height - 100
-        radius = 50
-        
-        # Draw background circle
-        cv2.circle(canvas, (center_x, center_y), radius, (30, 30, 30), -1)
-        cv2.circle(canvas, (center_x, center_y), radius, (100, 100, 100), 1)
-        
-        # Get latest orientation if available
-        if self.orientation_history:
-            quat = self.orientation_history[-1]
-            
-            try:
-                # Create rotation matrix from quaternion
-                rot = Rotation.from_quat([quat[1], quat[2], quat[3], quat[0]])
-                
-                # Draw roll/pitch indicator
-                roll, pitch, yaw = rot.as_euler('xyz')
-                
-                roll_pitch_x = int(center_x + radius * 0.8 * math.sin(roll) * math.cos(pitch))
-                roll_pitch_y = int(center_y - radius * 0.8 * math.sin(pitch))
-                
-                cv2.line(canvas, (center_x, center_y), (roll_pitch_x, roll_pitch_y), (0, 255, 0), 2)
-                
-                # Draw heading indicator
-                heading_x = int(center_x + radius * 0.8 * math.sin(yaw))
-                heading_y = int(center_y - radius * 0.8 * math.cos(yaw))
-                
-                cv2.line(canvas, (center_x, center_y), (heading_x, heading_y), (255, 0, 0), 2)
-                
-                # Add labels
-                cv2.putText(canvas, f"R: {math.degrees(roll):.1f}°", (width-150, height-130), 
-                        cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
-                cv2.putText(canvas, f"P: {math.degrees(pitch):.1f}°", (width-150, height-110), 
-                        cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
-                cv2.putText(canvas, f"Y: {math.degrees(yaw):.1f}°", (width-150, height-90), 
-                        cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 1)
-            except Exception as e:
-                pass
-
-class SensorSynchronizer:
-    def __init__(self, max_time_diff=0.05):  # 50ms max difference
-        self.imu_buffer = []
-        self.lane_buffer = []
-        self.max_time_diff = max_time_diff
-        self.last_imu_timestamp = None
-        self.last_lane_timestamp = None
-        
-    def add_imu_data(self, imu_data, timestamp):
-        self.imu_buffer.append((timestamp, imu_data))
-        self.last_imu_timestamp = timestamp
-        self._clean_old_data()
-        
-    def add_lane_data(self, lane_data, timestamp):
-        self.lane_buffer.append((timestamp, lane_data))
-        self.last_lane_timestamp = timestamp
-        self._clean_old_data()
-        
-    def get_synchronized_data(self):
-        """Return closest matching IMU and lane data"""
-        if not self.imu_buffer or not self.lane_buffer:
-            return None, None
-            
-        # Find closest matching pairs
-        lane_ts = self.lane_buffer[-1][0]
-        closest_imu = min(self.imu_buffer, key=lambda x: abs(x[0] - lane_ts))
-        
-        # Check if within acceptable time difference
-        if abs(closest_imu[0] - lane_ts) > self.max_time_diff:
-            return None, None
-            
-        return closest_imu[1], self.lane_buffer[-1][1]
-    
-    def _clean_old_data(self):
-        """Remove data older than 1 second"""
-        current_time = time.time()
-        # Clean IMU buffer
-        self.imu_buffer = [(t, d) for t, d in self.imu_buffer if current_time - t < 1.0]
-        # Clean lane buffer
-        self.lane_buffer = [(t, d) for t, d in self.lane_buffer if current_time - t < 1.0]
-    
-
-
 class MultiSensorAutonomousSystem:
     """Enhanced autonomous driving system with multi-sensor fusion"""
 
@@ -230,7 +66,6 @@ class MultiSensorAutonomousSystem:
         logging.basicConfig(level=logging.INFO,
                             format='%(asctime)s - %(levelname)s - %(name)s - %(message)s')
         self.logger = logging.getLogger("MultiSensorAutonomousSystem")
-        self.diagnostic_logger = DiagnosticLogger(log_interval=5.0)
 
         try:
             # Initialize original components
@@ -248,10 +83,6 @@ class MultiSensorAutonomousSystem:
             self.sensor_fusion = SensorFusion()
             self.pose_estimator = PoseEstimator()
             self.imu_processor = IMUProcessor()
-
-            self.imu_visualizer = IMUVisualizer()
-            self.sensor_synchronizer = SensorSynchronizer(max_time_diff=0.1)
-            self.display_camera_feed = False
 
             # ROS interface for Livox LiDAR IMU
             self.use_ros = use_ros
@@ -276,15 +107,9 @@ class MultiSensorAutonomousSystem:
         """Callback for IMU data from ROS"""
         try:
             # Process IMU data
+
             imu_data = self.imu_processor.process_imu_data(imu_msg)
-            timestamp = time.time()
-            self.diagnostic_logger.add_imu_timestamp(timestamp)
-
-            #Update visualizer
-            self.imu_visualizer.update(imu_data)
-            self.sensor_synchronizer.add_imu_data(imu_data, timestamp)
-            self.imu_data_buffer.append((timestamp, imu_msg))
-
+            self.imu_data_buffer.append((time.time(), imu_msg))
             # Update pose estimator with IMU data
             self.pose_estimator.update_from_imu(imu_data)
 
@@ -297,44 +122,33 @@ class MultiSensorAutonomousSystem:
             self.logger.error(f"Error processing IMU data: {e}")
 
     async def _process_frame_with_fusion(self, frame: np.ndarray) -> Tuple[
-    np.ndarray, Optional[Tuple[float, float, float]]]:
+        np.ndarray, Optional[Tuple[float, float, float]]]:
         """Process frame with sensor fusion integration"""
         try:
             # copying frame for visualisation
             original_frame = frame.copy()
-            frame_time = time.time()
 
             # Detect lane and calculate curvature
             annotated_frame, radius, lateral_offset = self.lane_detector.detect_lane(frame)
+
             display_frame = annotated_frame.copy()
 
-            # Create lane data dictionary
-            lane_data = {
-                "curvature_radius": radius,
-                "lateral_offset": lateral_offset,
-                "heading_error": 0.0,  # Would need lane orientation calculation
-                "confidence": 0.8 if radius != float('inf') else 0.0,
-                "timestamp": frame_time
-            }
-            
-            # Add to synchronizer
-            self.sensor_synchronizer.add_lane_data(lane_data, frame_time)
-            
-            # Get synchronized data
-            imu_data, synced_lane_data = self.sensor_synchronizer.get_synchronized_data()
-            
-            self.diagnostic_logger.add_camera_timestamp(frame_time)
-            self.diagnostic_logger.add_sync_result(imu_data is not None and synced_lane_data is not None, abs(timestamp - frame_time) if imu_data else 0.0)
-            self.diagnostic_logger.log_if_needed()
+            if self.use_ros:
+                frame_time = time.time()
+                # Create lane data dictionary
+                lane_data = {
+                    "curvature_radius": radius,
+                    "lateral_offset": lateral_offset,  # Would need dedicated lane position calculation
+                    "heading_error": 0.0,  # Would need lane orientation calculation
+                    "confidence": 0.8 if radius != float('inf') else 0.0,
+                    "timestamp": time.time()
+                }
+                self.lane_data_buffer.append((frame_time, lane_data))
 
-            if imu_data and synced_lane_data:
-                # Use synchronized data for fusion and control
-                self.lane_data_buffer.append((frame_time, synced_lane_data))
-                
-                # Update fusion states with lane data
-                self.pose_estimator.update_from_lane_detection(synced_lane_data)
-                self.sensor_fusion.update_from_lane_detection(synced_lane_data)
-                self.vehicle_state.update_from_camera(synced_lane_data)
+                # Update fusion states  with lane data
+                self.pose_estimator.update_from_lane_detection(lane_data)
+                self.sensor_fusion.update_from_lane_detection(lane_data)
+                self.vehicle_state.update_from_camera(lane_data)
 
                 # Get fused state for control decisions
                 fused_state = self.sensor_fusion.get_fused_state()
@@ -348,24 +162,47 @@ class MultiSensorAutonomousSystem:
 
                 # Update vehicle state with control signals
                 self.vehicle_state.update_control_signals(steering, throttle, brake)
-            else:
-                # Fallback to non-synchronized approach
-                steering, throttle, brake = await self.steering_controller.coordinate_controls(radius)
-                
-            # Render IMU visualization
-            self.imu_visualizer.render()
 
-            # Only update display with BEV, not regular camera feed
-            if hasattr(self.lane_detector, 'warped_mask'):
-                bev_image = cv2.cvtColor(self.lane_detector.warped_mask, cv2.COLOR_GRAY2BGR)
-                cv2.imshow("Bird's Eye View", bev_image)
-                
-            # Return controls only
+                # Update display with control and state information
+                info_text = [
+                    f'Curve Radius: {curvature:.1f}m',
+                    f'Steering: {steering:.3f}',
+                    f'Throttle: {throttle:.3f}',
+                    f'Brake: {brake:.3f}',
+                    f'Lateral Offset: {lateral_offset:.2f}m',
+                    f'Heading: {np.degrees(heading):.1f}°',
+                    f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
+                ]
+            else:
+                # Simple lane-detection-only path (like in mainonmain.py)
+                steering, throttle, brake = await self.steering_controller.coordinate_controls(radius)
+
+                # Simpler info text
+                info_text = [
+                    f'Curve Radius: {radius:.1f}m',
+                    f'Steering: {steering:.3f}',
+                    f'Throttle: {throttle:.3f}',
+                    f'Brake: {brake:.3f}',
+                    f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
+                ]
+            height = frame.shape[0]
+            for i, text in enumerate(info_text):
+                cv2.putText(display_frame, text,
+                       (20, height - 30 * (len(info_text) - i)),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            #Adding FPS counter
+            fps = 0.0  # This will be filled in later
+            status = self.vehicle_state.get_state().system_status
+            cv2.putText(display_frame, f"Status: {status}", (20, 60),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8,
+                        (0, 255, 0) if status == "ACTIVE" else (0, 0, 255), 2)
+
+            # Return the properly annotated display frame and controls
             return display_frame, (steering, throttle, brake)
         except Exception as e:
             self.logger.error(f"Frame processing error: {e}")
             return frame, None
-    
+
     async def initialize_drive_mode(self):
         """Initialize the vehicle in drive mode"""
         try:
@@ -579,8 +416,7 @@ class MultiSensorAutonomousSystem:
                     fps_text = f"FPS: {frame_count / elapsed_time:.1f}"
                     cv2.putText(annotated_frame, fps_text, (20, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
-                    if self.display_camera_feed:
-                        cv2.imshow('Multi-Sensor Autonomous System', annotated_frame)
+                    cv2.imshow('Multi-Sensor Autonomous System', annotated_frame)
 
                 if (cv2.waitKey(1) & 0xFF) == ord('q'):
                     self.logger.info("User requested exit")
