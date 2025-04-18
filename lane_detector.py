@@ -160,6 +160,97 @@ class LaneDetector:
         offset_meters = offset_pixels * self.xm_per_pix
 
         return offset_meters
+    
+    def create_bev_visualization(self, warped_mask, frame=None):
+        """
+        Create an enhanced bird's-eye view visualization showing lane boundaries,
+        vehicle position, and potentially trajectory information.
+        
+        Args:
+            warped_mask: Binary mask in bird's eye view
+            frame: Original camera frame (optional, for combined visualization)
+            
+        Returns:
+            Bird's eye view visualization image
+        """
+        # Create color BEV image from binary mask
+        bev_with_mask = cv2.cvtColor(warped_mask, cv2.COLOR_GRAY2BGR)
+        
+        # Draw left lane polynomial if available
+        if self.poly_fit_left is not None:
+            y_vals = np.linspace(0, self.warped_height - 1, 25)
+            x_vals = self.poly_fit_left[0] * (y_vals ** 2) + self.poly_fit_left[1] * y_vals + self.poly_fit_left[2]
+            pts = np.column_stack((x_vals, y_vals)).astype(np.int32)
+            cv2.polylines(bev_with_mask, [pts], False, (0, 255, 0), 2)  # Green for left lane
+        
+        # Draw right lane polynomial if available
+        if self.poly_fit_right is not None:
+            y_vals = np.linspace(0, self.warped_height - 1, 25)
+            x_vals = self.poly_fit_right[0] * (y_vals ** 2) + self.poly_fit_right[1] * y_vals + self.poly_fit_right[2]
+            pts = np.column_stack((x_vals, y_vals)).astype(np.int32)
+            cv2.polylines(bev_with_mask, [pts], False, (0, 255, 255), 2)  # Yellow for right lane
+        
+        # Calculate and draw center lane if both left and right lanes are detected
+        if self.poly_fit_left is not None and self.poly_fit_right is not None:
+            y_vals = np.linspace(0, self.warped_height - 1, 25)
+            left_x = self.poly_fit_left[0] * (y_vals ** 2) + self.poly_fit_left[1] * y_vals + self.poly_fit_left[2]
+            right_x = self.poly_fit_right[0] * (y_vals ** 2) + self.poly_fit_right[1] * y_vals + self.poly_fit_right[2]
+            center_x = (left_x + right_x) / 2
+            
+            center_pts = np.column_stack((center_x, y_vals)).astype(np.int32)
+            cv2.polylines(bev_with_mask, [center_pts], False, (255, 0, 0), 2)  # Red for center lane
+        
+        # Draw vehicle position at bottom center
+        vehicle_position = (self.warped_width // 2, self.warped_height - 1)
+        cv2.circle(bev_with_mask, vehicle_position, 5, (255, 255, 255), -1)  # White circle
+        
+        # Add lane width indicators at several points
+        if self.poly_fit_left is not None and self.poly_fit_right is not None:
+            # Sample at 25%, 50%, and 75% up the image
+            for y_pct in [0.75, 0.5, 0.25]:
+                y_pos = int(self.warped_height * y_pct)
+                left_x = int(self.poly_fit_left[0] * (y_pos ** 2) + self.poly_fit_left[1] * y_pos + self.poly_fit_left[2])
+                right_x = int(self.poly_fit_right[0] * (y_pos ** 2) + self.poly_fit_right[1] * y_pos + self.poly_fit_right[2])
+                
+                # Draw lane width line
+                cv2.line(bev_with_mask, (left_x, y_pos), (right_x, y_pos), (0, 150, 255), 1)
+                
+                # Calculate and display lane width in meters
+                width_px = right_x - left_x
+                width_m = width_px * self.xm_per_pix
+                cv2.putText(bev_with_mask, f"{width_m:.1f}m", 
+                            (int((left_x + right_x) / 2) - 20, y_pos - 5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 150, 255), 1)
+        
+        # Add curvature information
+        if hasattr(self, 'last_curve_radius') and self.last_curve_radius != float('inf'):
+            radius_text = f"Curve Radius: {self.last_curve_radius:.1f}m"
+        else:
+            radius_text = "Straight road"
+        
+        cv2.putText(bev_with_mask, radius_text, (10, 20), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        
+        # Add lateral offset information
+        if hasattr(self, 'lateral_offset'):
+            offset_direction = "right" if self.lateral_offset > 0 else "left"
+            offset_text = f"Offset: {abs(self.lateral_offset):.2f}m {offset_direction}"
+            cv2.putText(bev_with_mask, offset_text, (10, 40),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        
+        # Draw grid overlay for distance reference
+        grid_spacing_px = int(1.0 / self.xm_per_pix)  # 1 meter grid
+        grid_color = (50, 50, 50)  # Dark gray
+        
+        # Vertical grid lines
+        for x in range(0, self.warped_width, grid_spacing_px):
+            cv2.line(bev_with_mask, (x, 0), (x, self.warped_height), grid_color, 1)
+        
+        # Horizontal grid lines
+        for y in range(0, self.warped_height, grid_spacing_px):
+            cv2.line(bev_with_mask, (0, y), (self.warped_width, y), grid_color, 1)
+        
+        return bev_with_mask
 
     @measure_execution_time
     def detect_lane(self, frame: np.ndarray) -> Tuple[np.ndarray, float]:
@@ -225,6 +316,9 @@ class LaneDetector:
                 (self.warped_width, self.warped_height),
                 flags=cv2.INTER_LINEAR
             )
+            
+            #store warped mask for visualisation
+            self.last_warped_mask = warped_mask.copy()
 
             # (E) Find contours in the warped (bird?s-eye) mask
             contours, _ = cv2.findContours(
@@ -260,6 +354,7 @@ class LaneDetector:
 
             annotated_frame = frame.copy()
             radius = float('inf')
+            lateral_offset = 0.0
 
             # (G) Draw each boundary => sample polynomial in warped coords, then unwarp
             def draw_poly_on_original(poly, color):
@@ -298,8 +393,6 @@ class LaneDetector:
             # Draw right boundary in yellow
             draw_poly_on_original(self.poly_fit_right, (0, 255, 255))
 
-            lateral_offset = 0.0
-
             # (H) If both sides exist, compute centerline in bird?s-eye space
             if (self.poly_fit_left is not None) and (self.poly_fit_right is not None):
                 sample_ys = np.linspace(0, self.warped_height, 20)
@@ -321,6 +414,9 @@ class LaneDetector:
 
                 # 1) Compute curvature in top-down coords => more physically accurate
                 radius = self.cuda_processor.calculate_curvature(center_pts)
+                
+                #store the radius for BEV visualization
+                self.last_curve_radius = radius
 
                 # 2) Unwarp the centerline for display
                 center_pts_reshaped = center_pts.reshape(-1,1,2)
@@ -329,6 +425,7 @@ class LaneDetector:
                 cv2.polylines(annotated_frame, [unwarped_center_int], False, (0, 0, 255), 2)
 
                 lateral_offset = self.calculate_lane_center_offset(center_pts)
+                
                 cv2.putText(
                     annotated_frame,
                     f'Offset: {lateral_offset:.2f}m',
@@ -361,8 +458,8 @@ class LaneDetector:
                 2
             )
 
-            return annotated_frame, radius, lateral_offset
+            return annotated_frame, radius, lateral_offset, warped_mask
 
         except Exception as e:
             self.logger.error(f"Lane detection failed: {str(e)}")
-            return frame.copy(), float('inf'), 0.0
+            return frame.copy(), float('inf'), 0.0, np.zeros((self.warped_height, self.warped_width), dtype=np.uint8)

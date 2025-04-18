@@ -297,7 +297,7 @@ class MultiSensorAutonomousSystem:
             self.logger.error(f"Error processing IMU data: {e}")
 
     async def _process_frame_with_fusion(self, frame: np.ndarray) -> Tuple[
-    np.ndarray, Optional[Tuple[float, float, float]]]:
+    np.ndarray, Optional[Tuple[float, float, float]], np.ndarray]:
         """Process frame with sensor fusion integration"""
         try:
             # copying frame for visualisation
@@ -305,7 +305,8 @@ class MultiSensorAutonomousSystem:
             frame_time = time.time()
 
             # Detect lane and calculate curvature
-            annotated_frame, radius, lateral_offset = self.lane_detector.detect_lane(frame)
+            annotated_frame, radius, lateral_offset, warped_mask = self.lane_detector.detect_lane(frame)
+            bev_visualization = self.lane_detector.create_bev_visualization(warped_mask)
             display_frame = annotated_frame.copy()
 
             # Create lane data dictionary
@@ -324,7 +325,12 @@ class MultiSensorAutonomousSystem:
             imu_data, synced_lane_data = self.sensor_synchronizer.get_synchronized_data()
             
             self.diagnostic_logger.add_camera_timestamp(frame_time)
-            self.diagnostic_logger.add_sync_result(imu_data is not None and synced_lane_data is not None, abs(timestamp - frame_time) if imu_data else 0.0)
+            if imu_data:
+                timestamp = imu_data.get("timestamp", frame_time)
+                self.diagnostic_logger.add_sync_result(
+                    imu_data is not None and synced_lane_data is not None, 
+                    abs(timestamp - frame_time) if imu_data else 0.0
+                )
             self.diagnostic_logger.log_if_needed()
 
             if imu_data and synced_lane_data:
@@ -355,16 +361,27 @@ class MultiSensorAutonomousSystem:
             # Render IMU visualization
             self.imu_visualizer.render()
 
-            # Only update display with BEV, not regular camera feed
-            if hasattr(self.lane_detector, 'warped_mask'):
-                bev_image = cv2.cvtColor(self.lane_detector.warped_mask, cv2.COLOR_GRAY2BGR)
-                cv2.imshow("Bird's Eye View", bev_image)
-                
-            # Return controls only
-            return display_frame, (steering, throttle, brake)
+            height = frame .shape[0]
+            info_text = [
+                f'Curve Radius: {radius:.1f}m',
+                f'Steering: {steering:.3f}',
+                f'Throttle: {throttle:.3f}',
+                f'Brake: {brake:.3f}',
+                f'Lateral Offset: {lateral_offset:.2f}m',
+                f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
+            ]
+            
+            for i, text in enumerate(info_text):
+                cv2.putText(display_frame, text, (20, height - 30 * (len(info_text) - i)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0)
+                            )
+                                
+            # Return display, controls and bev viz
+            return display_frame, (steering, throttle, brake), bev_visualization
         except Exception as e:
             self.logger.error(f"Frame processing error: {e}")
-            return frame, None
+            blank_bev = np.zeros((self.lane_detector.warped_height, self.lane_detector.warped_width, 3), dtype=np.uint8)
+            return frame, None, blank_bev
     
     async def initialize_drive_mode(self):
         """Initialize the vehicle in drive mode"""
@@ -532,6 +549,13 @@ class MultiSensorAutonomousSystem:
             # Ensure permanent brake force is applied initially
             await self.mcm.update_setpoint('brake', self.steering_controller.permanent_brake_force)
 
+            cv2.namedWindow("Multi-Sensor Autonomous System", cv2.WINDOW_NORMAL)
+            cv2.moveWindow("Multi-Sensor Autonomous System", 50, 50)
+            cv2.namedWindow("Bird's Eye View", cv2.WINDOW_NORMAL)
+            cv2.moveWindow("Bird's Eye View", 700, 50)
+            cv2.resizeWindow("Bird's Eye View", 400, 500)  # Set appropriate size
+
+            
             self.logger.info("Starting main control loop")
             self.vehicle_state.update_system_status("ACTIVE", "")
 
@@ -558,7 +582,7 @@ class MultiSensorAutonomousSystem:
                     last_fps_log_time = current_time
 
                 # Process frame with sensor fusion
-                annotated_frame, controls = await self._process_frame_with_fusion(frame)
+                annotated_frame, controls, bev_visualization = await self._process_frame_with_fusion(frame)
 
                 if controls:
                     steering, throttle, brake = controls
@@ -579,12 +603,20 @@ class MultiSensorAutonomousSystem:
                     fps_text = f"FPS: {frame_count / elapsed_time:.1f}"
                     cv2.putText(annotated_frame, fps_text, (20, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+                    
                     if self.display_camera_feed:
                         cv2.imshow('Multi-Sensor Autonomous System', annotated_frame)
-
-                if (cv2.waitKey(1) & 0xFF) == ord('q'):
+                        
+                    if bev_visualization is not None:
+                        cv2.imshow("Bird's Eye View", bev_visualization)
+                        
+                key = cv2.waitKey(1) & 0xFF
+                if key == ord('q'):
                     self.logger.info("User requested exit")
                     break
+                elif key == ord('c'):
+                    self.display_camera_feed = not self.display_camera_feed
+                    self.logger.info(f"camera feed display: {'enabled' if self.display_camera_feed else 'disabled'}")
 
                 # Add a small yield to prevent CPU overutilization
                 await asyncio.sleep(0.001)
