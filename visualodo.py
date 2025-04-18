@@ -243,11 +243,11 @@ class EnhancedLaneTracker:
 
         # Simple v4l2src pipeline that works reliably on Jetson platforms
         gst_pipeline = (
-            f"v4l2src device=/dev/video{self.camera_id} ! "
-            "video/x-raw, width=640, height=480, format=YUY2, framerate=30/1 ! "
-            "videoconvert ! "
-            "video/x-raw, format=BGR ! "
-            "appsink max-buffers=1 drop=true"
+            f"v4l2src device=/dev/video{self.camera_id} io-mode=2 ! "
+            f"image/jpeg, width=640, height=480, framerate=30/1 ! "
+            "jpegdec ! "
+            "videoconvert ! video/x-raw, format=BGR ! "
+            "appsink drop=1 max-buffers=2 sync=false"
         )
 
         logger.info(f"Using pipeline: {gst_pipeline}")
