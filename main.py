@@ -251,7 +251,7 @@ class MultiSensorAutonomousSystem:
 
             self.imu_visualizer = IMUVisualizer()
             self.sensor_synchronizer = SensorSynchronizer(max_time_diff=0.1)
-            self.display_camera_feed = False
+            self.display_camera_feed = True
 
             # ROS interface for Livox LiDAR IMU
             self.use_ros = use_ros
