@@ -6,11 +6,19 @@ from collections import deque
 class DiagnosticLogger:
     def __init__(self, log_interval=5.0):
         self.logger = logging.getLogger("Diagnostics")
+        self.logger.setLevel(logging.DEBUG)
         self.imu_timestamps = deque(maxlen=1000)
         self.camera_timestamps = deque(maxlen=100)
         self.sync_results = deque(maxlen=100)
         self.log_interval = log_interval
         self.last_log_time = time.time()
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler)
+        self.logger.propagate = True
+        self.logger.info("Diagnotic Logger initalized with interval: %s seconds", log_interval)
         
     def add_imu_timestamp(self, timestamp):
         self.imu_timestamps.append(timestamp)
