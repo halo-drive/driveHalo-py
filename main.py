@@ -77,7 +77,17 @@ class IMUVisualizer:
             quat = imu_data["orientation_quaternion"]
             if np.linalg.norm(quat) > 0.01:
                 self.orientation_history.append(quat)
-        
+    
+    def update_from_pose_estimator(self, pose_state):
+        """Update visualization with pose estimator state"""
+        if "orientation_quaternion" in pose_state:
+            quat = pose_state["orientation_quaternion"]
+            if np.linalg.norm(quat) > 0.01:  # Ensure non-zero quaternion
+                # Add to history with a special flag to indicate it's from pose estimator
+                # We could store this in a separate buffer if needed
+                pose_state["from_pose_estimator"] = True
+                self.imu_data_buffer.append(pose_state)
+
     def _update_plot_data(self):
         # Extract data for plotting
         for i, data in enumerate(self.imu_data_buffer):
@@ -86,25 +96,157 @@ class IMUVisualizer:
                 self.gyro_data[i] = data["angular_velocity"]
                 
     def render(self):
+        """Render a comprehensive IMU visualization with well-organized sections"""
         # Create visualization canvas
         canvas = np.zeros((self.window_size[1], self.window_size[0], 3), dtype=np.uint8)
         
-        # Plot accelerometer data
-        self._plot_time_series(canvas, self.accel_data, (0, 255, 0), offset=80, 
-                              label="Accel (m/s²)")
+        # Allocate vertical regions for different components
+        header_height = 50
+        data_section_height = 120
+        plot_section_height = 160
+        orientation_section_height = 150
         
-        # Plot gyroscope data
-        self._plot_time_series(canvas, self.gyro_data, (0, 165, 255), offset=240, 
-                              label="Gyro (rad/s)")
+        # Draw section separators
+        separator_color = (60, 60, 60)
+        cv2.line(canvas, (0, header_height), (self.window_size[0], header_height), separator_color, 1)
+        cv2.line(canvas, (0, header_height + data_section_height), 
+                (self.window_size[0], header_height + data_section_height), separator_color, 1)
+        cv2.line(canvas, (0, header_height + data_section_height + plot_section_height), 
+                (self.window_size[0], header_height + data_section_height + plot_section_height), separator_color, 1)
+        cv2.line(canvas, (self.window_size[0]//2, header_height), 
+                (self.window_size[0]//2, header_height + data_section_height), separator_color, 1)
         
-        # Add orientation visualization
-        self._render_orientation(canvas)
-
-        #adding current values to render
-        self._render_current_values(canvas)
+        # 1. Render header with title
+        title_color = (200, 200, 200)
+        cv2.putText(canvas, "IMU Sensor Data Visualization", (20, 30), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, title_color, 2)
+        
+        # 2. Render current numerical values section
+        self._render_current_values(canvas, header_height)
+        
+        # 3. Render time series plots section
+        plot_y_start = header_height + data_section_height
+        self._plot_time_series(canvas, self.accel_data, (0, 255, 0), 
+                            offset=plot_y_start + 50, label="Accel (m/s²)")
+        self._plot_time_series(canvas, self.gyro_data, (0, 165, 255), 
+                            offset=plot_y_start + 130, label="Gyro (rad/s)")
+        
+        # 4. Render orientation visualization section
+        orientation_y_start = header_height + data_section_height + plot_section_height
+        self._render_orientation(canvas, orientation_y_start)
         
         cv2.imshow("IMU Data", canvas)
-    
+
+    def _render_current_values(self, canvas, y_start):
+        """Display current numeric values for accelerometer and gyroscope"""
+        height, width = canvas.shape[:2]
+        
+        # Get latest values (if available)
+        if len(self.imu_data_buffer) > 0:
+            latest_data = self.imu_data_buffer[-1]
+            
+            # Section titles
+            cv2.putText(canvas, "Accel (m/s²)", (30, y_start + 30), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            cv2.putText(canvas, "Gyro (rad/s)", (width//2 + 30, y_start + 30), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 165, 255), 2)
+            
+            # Accelerometer values
+            accel = latest_data.get("linear_acceleration", np.zeros(3))
+            cv2.putText(canvas, f"X: {accel[0]:.3f}", (30, y_start + 60), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+            cv2.putText(canvas, f"Y: {accel[1]:.3f}", (30, y_start + 90), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+            cv2.putText(canvas, f"Z: {accel[2]:.3f}", (30, y_start + 120), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+            
+            # Gyroscope values
+            gyro = latest_data.get("angular_velocity", np.zeros(3))
+            cv2.putText(canvas, f"X: {gyro[0]:.3f}", (width//2 + 30, y_start + 60), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
+            cv2.putText(canvas, f"Y: {gyro[1]:.3f}", (width//2 + 30, y_start + 90), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
+            cv2.putText(canvas, f"Z: {gyro[2]:.3f}", (width//2 + 30, y_start + 120), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
+
+    def _render_orientation(self, canvas, y_start):
+        """Render orientation visualization with roll, pitch, yaw values and indicators"""
+        height, width = canvas.shape[:2]
+        text_x = 30
+        
+        # Draw orientation visualization
+        center_x, center_y = width // 2, y_start + 75
+        radius = 60
+        
+        # Draw background circle
+        cv2.circle(canvas, (center_x, center_y), radius, (30, 30, 30), -1)
+        cv2.circle(canvas, (center_x, center_y), radius, (80, 80, 80), 2)
+        
+        # Get latest orientation if available
+        orientation_estimated = False
+        if self.orientation_history and len(self.orientation_history) > 0:
+            quat = self.orientation_history[-1]
+            
+            # Get orientation estimation status if available
+            if len(self.imu_data_buffer) > 0:
+                latest_data = self.imu_data_buffer[-1]
+                orientation_estimated = latest_data.get("orientation_estimated", False)
+            
+            # Section title with estimation indicator
+            title = "Orientation (Estimated)" if orientation_estimated else "Orientation"
+            cv2.putText(canvas, title, (30, y_start + 30), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
+            
+            try:
+                # Create rotation matrix from quaternion - ENSURE CORRECT ORDER
+                rot = Rotation.from_quat([quat[1], quat[2], quat[3], quat[0]])
+                
+                # Draw roll/pitch indicator
+                roll, pitch, yaw = rot.as_euler('xyz')
+                
+                roll_pitch_x = int(center_x + radius * 0.8 * math.sin(roll) * math.cos(pitch))
+                roll_pitch_y = int(center_y - radius * 0.8 * math.sin(pitch))
+                
+                cv2.line(canvas, (center_x, center_y), (roll_pitch_x, roll_pitch_y), (0, 255, 0), 2)
+                
+                # Draw heading indicator
+                heading_x = int(center_x + radius * 0.8 * math.sin(yaw))
+                heading_y = int(center_y - radius * 0.8 * math.cos(yaw))
+                
+                cv2.line(canvas, (center_x, center_y), (heading_x, heading_y), (0, 0, 255), 2)
+                
+                # Draw coordinate axes indicators
+                cv2.line(canvas, (center_x, center_y), (center_x, center_y - 15), (255, 255, 255), 1)  # Up indicator
+                cv2.line(canvas, (center_x, center_y), (center_x + 15, center_y), (255, 255, 255), 1)  # Right indicator
+                
+                # Add Euler angle values with clear labeling
+                roll_label = "Roll*" if orientation_estimated else "Roll"
+                pitch_label = "Pitch*" if orientation_estimated else "Pitch"
+                yaw_label = "Yaw*" if orientation_estimated else "Yaw"
+                
+                cv2.putText(canvas, f"{roll_label}: {math.degrees(roll):.1f}°", (text_x, y_start + 60), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                cv2.putText(canvas, f"{pitch_label}: {math.degrees(pitch):.1f}°", (text_x, y_start + 90), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                cv2.putText(canvas, f"{yaw_label}: {math.degrees(yaw):.1f}°", (text_x, y_start + 120), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                
+                # Add note about estimation when applicable
+                if orientation_estimated:
+                    cv2.putText(canvas, "*Estimated from accel/gyro", (text_x, y_start + 140), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.4, (150, 150, 150), 1)
+                
+            except Exception as e:
+                # Display error message for debugging
+                cv2.putText(canvas, f"Orientation error: {str(e)[:20]}", (text_x, y_start + 60), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+        else:
+            # Indicate no orientation data available
+            cv2.putText(canvas, "Orientation (No Data)", (30, y_start + 30), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
+            cv2.putText(canvas, "No orientation data available", (text_x, y_start + 60), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (180, 180, 180), 1)
+
     def _plot_time_series(self, canvas, data, color, offset=80, label="Data"):
         height, width = canvas.shape[:2]
         
@@ -141,86 +283,7 @@ class IMUVisualizer:
                     
                     cv2.line(canvas, (x1, y1), (x2, y2), colors[axis], 1)
 
-    def _render_orientation(self, canvas):
-        height, width = canvas.shape[:2]
-        
-        # Draw orientation visualization at the bottom
-        center_x, center_y = width // 2, height - 100
-        radius = 50
-        
-        # Draw background circle
-        cv2.circle(canvas, (center_x, center_y), radius, (30, 30, 30), -1)
-        cv2.circle(canvas, (center_x, center_y), radius, (100, 100, 100), 1)
-        
-        # Get latest orientation if available
-        if self.orientation_history:
-            quat = self.orientation_history[-1]
-            
-            try:
-                # Create rotation matrix from quaternion - ENSURE CORRECT ORDER
-                # IMU typically provides [w,x,y,z] but scipy expects [x,y,z,w]
-                rot = Rotation.from_quat([
-                    quat[1],  # x
-                    quat[2],  # y
-                    quat[3],  # z
-                    quat[0]   # w
-                ])
-                
-                # Draw roll/pitch indicator
-                roll, pitch, yaw = rot.as_euler('xyz')
-                
-                roll_pitch_x = int(center_x + radius * 0.8 * math.sin(roll) * math.cos(pitch))
-                roll_pitch_y = int(center_y - radius * 0.8 * math.sin(pitch))
-                
-                cv2.line(canvas, (center_x, center_y), (roll_pitch_x, roll_pitch_y), (0, 255, 0), 2)
-                
-                # Draw heading indicator
-                heading_x = int(center_x + radius * 0.8 * math.sin(yaw))
-                heading_y = int(center_y - radius * 0.8 * math.cos(yaw))
-                
-                cv2.line(canvas, (center_x, center_y), (heading_x, heading_y), (255, 0, 0), 2)
-                
-                # Add labels with increased visibility
-                # Move text to more visible location with larger font and thickness
-                text_x = 20  # Left side of visualization
-                cv2.putText(canvas, f"Roll: {math.degrees(roll):.1f}°", (text_x, 350), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-                cv2.putText(canvas, f"Pitch: {math.degrees(pitch):.1f}°", (text_x, 380), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-                cv2.putText(canvas, f"Yaw: {math.degrees(yaw):.1f}°", (text_x, 410), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
-                
-            except Exception as e:
-                # Log error for debugging instead of silently passing
-                cv2.putText(canvas, "Orientation error", (center_x-70, center_y), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
-                # Add debug text here if needed
 
-    def _render_current_values(self, canvas):
-        """Display current numeric values for accelerometer and gyroscope"""
-        height, width = canvas.shape[:2]
-        
-        # Get latest values (if available)
-        if len(self.imu_data_buffer) > 0:
-            latest_data = self.imu_data_buffer[-1]
-            
-            # Accelerometer values
-            accel = latest_data["linear_acceleration"]
-            cv2.putText(canvas, f"X: {accel[0]:.3f}", (width//4 - 40, 50), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-            cv2.putText(canvas, f"Y: {accel[1]:.3f}", (width//4 - 40, 80), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-            cv2.putText(canvas, f"Z: {accel[2]:.3f}", (width//4 - 40, 110), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-            
-            # Gyroscope values
-            gyro = latest_data["angular_velocity"]
-            cv2.putText(canvas, f"X: {gyro[0]:.3f}", (3*width//4 - 40, 50), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
-            cv2.putText(canvas, f"Y: {gyro[1]:.3f}", (3*width//4 - 40, 80), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
-            cv2.putText(canvas, f"Z: {gyro[2]:.3f}", (3*width//4 - 40, 110), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
 class SensorSynchronizer:
     def __init__(self, max_time_diff=0.05):  # 50ms max difference
         self.imu_buffer = []
@@ -324,12 +387,15 @@ class MultiSensorAutonomousSystem:
 
             #Update visualizer
             self.imu_visualizer.update(imu_data)
-            self.sensor_synchronizer.add_imu_data(imu_data, timestamp)
-            self.imu_data_buffer.append((timestamp, imu_msg))
-
+            
             # Update pose estimator with IMU data
             self.pose_estimator.update_from_imu(imu_data)
 
+            # Add to synchronizer
+            self.sensor_synchronizer.add_imu_data(imu_data, timestamp)
+            self.imu_data_buffer.append((timestamp, imu_msg))
+
+            
             # Update sensor fusion
             self.sensor_fusion.update_from_imu(imu_data)
 
