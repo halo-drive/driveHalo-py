@@ -22,6 +22,8 @@ from pose_estimator import PoseEstimator
 from sensor_fusion import SensorFusion
 from vehicle_state import VehicleStateManager
 from scipy.spatial.transform import Rotation
+import traceback
+from root_logger import initialize_logging, get_logger, get_control_logger, get_diagnostic_logger
 from diagnostic_logger import DiagnosticLogger
 
 def configure_camera(source=0, width=640, height=480, fps=10):
@@ -240,6 +242,7 @@ class IMUVisualizer:
                 # Display error message for debugging
                 cv2.putText(canvas, f"Orientation error: {str(e)[:20]}", (text_x, y_start + 60), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+                self.logger.error(traceback.format_exc())
         else:
             # Indicate no orientation data available
             cv2.putText(canvas, "Orientation (No Data)", (30, y_start + 30), 
@@ -332,11 +335,27 @@ class MultiSensorAutonomousSystem:
 
     def __init__(self, engine_path: str, can_channel: str = 'can0', use_ros: bool = True):
         # Configure logging
-        logging.basicConfig(level=logging.INFO,
-                            format='%(asctime)s - %(levelname)s - %(name)s - %(message)s')
-        self.logger = logging.getLogger("MultiSensorAutonomousSystem")
-        self.diagnostic_logger = DiagnosticLogger(log_interval=1.0)
+        self.logger = get_logger("MultiSensorAutonomousSystem")
+        self.control_logger = get_control_logger()
+        self.diagnostic_logger = DiagnosticLogger(auto_log_interval=5.0)
 
+        # keys for logger
+        self.help_text = [
+            "keyboard commands:",
+            "q: Quit",
+            "c: Toggle camera feed",
+            "h: Show/hide this help",
+            "d: Toggle diagnostic logging",
+            "1: Toggle sensor diagnostics",
+            "2: Toggle sync diagnostics",
+            "3: Toggle system diagnostics",
+            "4: Toggle control diagnostics", 
+            "5: Toggle performance diagnostics",
+            "f: Force log all diagnostics",
+            "r: Restart sensor systems",
+        ]
+        self.show_help = False
+        
         try:
             # Initialize original components
             self.lane_detector = LaneDetector(engine_path)
@@ -375,6 +394,7 @@ class MultiSensorAutonomousSystem:
             self.logger.info("Multi-sensor autonomous system initialized successfully")
         except Exception as e:
             self.logger.error(f"System initialization failed: {e}")
+            self.logger.error(traceback.format_exc())
             raise
 
     def _imu_callback(self, imu_msg):
@@ -403,10 +423,12 @@ class MultiSensorAutonomousSystem:
             self.vehicle_state.update_from_imu(imu_data)
         except Exception as e:
             self.logger.error(f"Error processing IMU data: {e}")
+            self.logger.error(traceback.format_exc())
 
     async def _process_frame_with_fusion(self, frame: np.ndarray) -> Tuple[
     np.ndarray, Optional[Tuple[float, float, float]], np.ndarray]:
         """Process frame with sensor fusion integration"""
+        start_time = time.time()
         try:
             # copying frame for visualisation
             original_frame = frame.copy()
@@ -414,6 +436,14 @@ class MultiSensorAutonomousSystem:
 
             # Detect lane and calculate curvature
             annotated_frame, radius, lateral_offset, warped_mask = self.lane_detector.detect_lane(frame)
+            detection_time = time.time() - start_time
+            
+            self.diagnostic_logger.log_performance_metrics(
+                "LaneDetection", 
+                detection_time,
+                {"radius": radius, "lateral_offset": lateral_offset}
+            )
+
             bev_visualization = self.lane_detector.create_bev_visualization(warped_mask)
             display_frame = annotated_frame.copy()
 
@@ -445,15 +475,22 @@ class MultiSensorAutonomousSystem:
                 # Use synchronized data for fusion and control
                 self.lane_data_buffer.append((frame_time, synced_lane_data))
                 
+                # adding fusion logs
+                fusion_start = time.time()
+
                 # Update fusion states with lane data
                 self.pose_estimator.update_from_lane_detection(synced_lane_data)
                 self.sensor_fusion.update_from_lane_detection(synced_lane_data)
                 self.vehicle_state.update_from_camera(synced_lane_data)
+                
+                fusion_time = time.time() - fusion_start
+                self.diagnostic_logger.log_performance_metrics("SensorFusion", fusion_time)
 
                 # Get fused state for control decisions
                 fused_state = self.sensor_fusion.get_fused_state()
                 self.vehicle_state.update_from_sensor_fusion(fused_state)
 
+                control_start = time.time()
                 # Calculate control signals using sensor fusion
                 heading, lateral_offset, curvature = self.sensor_fusion.calculate_control_inputs()
 
@@ -462,10 +499,17 @@ class MultiSensorAutonomousSystem:
 
                 # Update vehicle state with control signals
                 self.vehicle_state.update_control_signals(steering, throttle, brake)
+                control_time = time.time() - control_start
+                self.diagnostic_logger.log_performance_metrics(
+                    "ControlCalculation",
+                    control_time,
+                    {"steering": steering, "throttle": throttle, "brake": brake}
+                )
             else:
                 # Fallback to non-synchronized approach
                 steering, throttle, brake = await self.steering_controller.coordinate_controls(radius)
-                
+            
+            
             # Render IMU visualization
             self.imu_visualizer.render()
 
@@ -476,7 +520,8 @@ class MultiSensorAutonomousSystem:
                 f'Throttle: {throttle:.3f}',
                 f'Brake: {brake:.3f}',
                 f'Lateral Offset: {lateral_offset:.2f}m',
-                f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}'
+                f'Temp Release: {"Active" if self.steering_controller.is_temp_release_active else "Inactive"}',
+                f'Frame Time: {(time.time() - start_time)*1000:.1f}ms'
             ]
             
             for i, text in enumerate(info_text):
@@ -488,6 +533,7 @@ class MultiSensorAutonomousSystem:
             return display_frame, (steering, throttle, brake), bev_visualization
         except Exception as e:
             self.logger.error(f"Frame processing error: {e}")
+            self.logger.error(traceback.format_exc())
             blank_bev = np.zeros((self.lane_detector.warped_height, self.lane_detector.warped_width, 3), dtype=np.uint8)
             return frame, None, blank_bev
     
@@ -500,6 +546,7 @@ class MultiSensorAutonomousSystem:
             # Clear states for both subsystems before gear change
             for subsystem_id in [0, 1]:
                 self.logger.info(f"Clearing initial state for subsystem {subsystem_id}")
+                self.control_logger.debug(f"Subsystem {subsystem_id} state cleared")
                 await self.mcm.clear_subsystem_state(subsystem_id)
                 await asyncio.sleep(0.2)  # Ensure complete processing
 
@@ -507,6 +554,7 @@ class MultiSensorAutonomousSystem:
             await self.mcm.control_request('brake', True)
             await self.mcm.update_setpoint('brake', self.steering_controller.permanent_brake_force)
             await asyncio.sleep(0.2)
+            self.control_logger.info(f"Initial brake force set to {self.steering_controller.permanent_brake_force}")
 
             # Execute gear change to Drive
             self.logger.info("Shifting to Drive mode")
@@ -515,6 +563,7 @@ class MultiSensorAutonomousSystem:
                 brake_percentage=0.8,
                 brake_duration=1.0
             )
+            self.control_logger.info("Gear changed to DRIVE completed")
 
             await self.mcm.update_setpoint('brake', self.steering_controller.permanent_brake_force)
             self.steering_controller.is_braking = True
@@ -532,6 +581,7 @@ class MultiSensorAutonomousSystem:
         except Exception as e:
             self.logger.error(f"Drive mode initialization failed: {e}")
             self.vehicle_state.update_system_status("ERROR", f"Drive mode initialization failed: {e}")
+            self.logger.error(traceback.format_exc())
             raise
 
     async def safe_stop_sequence(self):
@@ -565,6 +615,7 @@ class MultiSensorAutonomousSystem:
         except Exception as e:
             self.logger.error(f"Error during safe stop sequence: {e}")
             self.vehicle_state.update_system_status("ERROR", f"Safe stop failed: {e}")
+            self.logger.error(traceback.format_exc())
             raise
 
     def _get_closest(self, buffer, target_time):
@@ -586,6 +637,7 @@ class MultiSensorAutonomousSystem:
         except Exception as e:
             self.logger.error(f"Sensor fusion thread error: {e}")
             self.vehicle_state.update_system_status("ERROR", f"Sensor fusion error: {e}")
+            self.logger.error(traceback.format_exc())
 
     def start_sensor_threads(self):
         """Start threads for sensor processing"""
@@ -608,6 +660,7 @@ class MultiSensorAutonomousSystem:
         except Exception as e:
             self.logger.error(f"Failed to start sensor threads: {e}")
             self.vehicle_state.update_system_status("ERROR", f"Sensor thread start failed: {e}")
+            self.logger.error(traceback.format_exc())
             raise
 
     def stop_sensor_threads(self):
@@ -703,6 +756,7 @@ class MultiSensorAutonomousSystem:
                     except Exception as e:
                         self.logger.error(f"Control update failed: {e}")
                         self.vehicle_state.update_system_status("ERROR", f"Control update failed: {e}")
+                        self.logger.error(traceback.format_exc())
                         # Ensure brakes are applied on error
                         await self.mcm.update_setpoint('brake', self.steering_controller.permanent_brake_force)
 
@@ -719,12 +773,44 @@ class MultiSensorAutonomousSystem:
                         cv2.imshow("Bird's Eye View", bev_visualization)
                         
                 key = cv2.waitKey(1) & 0xFF
-                if key == ord('q'):
-                    self.logger.info("User requested exit")
-                    break
-                elif key == ord('c'):
-                    self.display_camera_feed = not self.display_camera_feed
-                    self.logger.info(f"camera feed display: {'enabled' if self.display_camera_feed else 'disabled'}")
+                if key != 255:  # If a key was pressed
+                    if key == ord('q'):
+                        self.logger.info("User requested exit")
+                        break
+                    elif key == ord('c'):
+                        self.display_camera_feed = not self.display_camera_feed
+                        self.logger.info(f"Camera feed display: {'enabled' if self.display_camera_feed else 'disabled'}")
+                    elif key == ord('h'):
+                        self.show_help = not self.show_help
+                        self.logger.info(f"Help display: {'enabled' if self.show_help else 'disabled'}")
+                    elif key == ord('d'):
+                        # Toggle all diagnostic logging
+                        self.diagnostic_logger.toggle_auto_logging()
+                    elif key == ord('1'):
+                        # Toggle sensor diagnostics
+                        self.diagnostic_logger.toggle_category("sensors")
+                    elif key == ord('2'):
+                        # Toggle sync diagnostics
+                        self.diagnostic_logger.toggle_category("sync")
+                    elif key == ord('3'):
+                        # Toggle system diagnostics
+                        self.diagnostic_logger.toggle_category("system")
+                    elif key == ord('4'):
+                        # Toggle control diagnostics
+                        self.diagnostic_logger.toggle_category("control")
+                    elif key == ord('5'):
+                        # Toggle performance diagnostics
+                        self.diagnostic_logger.toggle_category("performance")
+                    elif key == ord('f'):
+                        # Force log all diagnostics immediately
+                        self.logger.info("Forcing diagnostic log dump")
+                        self.diagnostic_logger.force_log_all()
+                    elif key == ord('r'):
+                        # Restart sensor systems
+                        self.logger.info("Restarting sensor systems")
+                        self.stop_sensor_threads()
+                        await asyncio.sleep(0.5)
+                        self.start_sensor_threads()
 
                 # Add a small yield to prevent CPU overutilization
                 await asyncio.sleep(0.001)
@@ -732,6 +818,7 @@ class MultiSensorAutonomousSystem:
         except Exception as e:
             self.logger.error(f"Runtime error: {e}", exc_info=True)
             self.vehicle_state.update_system_status("ERROR", f"Runtime error: {e}")
+            self.logger.error(traceback.format_exc())
         finally:
             # Stop sensor threads
             self.stop_sensor_threads()
@@ -757,6 +844,7 @@ class MultiSensorAutonomousSystem:
             except Exception as e:
                 self.logger.error(f"Cleanup error: {e}")
                 self.vehicle_state.update_system_status("ERROR", f"Cleanup error: {e}")
+                self.logger.error(traceback.format_exc())
 
             cap.release()
             cv2.destroyAllWindows()
@@ -785,29 +873,63 @@ def main():
                         help='Enable ROS integration for Livox LiDAR')
     parser.add_argument('--imu-topic', type=str, default='/livox/imu',
                         help='ROS topic for Livox IMU data')
+    # Add logging configuration
+    parser.add_argument('--log-dir', type=str, default='logs',
+                        help='Directory for log files')
+    parser.add_argument('--log-level', type=str, default='INFO',
+                        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+                        help='Logging level')
+    parser.add_argument('--disable-file-logs', action='store_true',
+                        help='Disable logging to files (console only)')
+    parser.add_argument('--diagnostic-interval', type=float, default=5.0,
+                        help='Interval between automatic diagnostic logs (seconds)')
 
     args = parser.parse_args()
 
     try:
+        # Initialize logging first
+        log_level = getattr(logging, args.log_level)
+        initialize_logging(
+            log_dir=args.log_dir,
+            default_level=log_level,
+            enable_console=True,
+            enable_file=not args.disable_file_logs
+        )
+        
+        # Get root logger
+        logger = get_logger("main")
+        logger.info(f"Starting Multi-Sensor Autonomous Driving System")
+        logger.info(f"Log level: {args.log_level}, Log directory: {args.log_dir}")
+
+        # Initialize system
         system = MultiSensorAutonomousSystem(
             args.engine,
             args.can_channel,
             use_ros=args.use_ros
         )
+        
+        # Set diagnostic interval
+        system.diagnostic_logger.auto_log_interval = args.diagnostic_interval
+        logger.info(f"Diagnostic logging interval: {args.diagnostic_interval}s")
 
         # Parse source properly
         source = 0 if args.source == '0' else args.source
+        logger.info(f"Using video source: {source}")
 
+        # Run system
         asyncio.run(system.run(
             source=source,
             width=args.width,
             height=args.height,
             fps=args.fps
         ))
+        
     except Exception as e:
-        logging.error(f"System failed to start: {e}", exc_info=True)
+        # Get logger directly in case initialization failed
+        logger = logging.getLogger("main")
+        logger.error(f"System failed to start: {e}")
+        logger.error(traceback.format_exc())
         raise
-
 
 if __name__ == '__main__':
     main()
