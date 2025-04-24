@@ -7,7 +7,7 @@ from typing import Dict, List, Optional, Deque, Tuple, Any
 import threading
 import psutil
 
-from root_logger import get_diagnostic_logger, get_sensor_logger, get_sync_logger
+from root_logger import get_diagnostic_logger, get_sensor_logger, get_sync_logger, LogWindow
 
 @dataclass
 class SensorStats:
@@ -88,6 +88,7 @@ class DiagnosticLogger:
         self.logger = get_diagnostic_logger()
         self.sensor_logger = get_sensor_logger()
         self.sync_logger = get_sync_logger() 
+        self.log_callback = None
         
         # Sensor statistics tracking
         self.sensor_stats = {
@@ -127,7 +128,19 @@ class DiagnosticLogger:
             self._start_system_monitoring()
         
         self.logger.info("Diagnostic logger initialized")
+        
     
+    def set_log_callback(self, callback):
+        """set a callback function that will be called with category and message when logging"""
+        self.log_callback = callback
+
+    def set_log_window(self, log_window):
+        """set a log window for visuals of log"""
+        self.set_log_callback(log_window.add_log)
+        #add initial message 
+        if self.log_callback:
+            self.log_callback("diagnostic", "Connected to Diagnostic Logger")
+
     def _start_system_monitoring(self):
         """Start a background thread to monitor system resources"""
         def monitor_system():
@@ -231,15 +244,7 @@ class DiagnosticLogger:
                 else:
                     self.sync_logger.warning(f"Sync failed: time_diff={time_diff*1000:.1f}ms")
     
-    def log_performance_metrics(self, module: str, execution_time: float, additional_info: Optional[Dict] = None):
-        """Log performance metrics for a specific module"""
-        if self.enabled_categories["performance"]:
-            info_str = ""
-            if additional_info:
-                info_str = ", ".join(f"{k}={v}" for k, v in additional_info.items())
-                
-            self.logger.info(f"Performance - {module}: {execution_time*1000:.2f}ms {info_str}")
-    
+
     def toggle_category(self, category: str, enable: Optional[bool] = None):
         """Toggle a diagnostic category on/off"""
         with self.lock:
@@ -250,6 +255,9 @@ class DiagnosticLogger:
                     
                 self.enabled_categories[category] = enable
                 self.logger.info(f"{'Enabled' if enable else 'Disabled'} {category} diagnostics")
+
+                if hasattr(self, 'log_window'):
+                    self.log_window.add_log("system", f"{'Enabled' if enable else 'Disabled'} {category} diagnostics")
                 
                 # Special handling for system monitoring
                 if category == "system" and enable and not any(t.name == "SystemMonitor" for t in threading.enumerate()):
@@ -320,7 +328,7 @@ class DiagnosticLogger:
         for sensor_name, stats in self.sensor_stats.items():
             if len(stats.timestamps) > 1:
                 data = stats.get_stats()
-                self.sensor_logger.info(
+                message = (
                     f"{sensor_name.upper()} Stats: "
                     f"Rate={data.get('avg_rate_hz', 0):.2f}Hz, "
                     f"Interval={data.get('avg_interval_ms', 0):.1f}ms, "
@@ -328,6 +336,11 @@ class DiagnosticLogger:
                     f"Max={data.get('max_interval_ms', 0):.1f}ms, "
                     f"Dropped={data.get('dropped_count', 0)}"
                 )
+                self.sensor_logger.info(message)
+
+                if self.log_callback:
+                    self.log_callback("sensors", message)
+                
         
     def _log_sync_stats(self):
         """Log synchronization statistics"""
@@ -335,45 +348,79 @@ class DiagnosticLogger:
             success_count = sum(1 for s, _ in self.sync_results if s)
             if success_count > 0:
                 time_diffs = [d*1000 for s, d in self.sync_results if s]  # Convert to ms
-                self.sync_logger.info(
+                message = (
                     f"Sync Success Rate: {success_count/len(self.sync_results)*100:.1f}%, "
                     f"Avg Diff: {np.mean(time_diffs):.1f}ms, "
                     f"Max Diff: {np.max(time_diffs):.1f}ms, "
                     f"Min Diff: {np.min(time_diffs):.1f}ms"
                 )
+                self.sync_logger.info(message)
+                
+                # Forward to log window via callback
+                if self.log_callback:
+                    self.log_callback("sync", message)
             else:
-                self.sync_logger.warning("No successful sensor synchronizations in last period")
+                message = "No successful sensor synchronizations in last period"
+                self.sync_logger.warning(message)
+                
+                # Forward to log window via callback
+                if self.log_callback:
+                    self.log_callback("sync", message)
     
     def _log_system_stats(self):
         """Log system resource statistics"""
+        messages = []
+        
         # CPU usage
         if self.cpu_usage:
-            self.logger.info(f"CPU Usage: Current={self.cpu_usage[-1]:.1f}%, "
-                          f"Avg={np.mean(self.cpu_usage):.1f}%, "
-                          f"Max={np.max(self.cpu_usage):.1f}%")
+            cpu_message = f"CPU Usage: Current={self.cpu_usage[-1]:.1f}%, Avg={np.mean(self.cpu_usage):.1f}%, Max={np.max(self.cpu_usage):.1f}%"
+            self.logger.info(cpu_message)
+            messages.append(cpu_message)
         
         # Memory usage
         if self.memory_usage:
-            self.logger.info(f"Memory Usage: Current={self.memory_usage[-1]:.1f}%, "
-                          f"Avg={np.mean(self.memory_usage):.1f}%")
+            mem_message = f"Memory Usage: Current={self.memory_usage[-1]:.1f}%, Avg={np.mean(self.memory_usage):.1f}%"
+            self.logger.info(mem_message)
+            messages.append(mem_message)
         
         # Disk usage
         for path, usage in self.disk_usage.items():
             if usage:
-                self.logger.info(f"Disk Usage ({path}): Current={usage[-1]:.1f}%")
+                disk_message = f"Disk Usage ({path}): Current={usage[-1]:.1f}%"
+                self.logger.info(disk_message)
+                messages.append(disk_message)
         
         # Thread information
         thread_count = threading.active_count()
-        self.logger.info(f"Active threads: {thread_count}")
-    
-    def _log_control_stats(self):
-        """Log control system statistics"""
-        if "control" in self.sensor_stats and self.sensor_stats["control"].timestamps:
-            stats = self.sensor_stats["control"].get_stats()
-            self.logger.info(f"Control System: Update rate={stats['avg_rate_hz']:.2f}Hz, "
-                          f"Interval={stats['avg_interval_ms']:.1f}ms")
-    
+        thread_message = f"Active threads: {thread_count}"
+        self.logger.info(thread_message)
+        messages.append(thread_message)
+        
+        # Forward to log window via callback
+        if self.log_callback:
+            for message in messages:
+                self.log_callback("system", message)
+
+
     def _log_performance_stats(self):
         """Log performance statistics - placeholder for module-specific metrics"""
-        # This would typically summarize performance data collected from various modules
-        self.logger.info("Performance metrics available in performance.log")
+        message = "Performance metrics available in performance.log"
+        self.logger.info(message)
+        
+        # Forward to log window via callback
+        if self.log_callback:
+            self.log_callback("performance", message)
+
+    def log_performance_metrics(self, module: str, execution_time: float, additional_info: Optional[Dict] = None):
+        """Log performance metrics for a specific module"""
+        if self.enabled_categories["performance"]:
+            info_str = ""
+            if additional_info:
+                info_str = ", ".join(f"{k}={v}" for k, v in additional_info.items())
+            
+            message = f"Performance - {module}: {execution_time*1000:.2f}ms {info_str}"
+            self.logger.info(message)
+            
+            # Forward to log window via callback
+            if self.log_callback:
+                self.log_callback("performance", message)

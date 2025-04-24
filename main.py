@@ -23,7 +23,7 @@ from sensor_fusion import SensorFusion
 from vehicle_state import VehicleStateManager
 from scipy.spatial.transform import Rotation
 import traceback
-from root_logger import initialize_logging, get_logger, get_control_logger, get_diagnostic_logger
+from root_logger import initialize_logging, get_logger, get_control_logger, get_diagnostic_logger, LogWindow
 from diagnostic_logger import DiagnosticLogger
 
 def configure_camera(source=0, width=640, height=480, fps=10):
@@ -355,6 +355,9 @@ class MultiSensorAutonomousSystem:
             "r: Restart sensor systems",
         ]
         self.show_help = False
+
+        self.log_window = LogWindow(window_name="System Logs", window_size=(800,400))
+        self.diagnostic_logger.set_log_window(self.log_window)
         
         try:
             # Initialize original components
@@ -771,9 +774,12 @@ class MultiSensorAutonomousSystem:
                         
                     if bev_visualization is not None:
                         cv2.imshow("Bird's Eye View", bev_visualization)
+                
+                self.log_window.render()
                         
                 key = cv2.waitKey(1) & 0xFF
                 if key != 255:  # If a key was pressed
+                    self.log_window.process_key(key)
                     if key == ord('q'):
                         self.logger.info("User requested exit")
                         break
@@ -788,26 +794,33 @@ class MultiSensorAutonomousSystem:
                         self.diagnostic_logger.toggle_auto_logging()
                     elif key == ord('1'):
                         # Toggle sensor diagnostics
+                        self.log_window.add_log("system", "Toggling SENSOR daignostics")
                         self.diagnostic_logger.toggle_category("sensors")
                     elif key == ord('2'):
                         # Toggle sync diagnostics
+                        self.log_window.add_log("system", "Toggling SYNC daignostics")
                         self.diagnostic_logger.toggle_category("sync")
                     elif key == ord('3'):
                         # Toggle system diagnostics
+                        self.log_window.add_log("system", "Toggling system metrics daignostics")
                         self.diagnostic_logger.toggle_category("system")
                     elif key == ord('4'):
                         # Toggle control diagnostics
+                        self.log_window.add_log("system", "Toggling control daignostics")
                         self.diagnostic_logger.toggle_category("control")
                     elif key == ord('5'):
                         # Toggle performance diagnostics
+                        self.log_window.add_log("system", "Toggling performance daignostics")
                         self.diagnostic_logger.toggle_category("performance")
                     elif key == ord('f'):
                         # Force log all diagnostics immediately
+                        self.log_window.add_log("system", "Toggling forcefull flush of all daignostics")
                         self.logger.info("Forcing diagnostic log dump")
                         self.diagnostic_logger.force_log_all()
                     elif key == ord('r'):
                         # Restart sensor systems
                         self.logger.info("Restarting sensor systems")
+                        self.log_window.add_log("system", "restarting the sesnors please wait or toggle daignostics")
                         self.stop_sensor_threads()
                         await asyncio.sleep(0.5)
                         self.start_sensor_threads()

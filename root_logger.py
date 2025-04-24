@@ -4,6 +4,9 @@ import time
 import sys
 from typing import Dict, Optional, List
 import threading
+import cv2
+import collections
+import numpy as np
 
 class LoggingManager:
     """
@@ -348,3 +351,73 @@ def get_control_logger():
 def get_performance_logger():
     """Get the performance monitoring logger."""
     return get_logging_manager().get_performance_logger()
+
+
+class LogWindow:
+    def __init__(self, window_name="System Logs", window_size=(1000, 600), max_lines=100):
+        self.window_name = window_name
+        self.window_size = window_size
+        self.max_lines = max_lines
+        self.log_lines = collections.deque(maxlen=max_lines)
+        self.font_size = 0.5
+        self.line_height = 20
+        self.category_colors = {
+            "system": (255, 255, 255),  # White
+            "sensors": (0, 255, 0),     # Green
+            "sync": (0, 255, 255),      # Yellow
+            "control": (0, 165, 255),   # Orange
+            "performance": (128, 0, 255) # Purple
+        }
+        
+        # Create window
+        cv2.namedWindow(self.window_name, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(self.window_name, *self.window_size)
+        
+        # Initialize with welcome message
+        self.add_log("system", "Log window initialized")
+        self.add_log("system", "Press keys 1-5 to toggle diagnostic categories")
+        self.add_log("system", "Press 'f' to force a full diagnostic log")
+        
+    def add_log(self, category, message):
+        """Add a new log message with timestamp"""
+        timestamp = time.strftime("%H:%M:%S", time.localtime())
+        self.log_lines.append((timestamp, category, message))
+        
+    def render(self):
+        """Render the log window with current log lines - always show most recent logs"""
+        # Create blank canvas
+        canvas = np.zeros((self.window_size[1], self.window_size[0], 3), dtype=np.uint8)
+        
+        # Draw background
+        cv2.rectangle(canvas, (0, 0), (self.window_size[0], self.window_size[1]), (20, 20, 20), -1)
+        
+        # Calculate visible lines - always show the most recent logs
+        visible_lines = min(self.window_size[1] // self.line_height, len(self.log_lines))
+        start_idx = max(0, len(self.log_lines) - visible_lines)
+        
+        # Draw log lines
+        y_pos = 20
+        for i in range(start_idx, len(self.log_lines)):
+            timestamp, category, message = self.log_lines[i]
+            color = self.category_colors.get(category, (200, 200, 200))
+            
+            # Draw timestamp and category with their own colors
+            cv2.putText(canvas, f"{timestamp}", (10, y_pos), 
+                        cv2.FONT_HERSHEY_SIMPLEX, self.font_size, (150, 150, 150), 1)
+            cv2.putText(canvas, f"[{category.upper()}]", (100, y_pos), 
+                        cv2.FONT_HERSHEY_SIMPLEX, self.font_size, color, 1)
+            cv2.putText(canvas, message, (240, y_pos), 
+                        cv2.FONT_HERSHEY_SIMPLEX, self.font_size, (220, 220, 220), 1)
+            y_pos += self.line_height
+        
+        # Display the canvas
+        cv2.imshow(self.window_name, canvas)
+    
+    def process_key(self, key):
+        """Process keyboard input - kept for compatibility but does nothing"""
+        pass
+        
+    def clear(self):
+        """Clear all logs"""
+        self.log_lines.clear()
+        self.add_log("system", "Log cleared")
