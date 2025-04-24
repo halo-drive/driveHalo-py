@@ -368,15 +368,19 @@ class LogWindow:
             "control": (0, 165, 255),   # Orange
             "performance": (128, 0, 255) # Purple
         }
-        
-        # Create window
-        cv2.namedWindow(self.window_name, cv2.WINDOW_NORMAL)
-        cv2.resizeWindow(self.window_name, *self.window_size)
+        try:
+            # Create window
+            cv2.namedWindow(self.window_name, cv2.WINDOW_NORMAL)
+            cv2.resizeWindow(self.window_name, *self.window_size)
+            print(f"Log Window '{self.window_name}' created with size {self.window_size}")
+        except Exception as e:
+            print(f"Error creating window: {e}")
         
         # Initialize with welcome message
         self.add_log("system", "Log window initialized")
         self.add_log("system", "Press keys 1-5 to toggle diagnostic categories")
         self.add_log("system", "Press 'f' to force a full diagnostic log")
+        self.add_log("system", "window can be resized by dragging")
         
     def add_log(self, category, message):
         """Add a new log message with timestamp"""
@@ -385,34 +389,41 @@ class LogWindow:
         
     def render(self):
         """Render the log window with current log lines - always show most recent logs"""
-        # Create blank canvas
-        canvas = np.zeros((self.window_size[1], self.window_size[0], 3), dtype=np.uint8)
-        
-        # Draw background
-        cv2.rectangle(canvas, (0, 0), (self.window_size[0], self.window_size[1]), (20, 20, 20), -1)
-        
-        # Calculate visible lines - always show the most recent logs
-        visible_lines = min(self.window_size[1] // self.line_height, len(self.log_lines))
-        start_idx = max(0, len(self.log_lines) - visible_lines)
-        
-        # Draw log lines
-        y_pos = 20
-        for i in range(start_idx, len(self.log_lines)):
-            timestamp, category, message = self.log_lines[i]
-            color = self.category_colors.get(category, (200, 200, 200))
+        try:
+            # Create blank canvas with fixed size (no dynamic resizing for now)
+            canvas = np.zeros((self.window_size[1], self.window_size[0], 3), dtype=np.uint8)
             
-            # Draw timestamp and category with their own colors
-            cv2.putText(canvas, f"{timestamp}", (10, y_pos), 
-                        cv2.FONT_HERSHEY_SIMPLEX, self.font_size, (150, 150, 150), 1)
-            cv2.putText(canvas, f"[{category.upper()}]", (100, y_pos), 
-                        cv2.FONT_HERSHEY_SIMPLEX, self.font_size, color, 1)
-            cv2.putText(canvas, message, (240, y_pos), 
-                        cv2.FONT_HERSHEY_SIMPLEX, self.font_size, (220, 220, 220), 1)
-            y_pos += self.line_height
-        
-        # Display the canvas
-        cv2.imshow(self.window_name, canvas)
-    
+            # Draw background
+            cv2.rectangle(canvas, (0, 0), (self.window_size[0], self.window_size[1]), (20, 20, 20), -1)
+            
+            # Calculate visible lines - always show the most recent logs
+            visible_lines = min(self.window_size[1] // self.line_height, len(self.log_lines))
+            start_idx = max(0, len(self.log_lines) - visible_lines)
+            
+            # Draw log lines
+            y_pos = 20
+            for i in range(start_idx, len(self.log_lines)):
+                timestamp, category, message = self.log_lines[i]
+                color = self.category_colors.get(category, (200, 200, 200))
+                
+                # Draw timestamp and category with their own colors
+                cv2.putText(canvas, f"{timestamp}", (10, y_pos), 
+                            cv2.FONT_HERSHEY_SIMPLEX, self.font_size, (150, 150, 150), 1)
+                cv2.putText(canvas, f"[{category.upper()}]", (100, y_pos), 
+                            cv2.FONT_HERSHEY_SIMPLEX, self.font_size, color, 1)
+                cv2.putText(canvas, message, (240, y_pos), 
+                            cv2.FONT_HERSHEY_SIMPLEX, self.font_size, (220, 220, 220), 1)
+                y_pos += self.line_height
+                
+                # Stop if we reach the bottom of the window
+                if y_pos >= self.window_size[1] - 10:
+                    break
+            
+            # Display the canvas
+            cv2.imshow(self.window_name, canvas)
+        except Exception as e:
+            print(f"Error rendering log window: {e}")
+
     def process_key(self, key):
         """Process keyboard input - kept for compatibility but does nothing"""
         pass

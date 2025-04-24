@@ -1,0 +1,251 @@
+2025-04-24 10:23:10.201 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:23:10.201 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:23:10.227 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:23:10.227 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:23:14.726 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:23:14.729 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:23:14.729 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:23:14.773 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:23:14.774 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:23:14.774 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:23:14.796 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:23:14.804 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:23:14.805 - ERROR - vehicle_interface [MainThread] - Failed to initialize CAN bus: [Errno 19] No such device
+2025-04-24 10:23:14.805 - ERROR - MultiSensorAutonomousSystem [MainThread] - System initialization failed: [Errno 19] No such device
+2025-04-24 10:23:14.807 - ERROR - MultiSensorAutonomousSystem [MainThread] - Traceback (most recent call last):
+  File "main.py", line 366, in __init__
+    self.mcm = MCMController(can_channel)
+  File "/home/nvidia/driveHalo-py/vehicle_interface.py", line 28, in __init__
+    self.bus = can.Bus(bustype='socketcan',
+  File "/home/nvidia/driveHalo-py/venv/lib/python3.8/site-packages/can/interface.py", line 127, in __new__
+    return cls(channel, *args, **kwargs)
+  File "/home/nvidia/driveHalo-py/venv/lib/python3.8/site-packages/can/interfaces/socketcan/socketcan.py", line 594, in __init__
+    bind_socket(self.socket, channel)
+  File "/home/nvidia/driveHalo-py/venv/lib/python3.8/site-packages/can/interfaces/socketcan/socketcan.py", line 459, in bind_socket
+    sock.bind((channel,))
+OSError: [Errno 19] No such device
+
+2025-04-24 10:23:14.807 - ERROR - main [MainThread] - System failed to start: [Errno 19] No such device
+2025-04-24 10:23:14.807 - ERROR - main [MainThread] - Traceback (most recent call last):
+  File "main.py", line 918, in main
+    system = MultiSensorAutonomousSystem(
+  File "main.py", line 366, in __init__
+    self.mcm = MCMController(can_channel)
+  File "/home/nvidia/driveHalo-py/vehicle_interface.py", line 28, in __init__
+    self.bus = can.Bus(bustype='socketcan',
+  File "/home/nvidia/driveHalo-py/venv/lib/python3.8/site-packages/can/interface.py", line 127, in __new__
+    return cls(channel, *args, **kwargs)
+  File "/home/nvidia/driveHalo-py/venv/lib/python3.8/site-packages/can/interfaces/socketcan/socketcan.py", line 594, in __init__
+    bind_socket(self.socket, channel)
+  File "/home/nvidia/driveHalo-py/venv/lib/python3.8/site-packages/can/interfaces/socketcan/socketcan.py", line 459, in bind_socket
+    sock.bind((channel,))
+OSError: [Errno 19] No such device
+
+2025-04-24 10:23:14.809 - INFO - rospy.core [MainThread] - signal_shutdown [atexit]
+2025-04-24 10:23:45.715 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:23:45.715 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:23:45.746 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:23:45.747 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:23:47.036 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:23:47.038 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:23:47.038 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:23:47.064 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:23:47.064 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:23:47.065 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:23:47.084 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:23:47.085 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:23:47.085 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:23:47.095 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:23:47.166 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:23:47.167 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:23:47.167 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:23:47.167 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:23:47.167 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:23:47.168 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:23:47.168 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:23:47.168 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:23:47.168 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:25:27.407 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:25:27.407 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:25:27.436 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:25:27.436 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:25:28.727 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:25:28.728 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:25:28.728 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:25:28.756 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:25:28.757 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:25:28.757 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:25:28.776 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:25:28.777 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:25:28.777 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:25:28.788 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:25:28.850 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:25:28.850 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:25:28.850 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:25:28.851 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:25:28.851 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:25:28.851 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:25:28.851 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:25:28.851 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:25:28.851 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:41:35.722 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:41:35.722 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:41:35.777 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:41:35.778 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:41:38.397 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:41:38.410 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:41:38.410 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:41:38.510 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:41:38.510 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:41:38.511 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:41:38.550 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:41:38.552 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:41:38.553 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:41:38.582 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:41:38.672 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:41:38.673 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:41:38.673 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:41:38.673 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:41:38.674 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:41:38.674 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:41:38.675 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:41:38.675 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:41:38.675 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:42:13.626 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:42:13.627 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:42:13.643 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:42:13.643 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:42:14.949 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:42:14.952 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:42:14.952 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:42:14.978 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:42:14.978 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:42:14.979 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:42:14.998 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:42:14.999 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:42:14.999 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:42:15.009 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:42:15.066 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:42:15.067 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:42:15.067 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:42:15.067 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:42:15.067 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:42:15.068 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:42:15.068 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:42:15.068 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:42:15.068 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:44:59.589 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:44:59.589 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:44:59.607 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:44:59.607 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:45:00.900 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:45:00.902 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:45:00.902 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:45:00.933 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:45:00.934 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:45:00.934 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:45:00.953 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:45:00.954 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:45:00.954 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:45:00.965 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:45:01.024 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:45:01.025 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:45:01.025 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:45:01.025 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:45:01.025 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:45:01.026 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:45:01.026 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:45:01.026 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:45:01.026 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:45:33.549 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:45:33.549 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:45:33.566 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:45:33.566 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:45:34.878 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:45:34.880 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:45:34.880 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:45:34.913 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:45:34.913 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:45:34.913 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:45:34.932 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:45:34.933 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:45:34.933 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:45:34.944 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:45:35.003 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:45:35.003 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:45:35.004 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:45:35.004 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:45:35.004 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:45:35.004 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:45:35.004 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:45:35.005 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:45:35.005 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:52:31.709 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:52:31.712 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:52:31.750 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:52:31.751 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:52:33.096 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:52:33.098 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:52:33.098 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:52:33.129 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:52:33.130 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:52:33.130 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:52:33.149 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:52:33.150 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:52:33.150 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:52:33.160 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:52:33.218 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:52:33.219 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:52:33.219 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:52:33.219 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:52:33.220 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:52:33.220 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:52:33.220 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:52:33.220 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:52:33.220 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 10:56:14.408 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 10:56:14.408 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 10:56:14.424 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 10:56:14.424 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 10:56:15.727 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 10:56:15.728 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 10:56:15.728 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 10:56:15.769 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 10:56:15.769 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 10:56:15.770 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 10:56:15.788 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 10:56:15.789 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:56:15.789 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 10:56:15.800 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:56:15.860 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 10:56:15.860 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 10:56:15.861 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 10:56:15.861 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 10:56:15.861 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 10:56:15.861 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 10:56:15.861 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 10:56:15.862 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 10:56:15.862 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-24 11:05:50.744 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 11:05:50.745 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 11:05:50.803 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: yolov8n-seg-lane.engine
+2025-04-24 11:05:50.804 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: yolov8n-seg-lane.engine
+2025-04-24 11:05:53.217 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 11:05:53.219 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 11:05:53.219 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 11:05:53.259 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 11:05:53.260 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 11:05:53.260 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 11:05:53.279 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 11:05:53.280 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 11:05:53.280 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 11:05:53.291 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 11:05:53.349 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 11:05:53.349 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 11:05:53.349 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 11:05:53.349 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 11:05:53.350 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 11:05:53.350 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 11:05:53.350 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 11:05:53.350 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 11:05:53.350 - INFO - IMUProcessor [MainThread] - IMU processor initialized
