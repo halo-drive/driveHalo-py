@@ -1,0 +1,9 @@
+2025-04-24 11:42:54.500 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-24 11:42:54.500 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-24 11:43:51.294 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-24 11:43:51.294 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-24 11:43:52.220 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.9%
+2025-04-24 11:43:53.723 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.2%
+2025-04-24 11:43:55.226 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 94.7%
+2025-04-24 11:43:56.729 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.5%
+2025-04-24 11:43:58.232 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 96.2%

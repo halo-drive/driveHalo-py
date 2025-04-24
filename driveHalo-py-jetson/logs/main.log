@@ -1,0 +1,61 @@
+2025-04-24 11:42:54.499 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 11:42:54.499 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 11:42:54.551 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: ../Models/yolov8n-seg-lane.engine
+2025-04-24 11:42:54.551 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: ../Models/yolov8n-seg-lane.engine
+2025-04-24 11:42:55.316 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 11:42:55.318 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 11:42:55.319 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 11:42:55.349 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 11:42:55.350 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 11:42:55.351 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 11:42:55.351 - ERROR - vehicle_interface [MainThread] - Failed to load DBC files: [Errno 2] No such file or directory: './sygnal_dbc/mcm/Heartbeat.dbc'
+2025-04-24 11:42:55.351 - ERROR - MultiSensorAutonomousSystem [MainThread] - System initialization failed: [Errno 2] No such file or directory: './sygnal_dbc/mcm/Heartbeat.dbc'
+2025-04-24 11:42:55.353 - ERROR - MultiSensorAutonomousSystem [MainThread] - Traceback (most recent call last):
+  File "main.py", line 366, in __init__
+    self.mcm = MCMController(can_channel)
+  File "/home/pomo/DriveGXO/driveHalo-py-jetson/vehicle_interface.py", line 19, in __init__
+    self.db.add_dbc_file('./sygnal_dbc/mcm/Heartbeat.dbc')
+  File "/home/pomo/DriveGXO/venv/lib/python3.8/site-packages/cantools/database/can/database.py", line 160, in add_dbc_file
+    with fopen(filename, 'r', encoding=encoding) as fin:
+  File "/home/pomo/DriveGXO/venv/lib/python3.8/site-packages/cantools/compat.py", line 11, in __enter__
+    self._fp = open(self._filename,
+FileNotFoundError: [Errno 2] No such file or directory: './sygnal_dbc/mcm/Heartbeat.dbc'
+
+2025-04-24 11:42:55.354 - ERROR - main [MainThread] - System failed to start: [Errno 2] No such file or directory: './sygnal_dbc/mcm/Heartbeat.dbc'
+2025-04-24 11:42:55.354 - ERROR - main [MainThread] - Traceback (most recent call last):
+  File "main.py", line 918, in main
+    system = MultiSensorAutonomousSystem(
+  File "main.py", line 366, in __init__
+    self.mcm = MCMController(can_channel)
+  File "/home/pomo/DriveGXO/driveHalo-py-jetson/vehicle_interface.py", line 19, in __init__
+    self.db.add_dbc_file('./sygnal_dbc/mcm/Heartbeat.dbc')
+  File "/home/pomo/DriveGXO/venv/lib/python3.8/site-packages/cantools/database/can/database.py", line 160, in add_dbc_file
+    with fopen(filename, 'r', encoding=encoding) as fin:
+  File "/home/pomo/DriveGXO/venv/lib/python3.8/site-packages/cantools/compat.py", line 11, in __enter__
+    self._fp = open(self._filename,
+FileNotFoundError: [Errno 2] No such file or directory: './sygnal_dbc/mcm/Heartbeat.dbc'
+
+2025-04-24 11:42:55.564 - INFO - rospy.core [MainThread] - signal_shutdown [atexit]
+2025-04-24 11:43:51.283 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-24 11:43:51.283 - INFO - main [MainThread] - Log level: INFO, Log directory: logs
+2025-04-24 11:43:51.447 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: ../Models/yolov8n-seg-lane.engine
+2025-04-24 11:43:51.448 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: ../Models/yolov8n-seg-lane.engine
+2025-04-24 11:43:52.355 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-24 11:43:52.356 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-24 11:43:52.356 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-24 11:43:52.420 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-24 11:43:52.421 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-24 11:43:52.421 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-24 11:43:52.443 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-24 11:43:52.444 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 11:43:52.444 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-24 11:43:52.518 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 11:43:52.531 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-24 11:43:52.532 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-24 11:43:52.532 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-24 11:43:52.533 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-24 11:43:52.533 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-24 11:43:52.533 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-24 11:43:52.534 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-24 11:43:52.534 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-24 11:43:52.534 - INFO - IMUProcessor [MainThread] - IMU processor initialized
