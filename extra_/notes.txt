@@ -44,3 +44,7 @@ import open3d as o3d
 print("CUDA available:", o3d.core.cuda.is_available())
 EOF
 
+python3 - <<EOF
+import open3d as o3d
+print("Open3D", o3d.__version__, "CUDA:", o3d.core.cuda.is_available())
+EOF
