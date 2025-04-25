@@ -14,6 +14,7 @@ opencv_contrib/
 pycuda/
 ultralytics/
 vision/
+Open3D/
 
 # Byte-compiled / optimized / DLL files
 *.pyc
