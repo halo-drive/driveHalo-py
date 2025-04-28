@@ -1,4 +1,5 @@
 venv/
+Open3D/
 *.engine
 *.onnx
 __pycache__/
