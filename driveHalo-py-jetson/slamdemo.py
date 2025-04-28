@@ -13,7 +13,7 @@ import os
 from typing import Dict, Any
 
 # Import SLAM components
-from FastSLAM import FastSLAM
+from fast_slam import FastSLAM
 from map_manager import MapManager
 from point_cloud_processor import PointCloudProcessor
 from pose_graph import PoseGraph
@@ -64,6 +64,16 @@ class SLAMDemo:
         # ROS interface for Livox LiDAR
         self.use_ros = use_ros
         if use_ros:
+            import rospy
+            from sensor_msgs.msg import PointCloud2
+            import sensor_msgs.point_cloud2 as pc2
+            self.lidar_sub = rospy.Subscriber(
+                '/livox/lidar',
+                PointCloud2,
+                self._lidar_callback,
+                queue_size=5
+            )
+            self.logger.info(f"Subscribing to /livox/lidar")
             self.ros_interface = ROSInterface("slam_demo")
             # Register ROS callbacks
             self.ros_interface.register_imu_callback(self._imu_callback)
@@ -80,6 +90,43 @@ class SLAMDemo:
         os.makedirs("slam_output", exist_ok=True)
 
         self.logger.info("SLAM demo initialized")
+
+    def _lidar_callback(self, pointcloud_msg):
+        """
+        Callback for LiDAR data from ROS
+
+        Args:
+            pointcloud_msg: ROS PointCloud2 message
+        """
+        try:
+            import sensor_msgs.point_cloud2 as pc2
+
+            # Convert PointCloud2 to numpy array
+            points_list = []
+            intensities_list = []
+
+            # Extract x,y,z points and intensity if available
+            for point in pc2.read_points(pointcloud_msg, field_names=("x", "y", "z", "intensity"), skip_nans=True):
+                points_list.append([point[0], point[1], point[2]])
+                if len(point) > 3:  # If intensity is available
+                    intensities_list.append(point[3])
+
+            if not points_list:
+                self.logger.warning("Received empty point cloud")
+                return
+
+            points = np.array(points_list)
+            intensities = np.array(intensities_list) if intensities_list else None
+
+            # Process with SLAM
+            self.logger.debug(f"Processing point cloud with {len(points)} points")
+            result = self._process_lidar_data(points, intensities, pointcloud_msg.header.stamp.to_sec())
+
+            if result["success"]:
+                self.logger.debug("Successfully processed LiDAR scan")
+
+        except Exception as e:
+            self.logger.error(f"Error in LiDAR callback: {e}")
 
     def _imu_callback(self, imu_msg):
         """
@@ -201,6 +248,8 @@ class SLAMDemo:
 
         # Stop ROS interface if using ROS
         if self.use_ros and self.ros_interface:
+            if hasattr(self, 'lidar_sub'):
+                self.lidar_sub.unregister()
             self.ros_interface.stop()
 
         self.logger.info("SLAM demo stopped")

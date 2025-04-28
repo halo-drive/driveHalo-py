@@ -50,5 +50,7 @@ print(f"Open3D version: {o3d.__version__}")
 print("CUDA:", o3d.core.cuda.is_available())
 EOF
 
+rostopic echo /livox/lidar --noarr
 
-.cpython-38-*.so ~/DriveGXO/venv/lib/python3.8/site-packages/
+
+git clone https://github.com/Livox-SDK/livox_ros_driver2.git ws_livox/src/livox_ros_driver2

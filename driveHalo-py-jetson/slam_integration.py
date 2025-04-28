@@ -7,7 +7,7 @@ import cv2
 from typing import List, Dict, Any, Tuple, Optional
 from scipy.spatial.transform import Rotation
 
-from FastSLAM import FastSLAM
+from fast_slam import FastSLAM
 from map_manager import MapManager
 
 
