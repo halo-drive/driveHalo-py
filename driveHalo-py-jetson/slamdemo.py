@@ -14,10 +14,10 @@ from typing import Dict, Any
 
 # Import SLAM components
 from FastSLAM import FastSLAM
-from MapManager import MapManager
-from PointCloudProcessor import PointCloudProcessor
-from PoseGraph import PoseGraph
-from SLAMIntegration import SLAMIntegration
+from map_manager import MapManager
+from point_cloud_processor import PointCloudProcessor
+from pose_graph import PoseGraph
+from slam_integration import SLAMIntegration
 
 # Import original codebase components
 from ros_interface import ROSInterface

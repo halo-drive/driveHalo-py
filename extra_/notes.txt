@@ -46,5 +46,8 @@ EOF
 
 python3 - <<EOF
 import open3d as o3d
-print("Open3D", o3d.__version__, "CUDA:", o3d.core.cuda.is_available())
+print(f"Open3D version: {o3d.__version__}")
+print("CUDA:", o3d.core.cuda.is_available())
 EOF
+
+pip install g2o
