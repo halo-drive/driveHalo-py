@@ -18,7 +18,7 @@ class PointCloudProcessor:
     def __init__(self,
                  voxel_size: float = 0.05,
                  normal_radius: float = 0.1,
-                 feature_radius: float <= 0.2,
+                 feature_radius: float = 0.2,
                  icp_threshold: float = 0.05):
         """
         Initialize the point cloud processor

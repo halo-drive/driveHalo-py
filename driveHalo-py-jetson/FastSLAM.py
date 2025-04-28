@@ -9,9 +9,9 @@ from typing import List, Dict, Any, Tuple, Optional
 from scipy.spatial.transform import Rotation
 import random
 
-from PointCloudProcessor import PointCloudProcessor
-from MapManager import MapManager
-from PoseGraph import PoseGraph
+from point_cloud_processor import PointCloudProcessor
+from map_manager import MapManager
+from pose_graph import PoseGraph
 
 
 class Particle:

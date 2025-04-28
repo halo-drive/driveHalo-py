@@ -5,7 +5,7 @@ import threading
 import time
 from typing import List, Dict, Any, Tuple, Optional
 from scipy.spatial.transform import Rotation
-import g2o
+
 
 
 class PoseGraphNode:
@@ -163,7 +163,7 @@ class PoseGraph:
 
     def optimize(self, max_iterations: int = 20) -> bool:
         """
-        Optimize the pose graph using g2o
+        Optimize the pose graph using SciPy instead of g2o
 
         Args:
             max_iterations: Maximum number of iterations
@@ -179,80 +179,128 @@ class PoseGraph:
                 return False
 
             try:
-                # Create optimizer
-                optimizer = g2o.SparseOptimizer()
-                solver = g2o.BlockSolverSE3(g2o.LinearSolverEigenSE3())
-                algorithm = g2o.OptimizationAlgorithmLevenberg(solver)
-                optimizer.set_algorithm(algorithm)
+                import numpy as np
+                from scipy.optimize import minimize
+                from scipy.spatial.transform import Rotation
 
-                # Add nodes to optimizer
+                # Get fixed node indices and their poses
+                fixed_nodes = {}
+                variable_nodes = {}
+
                 for node_id, node in self.nodes.items():
-                    g2o_vertex = g2o.VertexSE3()
-                    g2o_vertex.set_id(node_id)
-                    g2o_vertex.set_fixed(node.is_fixed)
+                    if node.is_fixed:
+                        fixed_nodes[node_id] = node
+                    else:
+                        variable_nodes[node_id] = node
 
-                    # Convert to g2o format
-                    translation = node.get_translation()
-                    quat = node.get_quaternion()  # [qw, qx, qy, qz]
+                if not variable_nodes:
+                    self.logger.info("No nodes to optimize (all are fixed)")
+                    return True
 
-                    isometry = g2o.Isometry3d(quat, translation)
-                    g2o_vertex.set_estimate(isometry)
+                # Prepare initial parameter vector (flatten all poses)
+                # For each variable node, we need 6 parameters: 3 for position, 3 for euler angles
+                initial_params = []
+                node_indices = {}  # Map from node_id to index in parameter vector
+                param_idx = 0
 
-                    optimizer.add_vertex(g2o_vertex)
+                for node_id, node in sorted(variable_nodes.items()):
+                    # Store position
+                    initial_params.extend(node.get_translation())
 
-                # Add edges to optimizer
-                for edge in self.edges:
-                    g2o_edge = g2o.EdgeSE3()
-                    g2o_edge.set_vertex(0, optimizer.vertex(edge.from_node_id))
-                    g2o_edge.set_vertex(1, optimizer.vertex(edge.to_node_id))
+                    # Convert rotation matrix to euler angles
+                    r = Rotation.from_matrix(node.get_rotation())
+                    euler = r.as_euler('xyz')
+                    initial_params.extend(euler)
 
-                    # Convert to g2o format
-                    translation = edge.transformation[:3, 3]
-                    rotation = edge.transformation[:3, :3]
-                    r = Rotation.from_matrix(rotation)
-                    quat = r.as_quat()  # [qx, qy, qz, qw]
-                    quat_g2o = np.array([quat[3], quat[0], quat[1], quat[2]])  # [qw, qx, qy, qz]
+                    # Store index mapping
+                    node_indices[node_id] = param_idx
+                    param_idx += 6
 
-                    measurement = g2o.Isometry3d(quat_g2o, translation)
-                    g2o_edge.set_measurement(measurement)
+                initial_params = np.array(initial_params)
 
-                    # Set information matrix (inverse covariance)
-                    g2o_edge.set_information(edge.information)
+                # Define error function for optimization
+                def pose_graph_error(params):
+                    # Reconstruct node poses from parameter vector
+                    node_poses = {}
 
-                    optimizer.add_edge(g2o_edge)
+                    for node_id, idx in node_indices.items():
+                        pos = params[idx:idx + 3]
+                        euler = params[idx + 3:idx + 6]
 
-                # Perform optimization
-                optimizer.initialize_optimization()
-                self.last_optimization_iterations = optimizer.optimize(max_iterations)
+                        # Convert to transformation matrix
+                        r = Rotation.from_euler('xyz', euler)
+                        rot_matrix = r.as_matrix()
 
-                # Update node poses after optimization
-                for node_id, node in self.nodes.items():
-                    g2o_vertex = optimizer.vertex(node_id)
-                    if g2o_vertex is None:
-                        continue
+                        pose = np.eye(4)
+                        pose[:3, :3] = rot_matrix
+                        pose[:3, 3] = pos
 
-                    # Get optimized estimate
-                    optimized_pose = g2o_vertex.estimate()
+                        node_poses[node_id] = pose
 
-                    # Convert back to our format
-                    t = optimized_pose.translation()
-                    q = optimized_pose.rotation()  # [qw, qx, qy, qz]
+                    # Add fixed nodes
+                    for node_id, node in fixed_nodes.items():
+                        node_poses[node_id] = node.pose
 
-                    # Convert quaternion to rotation matrix
-                    r = Rotation.from_quat([q[1], q[2], q[3], q[0]])  # [qx, qy, qz, qw]
+                    # Compute total error (sum of squared errors across all edges)
+                    total_error = 0.0
+
+                    for edge in self.edges:
+                        if edge.from_node_id not in node_poses or edge.to_node_id not in node_poses:
+                            continue
+
+                        # Get actual poses
+                        from_pose = node_poses[edge.from_node_id]
+                        to_pose = node_poses[edge.to_node_id]
+
+                        # Expected: to_pose = from_pose @ edge.transformation
+                        # Calculate error between expected and actual
+                        expected_to_pose = from_pose @ edge.transformation
+                        error_pose = np.linalg.inv(expected_to_pose) @ to_pose
+
+                        # Extract error components (translation and rotation)
+                        trans_error = error_pose[:3, 3]
+
+                        # For rotation, convert to angle-axis representation
+                        rot_matrix = error_pose[:3, :3]
+                        r = Rotation.from_matrix(rot_matrix)
+                        rot_vec = r.as_rotvec()
+
+                        # Combine errors with information matrix weighting
+                        error_vector = np.concatenate([trans_error, rot_vec])
+                        weighted_error = error_vector @ edge.information @ error_vector
+
+                        total_error += weighted_error
+
+                    return total_error
+
+                # Run optimization
+                result = minimize(
+                    pose_graph_error,
+                    initial_params,
+                    method='L-BFGS-B',
+                    options={'maxiter': max_iterations, 'disp': False}
+                )
+
+                # Update node poses with optimized values
+                for node_id, idx in node_indices.items():
+                    pos = result.x[idx:idx + 3]
+                    euler = result.x[idx + 3:idx + 6]
+
+                    # Convert to transformation matrix
+                    r = Rotation.from_euler('xyz', euler)
                     rot_matrix = r.as_matrix()
 
-                    # Build 4x4 transformation matrix
-                    new_pose = np.eye(4)
-                    new_pose[:3, :3] = rot_matrix
-                    new_pose[:3, 3] = t
+                    pose = np.eye(4)
+                    pose[:3, :3] = rot_matrix
+                    pose[:3, 3] = pos
 
                     # Update node
-                    node.pose = new_pose
+                    self.nodes[node_id].pose = pose
 
                 # Record statistics
                 self.last_optimization_time = time.time() - start_time
-                self.last_optimization_error = optimizer.chi2()
+                self.last_optimization_iterations = result.nit
+                self.last_optimization_error = result.fun
 
                 self.logger.info(f"Optimization completed in {self.last_optimization_time:.3f} seconds, "
                                  f"{self.last_optimization_iterations} iterations, "
@@ -263,7 +311,6 @@ class PoseGraph:
             except Exception as e:
                 self.logger.error(f"Optimization failed: {e}")
                 return False
-
     def get_trajectory(self) -> List[np.ndarray]:
         """
         Get the optimized trajectory as a list of poses

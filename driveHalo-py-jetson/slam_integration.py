@@ -8,7 +8,7 @@ from typing import List, Dict, Any, Tuple, Optional
 from scipy.spatial.transform import Rotation
 
 from FastSLAM import FastSLAM
-from MapManager import MapManager
+from map_manager import MapManager
 
 
 class SLAMIntegration:
