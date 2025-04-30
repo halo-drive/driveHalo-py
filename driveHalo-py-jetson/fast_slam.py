@@ -233,6 +233,13 @@ class FastSLAM:
             Dictionary with processed data
         """
         start_time = time.time()
+        if not isinstance(points, np.ndarray) or not points.flags.writeable:
+            self.logger.debug("Converting points to writeable array in FastSLAM")
+            points = np.array(points, copy=True)
+
+        if intensities is not None:
+            if not isinstance(intensities, np.ndarray) or not intensities.flags.writeable:
+                intensities = np.array(intensities, copy=True)
 
         # Use current time if timestamp not provided
         if timestamp is None:
@@ -307,7 +314,7 @@ class FastSLAM:
                             o3d.pipelines.registration.TransformationEstimationPointToPoint())
 
                         if result_icp.fitness > scan_fitness:
-                            scan_transform = result_icp.transformation
+                            scan_transform = np.array(result_icp.transformation, copy=True)
                             scan_fitness = result_icp.fitness
                             self.logger.debug(f"ICP fine-tuning improved fitness to {scan_fitness:.3f}")
                 except Exception as e:
@@ -354,6 +361,8 @@ class FastSLAM:
             # Calculate world coordinates for each scan point and update map
             best_position = best_particle.get_position()
             world_points = self._transform_points_to_world(scan_points_xy, best_particle.pose)
+            if not world_points.flags.writeable:
+                world_points = np.array(world_points, copy=True)
             self.map.update_from_scan(best_position[0], best_position[1], world_points)
 
             # Add node to pose graph

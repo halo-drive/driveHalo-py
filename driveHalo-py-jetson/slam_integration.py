@@ -117,6 +117,15 @@ class SLAMIntegration:
             Dictionary with processing results
         """
         start_time = time.time()
+        if isinstance(points, np.ndarray):
+            if not points.flags.writeable:
+                self.logger.debug("Converting read-only points array to writeable copy")
+                points = np.array(points, copy=True)
+
+            if intensities is not None and isinstance(intensities, np.ndarray):
+                if not intensities.flags.writeable:
+                    self.logger.debug("Converting read-only intensities array to writeable copy")
+                    intensities = np.array(intensities, copy=True)
 
         # Use current time if timestamp not provided
         if timestamp is None:

@@ -216,6 +216,9 @@ class MapManager:
             sensor_y: Sensor Y position in world coordinates
             points: Nx3 array of point coordinates in world frame
         """
+        if isinstance(points, np.ndarray) and not points.flags.writeable:
+            points = np.array(points, copy=True)
+
         start_time = time.time()
         update_count = 0
 

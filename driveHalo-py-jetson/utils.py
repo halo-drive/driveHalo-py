@@ -5,6 +5,19 @@ import cv2
 from typing import Tuple, Optional, List, Dict, Any
 
 
+def debug_array_status(name: str, arr: np.ndarray) -> None:
+    """Print diagnostic information about a numpy array."""
+    if not isinstance(arr, np.ndarray):
+        print(f"Array {name}: NOT A NUMPY ARRAY - type: {type(arr)}")
+        return
+
+    print(f"Array {name}:")
+    print(f"  Shape: {arr.shape}")
+    print(f"  Dtype: {arr.dtype}")
+    print(
+        f"  Flags: writeable={arr.flags.writeable}, owndata={arr.flags.owndata}, c_contiguous={arr.flags.c_contiguous}")
+    print(f"  Memory: nbytes={arr.nbytes}, size={arr.size}")
+
 def setup_logger(name: str, level: int = logging.INFO) -> logging.Logger:
     """Set up a logger with consistent formatting"""
     logger = logging.getLogger(name)

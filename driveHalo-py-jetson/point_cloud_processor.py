@@ -71,6 +71,7 @@ class PointCloudProcessor:
             pcd = o3d.geometry.PointCloud()
             pcd.points = o3d.utility.Vector3dVector(points)
 
+
             if intensities is not None:
                 # Normalize intensities to [0,1] for coloring
                 norm_intensities = np.zeros((len(intensities), 3))
@@ -85,7 +86,7 @@ class PointCloudProcessor:
 
             # Remove invalid points (NaN or Inf)
             valid_indices = []
-            points_np = np.asarray(pcd.points)
+            points_np = np.array(np.asarray(pcd.points), copy=True)
             for i in range(len(points_np)):
                 if not np.any(np.isnan(points_np[i])) and not np.any(np.isinf(points_np[i])):
                     valid_indices.append(i)
@@ -187,6 +188,19 @@ class PointCloudProcessor:
         if source is None or target is None:
             return np.eye(4), 0.0
 
+        if not isinstance(source, o3d.geometry.PointCloud):
+            source = o3d.geometry.PointCloud()
+            if isinstance(source, np.ndarray):
+                # Ensure writeable copy source pointcloud
+                source_points = np.array(source, copy=True) if not source.flags.writeable else source
+                source.points = o3d.utility.Vector3dVector(source_points)
+
+        if not isinstance(target, o3d.geometry.PointCloud):
+            target = o3d.geometry.PointCloud()
+            if isinstance(target, np.ndarray):
+                # Ensure writeable copy for target
+                target_points = np.array(target, copy=True) if not target.flags.writeable else target
+                target.points = o3d.utility.Vector3dVector(target_points)
         if len(source.points) < 10 or len(target.points) < 10:
             return np.eye(4), 0.0
 
@@ -225,8 +239,8 @@ class PointCloudProcessor:
             result_icp = o3d.pipelines.registration.registration_icp(
                 source, target, distance_threshold, initial_transformation,
                 o3d.pipelines.registration.TransformationEstimationPointToPlane())
-
-            return result_icp.transformation, result_icp.fitness
+            result_transform = np.array(result_icp.transformation, copy=True)
+            return result_transform, result_icp.fitness
 
         except Exception as e:
             self.logger.warning(f"Failed to register point clouds: {e}")
@@ -245,6 +259,11 @@ class PointCloudProcessor:
             Dictionary with processed data including transformation
         """
         start_time = time.time()
+        if isinstance(points, np.ndarray) and not points.flags.writeable:
+            points = np.array(points, copy=True)
+
+        if intensities is not None and isinstance(intensities, np.ndarray) and not intensities.flags.writeable:
+            intensities = np.array(intensities, copy=True)
 
         # Process the point cloud
         pcd = self.process_point_cloud(points, intensities)
