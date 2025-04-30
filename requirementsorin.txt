@@ -100,6 +100,7 @@ python-gnupg==0.4.5
 pytools==2024.1.14
 pytz==2024.2
 PyYAML==5.3.1
+pyzmq==26.4.0
 referencing==0.35.1
 requests==2.32.3
 requests-unixsocket==0.2.0
