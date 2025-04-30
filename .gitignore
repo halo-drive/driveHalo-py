@@ -16,6 +16,8 @@ ultralytics/
 vision/
 Open3D/
 slam_output/
+driveHalo-py-jetson/logs/
+
 # Byte-compiled / optimized / DLL files
 *.pyc
 *.pyo

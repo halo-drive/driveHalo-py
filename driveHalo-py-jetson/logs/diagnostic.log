@@ -4008,3 +4008,987 @@
 2025-04-25 15:26:23.011 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 96.6%
 2025-04-25 15:26:36.533 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 93.6%
 2025-04-25 15:26:38.036 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.6%
+2025-04-30 14:06:11.127 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 14:06:11.127 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 14:25:11.763 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 14:25:11.764 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 14:25:42.073 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 14:25:42.074 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 14:27:51.042 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 14:27:51.043 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 14:28:04.232 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.5%
+2025-04-30 14:28:06.853 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:06.854 - INFO - diagnostic [MainThread] - CPU Usage: Current=56.7%, Avg=36.7%, Max=98.5%
+2025-04-30 14:28:06.854 - INFO - diagnostic [MainThread] - Memory Usage: Current=26.8%, Avg=26.8%
+2025-04-30 14:28:06.854 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:06.854 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:06.854 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:11.925 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:11.926 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.3%, Avg=42.2%, Max=98.5%
+2025-04-30 14:28:11.926 - INFO - diagnostic [MainThread] - Memory Usage: Current=26.9%, Avg=26.8%
+2025-04-30 14:28:11.926 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:11.926 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:11.926 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:16.976 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:16.977 - INFO - diagnostic [MainThread] - CPU Usage: Current=53.6%, Avg=44.3%, Max=98.5%
+2025-04-30 14:28:16.977 - INFO - diagnostic [MainThread] - Memory Usage: Current=26.9%, Avg=26.8%
+2025-04-30 14:28:16.977 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:16.977 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:16.977 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:19.264 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.3%
+2025-04-30 14:28:22.152 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:22.153 - INFO - diagnostic [MainThread] - CPU Usage: Current=58.6%, Avg=48.0%, Max=98.5%
+2025-04-30 14:28:22.153 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.0%, Avg=26.8%
+2025-04-30 14:28:22.153 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:22.154 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:22.154 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:27.388 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:27.388 - INFO - diagnostic [MainThread] - CPU Usage: Current=66.4%, Avg=49.8%, Max=98.5%
+2025-04-30 14:28:27.388 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.0%, Avg=26.9%
+2025-04-30 14:28:27.388 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:27.389 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:27.389 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:28.305 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.2%
+2025-04-30 14:28:32.540 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:32.540 - INFO - diagnostic [MainThread] - CPU Usage: Current=56.5%, Avg=51.9%, Max=98.5%
+2025-04-30 14:28:32.541 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.0%, Avg=26.9%
+2025-04-30 14:28:32.541 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:32.541 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:32.541 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:37.685 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:37.685 - INFO - diagnostic [MainThread] - CPU Usage: Current=59.5%, Avg=52.5%, Max=98.5%
+2025-04-30 14:28:37.686 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.1%, Avg=26.9%
+2025-04-30 14:28:37.686 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:37.686 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:37.686 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:42.826 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:42.827 - INFO - diagnostic [MainThread] - CPU Usage: Current=51.8%, Avg=52.7%, Max=98.5%
+2025-04-30 14:28:42.827 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.1%, Avg=26.9%
+2025-04-30 14:28:42.827 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:42.827 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:42.827 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:43.335 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.2%
+2025-04-30 14:28:43.822 - INFO - diagnostic [MainThread] - Enabled performance diagnostics
+2025-04-30 14:28:43.822 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:28:43.856 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.54ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:43.858 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:43.858 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:44.105 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 34.69ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:44.108 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:28:44.109 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:44.336 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.05ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:44.340 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:28:44.340 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:44.580 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.87ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:44.580 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:44.581 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:44.796 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.21ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:44.798 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:44.798 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:45.019 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.07ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:45.025 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:45.026 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:45.237 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.27ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:45.238 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:45.238 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:45.455 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.57ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:45.458 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.56ms 
+2025-04-30 14:28:45.461 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.11ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:45.682 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.48ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:45.683 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:45.684 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:45.902 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.77ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:45.906 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.20ms 
+2025-04-30 14:28:45.907 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:46.117 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.80ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:46.117 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:46.118 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:46.332 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.51ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:46.338 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 3.69ms 
+2025-04-30 14:28:46.338 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:46.554 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.72ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:46.558 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:46.558 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:46.780 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.26ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:46.781 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:46.782 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:47.000 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.34ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:47.002 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:47.002 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:47.220 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.51ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:47.222 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:47.222 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:47.445 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.72ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:47.447 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:47.448 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:47.668 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.25ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:47.674 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:47.674 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:47.900 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.93ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:47.901 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:47.901 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.1%, Avg=54.2%, Max=98.5%
+2025-04-30 14:28:47.902 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.1%, Avg=26.9%
+2025-04-30 14:28:47.902 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:47.902 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:47.902 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:28:47.902 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:47.903 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:47.903 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:48.120 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.82ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:48.123 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:48.123 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:48.341 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.41ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:48.344 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:48.344 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:48.562 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.58ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:48.563 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:48.564 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:48.773 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.72ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:48.775 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:28:48.776 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:48.993 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.05ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:48.994 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:48.994 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:49.233 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.32ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:49.236 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.56ms 
+2025-04-30 14:28:49.236 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:49.453 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.22ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:49.454 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:49.455 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:49.684 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.27ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:49.688 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:49.688 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:49.905 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.03ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:49.908 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:49.908 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:50.139 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.10ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:50.143 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:50.143 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:50.360 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.93ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:50.363 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:50.363 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:50.575 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.56ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:50.576 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:50.577 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:50.802 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.72ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:50.804 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:50.805 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:51.022 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.78ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:51.023 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:51.024 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:51.241 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.62ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:51.242 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:51.244 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:51.463 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.07ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:51.465 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:51.466 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:51.686 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.08ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:51.688 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:51.688 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:51.914 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.79ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:51.917 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:28:51.918 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:52.135 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.10ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:52.138 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:52.138 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:52.363 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.18ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:52.366 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:52.366 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:52.592 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.13ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:52.595 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:52.596 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:52.815 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.75ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:52.818 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:52.818 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:53.033 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.13ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:53.035 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:53.035 - INFO - diagnostic [MainThread] - CPU Usage: Current=55.1%, Avg=54.2%, Max=98.5%
+2025-04-30 14:28:53.036 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.1%, Avg=26.9%
+2025-04-30 14:28:53.036 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:53.036 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:53.036 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:28:53.036 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:53.036 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:53.037 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:53.262 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.01ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:53.264 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:53.264 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:53.485 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.14ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:53.486 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:53.487 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:53.717 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.48ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:53.719 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:53.719 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:53.942 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.30ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:53.943 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:53.944 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:54.167 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.45ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:54.168 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:54.169 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:54.401 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 34.65ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:54.403 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:54.404 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:54.628 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.15ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:54.631 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:54.632 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:54.868 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.99ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:54.870 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:54.870 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:55.095 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.27ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:55.097 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:28:55.097 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:55.317 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.95ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:55.321 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.56ms 
+2025-04-30 14:28:55.321 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:55.549 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 34.62ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:55.550 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:55.551 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:55.777 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.89ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:55.778 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:55.780 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:56.002 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.24ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:56.005 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:56.005 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:56.219 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.55ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:56.222 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:56.222 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:56.445 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.42ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:56.447 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.32ms 
+2025-04-30 14:28:56.447 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:56.673 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.06ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:56.674 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:56.675 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:56.902 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.46ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:56.904 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:56.905 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:57.132 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.12ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:57.134 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:57.134 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:57.355 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.10ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:57.358 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:28:57.358 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:57.568 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.07ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:57.569 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:57.569 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:57.841 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 49.75ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:57.844 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.09ms 
+2025-04-30 14:28:57.845 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:58.091 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.38ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:58.093 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:58.094 - INFO - diagnostic [MainThread] - CPU Usage: Current=52.7%, Avg=54.2%, Max=98.5%
+2025-04-30 14:28:58.094 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.2%, Avg=27.0%
+2025-04-30 14:28:58.094 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:28:58.094 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:28:58.094 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:28:58.095 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:28:58.095 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:28:58.095 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:58.364 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.5%
+2025-04-30 14:28:58.433 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 78.43ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:58.436 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:28:58.437 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:58.841 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 76.84ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:58.846 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 3.68ms 
+2025-04-30 14:28:58.846 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:59.065 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.20ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:59.067 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:59.068 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:59.301 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.51ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:59.303 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.76ms 
+2025-04-30 14:28:59.304 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:59.519 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.67ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:59.522 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:59.522 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:59.742 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.08ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:59.743 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:59.743 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:28:59.962 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.88ms radius=inf, lateral_offset=0.0
+2025-04-30 14:28:59.965 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:28:59.966 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:00.186 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.75ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:00.188 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:00.188 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:00.412 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.28ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:00.413 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:00.413 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:00.630 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.79ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:00.634 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:00.635 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:00.857 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.46ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:00.860 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:00.861 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:01.086 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.73ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:01.087 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:01.088 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:01.322 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 38.17ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:01.324 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:01.324 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:01.539 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.15ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:01.541 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:01.542 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:01.765 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.02ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:01.767 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.88ms 
+2025-04-30 14:29:01.768 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:01.980 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.03ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:01.981 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:01.982 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:02.197 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.25ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:02.198 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:02.198 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:02.420 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.30ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:02.424 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:02.425 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:02.646 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.03ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:02.647 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:02.647 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:02.871 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.58ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:02.875 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:02.875 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:03.101 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.68ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.6%, Avg=55.1%, Max=98.5%
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.2%, Avg=27.0%
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:03.103 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:03.104 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:03.316 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.29ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:03.318 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:03.318 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:03.540 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.79ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:03.544 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:03.545 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:03.773 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.36ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:03.777 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:03.777 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:04.005 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.30ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:04.007 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:04.008 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:04.218 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.18ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:04.220 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:04.220 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:04.433 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.39ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:04.435 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:29:04.436 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:04.649 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.44ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:04.652 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:04.653 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:04.869 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.19ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:04.872 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:04.872 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:05.088 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.98ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:05.090 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:05.091 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:05.304 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.33ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:05.305 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:05.305 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:05.530 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.91ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:05.534 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:05.536 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:05.757 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.50ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:05.760 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.30ms 
+2025-04-30 14:29:05.761 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:05.995 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.85ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:05.997 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:05.998 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:06.216 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.23ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:06.217 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:06.218 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:06.446 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.77ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:06.447 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:06.448 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:06.666 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.48ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:06.667 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:06.668 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:06.895 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.50ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:06.897 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:06.897 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:07.116 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.11ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:07.119 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:07.119 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:07.350 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.74ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:07.352 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:07.353 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:07.571 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.41ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:07.573 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:07.574 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:07.801 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.91ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:07.803 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:07.804 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:08.025 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.41ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:08.026 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:08.026 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:08.248 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.42ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:08.251 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:08.251 - INFO - diagnostic [MainThread] - CPU Usage: Current=55.1%, Avg=55.1%, Max=98.5%
+2025-04-30 14:29:08.251 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.3%, Avg=27.0%
+2025-04-30 14:29:08.252 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:08.252 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:08.252 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:08.252 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:08.252 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:08.252 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:08.469 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.28ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:08.470 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:08.471 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:08.710 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 38.72ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:08.712 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:08.712 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:08.936 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.95ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:08.938 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:08.939 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:09.157 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.42ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:09.159 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:09.159 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:09.390 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.89ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:09.392 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:09.393 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:09.618 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.87ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:09.622 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.67ms 
+2025-04-30 14:29:09.622 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:09.853 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.72ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:09.856 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:09.856 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:10.085 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.27ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:10.086 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:10.087 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:10.303 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.24ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:10.306 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:10.306 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:10.541 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.80ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:10.542 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:10.543 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:10.762 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.19ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:10.763 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:10.764 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:10.991 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.33ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:10.995 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:10.996 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:11.218 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.04ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:11.220 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:11.221 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:11.448 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.40ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:11.451 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:11.451 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:11.662 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.38ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:11.665 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:11.665 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.12ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:11.882 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.54ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:11.885 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:11.885 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:12.109 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.04ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:12.112 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:12.112 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:12.328 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.43ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:12.330 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:12.331 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:12.545 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.50ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:12.547 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:12.547 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:12.858 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 57.19ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:12.862 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.09ms 
+2025-04-30 14:29:12.863 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:13.187 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 49.65ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:13.190 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.10ms 
+2025-04-30 14:29:13.199 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.13ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:13.406 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.2%
+2025-04-30 14:29:13.422 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.12ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:13.424 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:13.424 - INFO - diagnostic [MainThread] - CPU Usage: Current=98.2%, Avg=55.8%, Max=98.5%
+2025-04-30 14:29:13.424 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.3%, Avg=27.0%
+2025-04-30 14:29:13.424 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:13.425 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:13.425 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:13.425 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:13.425 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:13.425 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:13.669 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.56ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:13.673 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:13.674 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:13.904 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.53ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:13.907 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:13.907 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:14.137 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.39ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:14.143 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:14.143 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:14.382 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 36.91ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:14.387 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:14.387 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:14.608 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.89ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:14.608 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:14.609 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:14.827 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.86ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:14.828 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:14.829 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:15.058 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.30ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:15.062 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:15.063 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:15.280 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.89ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:15.285 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:15.285 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:15.498 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 16.76ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:15.499 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:15.500 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:15.717 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.38ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:15.718 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:15.718 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:15.930 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.75ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:15.936 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:29:15.936 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.15ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:16.165 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.36ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:16.169 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:16.170 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:16.380 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.69ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:16.384 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:16.384 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:16.615 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.54ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:16.617 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:16.618 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:16.832 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.20ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:16.833 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:16.833 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:17.049 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.10ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:17.052 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:17.052 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:17.272 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.15ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:17.274 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:17.274 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:17.489 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.23ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:17.491 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:17.491 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:17.710 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.09ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:17.711 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:17.712 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:17.934 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.44ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:17.938 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:17.938 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:18.162 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.84ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:18.166 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:18.167 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:18.394 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.17ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:18.396 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:18.397 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:18.619 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.57ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:18.622 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:18.622 - INFO - diagnostic [MainThread] - CPU Usage: Current=55.4%, Avg=55.9%, Max=98.5%
+2025-04-30 14:29:18.622 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.3%, Avg=27.0%
+2025-04-30 14:29:18.623 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:18.623 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:18.623 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:18.623 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:18.623 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:18.623 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:18.838 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.33ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:18.844 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:18.844 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:19.067 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.61ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:19.070 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:19.070 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:19.282 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.07ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:19.285 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:19.286 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:19.505 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.15ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:19.506 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:19.507 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:19.720 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.81ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:19.722 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:19.722 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:19.948 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.41ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:19.951 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:19.952 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:20.170 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.71ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:20.173 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.42ms 
+2025-04-30 14:29:20.174 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:20.390 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.39ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:20.392 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:29:20.393 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:20.612 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.84ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:20.614 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:20.614 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:20.826 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.32ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:20.828 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:20.828 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:21.049 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.11ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:21.051 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:21.052 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:21.269 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 15.02ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:21.271 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:21.272 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:21.503 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.20ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:21.506 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:21.506 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:21.743 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 36.93ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:21.745 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:21.745 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:21.987 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 50.16ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:21.990 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:21.990 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:22.204 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.46ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:22.206 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:22.207 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:22.416 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.76ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:22.418 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:22.418 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:22.640 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.29ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:22.642 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:22.642 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:22.860 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.98ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:22.862 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:22.863 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:23.085 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.90ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:23.086 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:23.087 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:23.311 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.78ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:23.313 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:23.313 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:23.528 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.59ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:23.531 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:23.531 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:23.745 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.92ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:23.747 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:23.747 - INFO - diagnostic [MainThread] - CPU Usage: Current=58.0%, Avg=55.9%, Max=98.5%
+2025-04-30 14:29:23.747 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.3%, Avg=27.0%
+2025-04-30 14:29:23.747 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:23.747 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:23.748 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:23.748 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:23.748 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:23.748 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:23.965 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.49ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:23.966 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:23.966 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:24.187 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.86ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:24.188 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:24.190 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:24.419 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.95ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:24.421 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:24.422 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:24.635 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.07ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:24.636 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:24.636 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:24.858 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.41ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:24.862 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:24.862 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:25.080 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.27ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:25.083 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.80ms 
+2025-04-30 14:29:25.084 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:25.335 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 43.90ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:25.337 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.09ms 
+2025-04-30 14:29:25.337 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:25.564 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.71ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:25.566 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:25.567 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:25.780 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.61ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:25.781 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:25.783 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:25.996 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.23ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:26.000 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:26.001 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:26.252 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 41.40ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:26.256 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:26.256 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:26.481 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.74ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:26.482 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:26.482 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:26.697 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.99ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:26.700 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:26.700 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:26.911 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.06ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:26.913 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:26.913 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:27.136 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.66ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:27.137 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:27.137 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:27.366 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 34.16ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:27.370 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 2.35ms 
+2025-04-30 14:29:27.372 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.11ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:27.595 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.64ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:27.596 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:27.596 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:27.848 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 43.37ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:27.861 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.10ms 
+2025-04-30 14:29:27.862 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:28.144 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 63.93ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:28.146 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 1.35ms 
+2025-04-30 14:29:28.146 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:28.443 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.3%
+2025-04-30 14:29:28.456 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 61.28ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:28.467 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 8.67ms 
+2025-04-30 14:29:28.468 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:28.715 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 42.93ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:28.720 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:28.720 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:28.985 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 39.94ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:28.988 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:28.988 - INFO - diagnostic [MainThread] - CPU Usage: Current=98.3%, Avg=56.5%, Max=98.5%
+2025-04-30 14:29:28.988 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.4%, Avg=27.1%
+2025-04-30 14:29:28.988 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:28.988 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:28.988 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:28.989 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:28.989 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:28.989 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.19ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:29.214 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.04ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:29.216 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:29.217 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:29.444 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.05ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:29.451 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:29.451 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:29.667 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.89ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:29.670 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:29.670 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:29.886 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.42ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:29.889 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:29.889 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.22ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:30.108 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.51ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:30.109 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:30.110 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:30.337 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.71ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:30.340 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:30.340 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:30.580 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.78ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:30.581 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:30.582 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:30.820 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.83ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:30.823 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:30.823 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:31.047 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.41ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:31.049 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:31.049 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:31.281 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.46ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:31.287 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:31.287 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:31.534 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 37.91ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:31.536 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:31.536 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:31.752 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.62ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:31.755 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:31.755 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:31.981 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.79ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:31.982 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:31.982 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:32.201 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.45ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:32.202 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:32.202 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:32.452 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 37.59ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:32.455 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:32.455 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:32.670 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 18.11ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:32.671 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:32.672 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:32.894 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.26ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:32.897 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:32.897 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:33.110 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.06ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:33.113 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:33.114 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:33.338 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.11ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:33.341 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:33.342 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:33.565 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.71ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:33.569 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:33.570 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:33.797 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.00ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:33.800 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:33.800 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:34.022 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.14ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:34.025 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:34.025 - INFO - diagnostic [MainThread] - CPU Usage: Current=55.9%, Avg=56.5%, Max=98.5%
+2025-04-30 14:29:34.025 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.4%, Avg=27.1%
+2025-04-30 14:29:34.026 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:34.026 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:34.026 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:34.026 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:34.026 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:34.027 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:34.251 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.65ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:34.252 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:34.253 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:34.464 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.97ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:34.467 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.54ms 
+2025-04-30 14:29:34.467 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:34.704 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.82ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:34.707 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:34.707 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:34.928 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.47ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:34.933 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:34.934 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:35.144 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 16.36ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:35.146 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:35.146 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:35.363 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.42ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:35.366 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:35.367 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:35.588 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.21ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:35.591 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:35.591 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:35.817 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.17ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:35.820 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:35.820 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:36.041 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.54ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:36.044 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:36.045 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:36.273 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.11ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:36.275 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:36.276 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:36.503 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.49ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:36.506 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:36.506 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:36.721 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.32ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:36.724 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:36.725 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:36.950 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.98ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:36.953 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:36.954 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:37.172 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.64ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:37.173 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:37.174 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:37.390 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.52ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:37.391 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:37.391 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:37.618 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.64ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:37.621 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:37.621 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:37.843 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.46ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:37.846 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:37.847 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:38.058 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 16.94ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:38.059 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:38.060 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:38.297 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.42ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:38.298 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:38.299 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:38.518 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.76ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:38.520 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:38.520 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:38.732 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.29ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:38.735 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.56ms 
+2025-04-30 14:29:38.736 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:38.958 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.79ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:38.960 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:38.961 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:39.179 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.03ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:39.182 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:39.182 - INFO - diagnostic [MainThread] - CPU Usage: Current=56.2%, Avg=56.4%, Max=98.5%
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.4%, Avg=27.1%
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:39.183 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:39.406 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.39ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:39.410 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:39.411 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:39.634 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.87ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:39.636 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:39.637 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:39.854 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 19.68ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:39.857 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:39.857 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:40.082 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.02ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:40.085 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.66ms 
+2025-04-30 14:29:40.085 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:40.302 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.40ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:40.305 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:40.306 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:40.542 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 39.75ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:40.546 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:40.546 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:40.776 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.23ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:40.780 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.59ms 
+2025-04-30 14:29:40.780 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:40.998 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.62ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:41.001 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:41.001 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:41.220 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.33ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:41.222 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:29:41.222 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:41.445 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.97ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:41.449 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:41.450 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:41.664 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.45ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:41.667 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:41.667 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:41.891 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.58ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:41.893 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:41.893 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:42.111 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.77ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:42.112 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:42.113 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:42.340 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.99ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:42.342 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:42.343 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:42.559 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 17.18ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:42.562 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 14:29:42.563 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:42.846 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 51.16ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:42.869 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:42.871 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.11ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:43.199 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 83.84ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:43.207 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 5.35ms 
+2025-04-30 14:29:43.208 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.19ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:43.482 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.3%
+2025-04-30 14:29:43.506 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 57.27ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:43.510 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.09ms 
+2025-04-30 14:29:43.510 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:43.762 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 34.82ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:43.764 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:43.765 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:44.004 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 36.37ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:44.007 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:44.007 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:44.259 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 44.69ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:44.261 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:44.262 - INFO - diagnostic [MainThread] - CPU Usage: Current=98.3%, Avg=56.9%, Max=98.5%
+2025-04-30 14:29:44.262 - INFO - diagnostic [MainThread] - Memory Usage: Current=27.4%, Avg=27.1%
+2025-04-30 14:29:44.262 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 14:29:44.262 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 14:29:44.262 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 14:29:44.262 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 14:29:44.263 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:44.263 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:44.498 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.47ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:44.499 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:44.500 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:44.721 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.29ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:44.723 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:44.723 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:44.941 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.96ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:44.944 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:44.944 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:45.161 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.09ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:45.162 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:45.162 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:45.372 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 16.01ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:45.373 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:45.374 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:45.595 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.91ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:45.597 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:45.597 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.12ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:45.823 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.88ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:45.828 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:45.828 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:46.054 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.78ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:46.058 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.07ms 
+2025-04-30 14:29:46.059 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:46.282 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.70ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:46.284 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.08ms 
+2025-04-30 14:29:46.284 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:46.526 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.14ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:46.528 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:46.528 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:46.753 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.65ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:46.755 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 14:29:46.756 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:46.966 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 21.11ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:46.967 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:46.968 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:47.200 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.17ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:47.202 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 14:29:47.203 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 14:29:47.426 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.29ms radius=inf, lateral_offset=0.0
+2025-04-30 14:29:47.430 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.58ms 
+2025-04-30 14:29:47.431 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1

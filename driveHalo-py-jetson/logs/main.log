@@ -197,3 +197,135 @@ FileNotFoundError: [Errno 2] No such file or directory: './sygnal_dbc/mcm/Heartb
 2025-04-25 15:26:12.803 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
 2025-04-25 15:26:12.803 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
 2025-04-25 15:26:12.803 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-30 14:06:11.125 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-30 14:06:11.126 - INFO - main [MainThread] - Log level: DEBUG, Log directory: logs
+2025-04-30 14:06:11.178 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:06:11.178 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:06:11.957 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-30 14:06:11.960 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-30 14:06:11.960 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-30 14:06:11.989 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-30 14:06:11.991 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-30 14:06:11.992 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-30 14:06:12.013 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-30 14:06:12.014 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:06:12.015 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:06:12.015 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:06:12.015 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:06:12.015 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-30 14:06:12.083 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:06:12.084 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:06:12.084 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:06:12.084 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:06:12.096 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:06:12.097 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:06:12.097 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:06:12.097 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:06:12.097 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-30 14:06:12.097 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-30 14:06:12.098 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-30 14:06:12.098 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-30 14:06:12.098 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-30 14:06:12.098 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-30 14:06:12.098 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-30 14:06:12.099 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-30 14:06:12.101 - DEBUG - rosout [MainThread] - signal handlers for rospy disabled
+2025-04-30 14:25:11.763 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-30 14:25:11.763 - INFO - main [MainThread] - Log level: DEBUG, Log directory: logs
+2025-04-30 14:25:11.821 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:25:11.821 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:25:12.231 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-30 14:25:12.233 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-30 14:25:12.233 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-30 14:25:12.257 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-30 14:25:12.257 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-30 14:25:12.257 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-30 14:25:12.276 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-30 14:25:12.277 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:25:12.278 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:25:12.278 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:25:12.278 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:25:12.278 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-30 14:25:12.343 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:25:12.344 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:25:12.344 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:25:12.344 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:25:12.354 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:25:12.354 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:25:12.354 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:25:12.354 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:25:12.355 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-30 14:25:12.355 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-30 14:25:12.355 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-30 14:25:12.355 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-30 14:25:12.355 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-30 14:25:12.356 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-30 14:25:12.356 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-30 14:25:12.356 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-30 14:25:12.358 - DEBUG - rosout [MainThread] - signal handlers for rospy disabled
+2025-04-30 14:25:42.072 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-30 14:25:42.073 - INFO - main [MainThread] - Log level: DEBUG, Log directory: logs
+2025-04-30 14:25:42.121 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:25:42.122 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:25:42.532 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-30 14:25:42.534 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-30 14:25:42.534 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-30 14:25:42.558 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-30 14:25:42.559 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-30 14:25:42.559 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-30 14:25:42.578 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-30 14:25:42.579 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:25:42.579 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:25:42.579 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:25:42.579 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:25:42.580 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-30 14:25:42.644 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:25:42.645 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:25:42.645 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:25:42.645 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:25:42.654 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:25:42.655 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:25:42.655 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:25:42.655 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:25:42.655 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-30 14:25:42.655 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-30 14:25:42.656 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-30 14:25:42.656 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-30 14:25:42.656 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-30 14:25:42.656 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-30 14:25:42.656 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-30 14:25:42.656 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-30 14:25:42.659 - DEBUG - rosout [MainThread] - signal handlers for rospy disabled
+2025-04-30 14:27:51.041 - INFO - main [MainThread] - Starting Multi-Sensor Autonomous Driving System
+2025-04-30 14:27:51.042 - INFO - main [MainThread] - Log level: DEBUG, Log directory: logs
+2025-04-30 14:27:51.091 - INFO - LaneDetector [MainThread] - Initializing lane detector with engine: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:27:51.091 - INFO - TRTInference [MainThread] - Initializing TensorRT engine from: ../Models/yolov8n-seg-lane.engine
+2025-04-30 14:27:51.508 - INFO - TRTInference [MainThread] - Engine loaded successfully
+2025-04-30 14:27:51.510 - INFO - TRTInference [MainThread] - Allocated buffers for 1 inputs and 2 outputs
+2025-04-30 14:27:51.510 - INFO - CUDAProcessor [MainThread] - Initializing CUDA processing kernels
+2025-04-30 14:27:51.535 - INFO - CUDAProcessor [MainThread] - CUDA kernels compiled successfully
+2025-04-30 14:27:51.535 - INFO - LaneDetector [MainThread] - Lane detector initialized successfully
+2025-04-30 14:27:51.535 - INFO - SteeringController [MainThread] - Steering controller initialized with max torque: 0.10
+2025-04-30 14:27:51.555 - INFO - vehicle_interface [MainThread] - Loaded DBC files successfully
+2025-04-30 14:27:51.556 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:27:51.556 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:27:51.556 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:27:51.556 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:27:51.557 - INFO - vehicle_interface [MainThread] - CAN bus initialized on channel vcan0
+2025-04-30 14:27:51.617 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:27:51.618 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:27:51.618 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:27:51.618 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:27:51.628 - DEBUG - can [MainThread] - can config: {'bitrate': 500000, 'channel': 'vcan0', 'interface': 'socketcan'}
+2025-04-30 14:27:51.628 - INFO - can.interfaces.socketcan.socketcan [MainThread] - Created a socket
+2025-04-30 14:27:51.628 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Binding socket to channel=vcan0
+2025-04-30 14:27:51.628 - DEBUG - can.interfaces.socketcan.socketcan [MainThread] - Bound socket.
+2025-04-30 14:27:51.629 - INFO - VehicleStateManager [MainThread] - Initializing vehicle state manager
+2025-04-30 14:27:51.629 - INFO - VehicleStateManager [MainThread] - Vehicle state manager initialized
+2025-04-30 14:27:51.629 - INFO - SensorFusion [MainThread] - Initializing sensor fusion system
+2025-04-30 14:27:51.629 - INFO - SensorFusion [MainThread] - Sensor fusion initialized
+2025-04-30 14:27:51.630 - INFO - PoseEstimator [MainThread] - Initializing pose estimator
+2025-04-30 14:27:51.630 - INFO - PoseEstimator [MainThread] - Pose estimator initialized
+2025-04-30 14:27:51.630 - INFO - IMUProcessor [MainThread] - Initializing IMU processor
+2025-04-30 14:27:51.630 - INFO - IMUProcessor [MainThread] - IMU processor initialized
+2025-04-30 14:27:51.632 - DEBUG - rosout [MainThread] - signal handlers for rospy disabled
