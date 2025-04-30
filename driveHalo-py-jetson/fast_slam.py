@@ -265,12 +265,14 @@ class FastSLAM:
             if self.processing_first_scan:
                 self.processing_first_scan = False
                 self.last_scan_time = timestamp
+                self.logger.debug(f"Fist scan processing, please wait, getting ready for mapping")
                 return {
                     "success": True,
                     "message": "First scan processed",
                     "current_pose": self.current_pose,
                     "processing_time": time.time() - start_time
                 }
+                self.logger.debug(f"First scan completed, system ready for mapping")
 
             # Get the processed point cloud
             pcd = scan_result["pcd"]
@@ -693,6 +695,7 @@ class FastSLAM:
 
             # Get the map image with robot pose
             map_img = self.map.get_visualization_image(position[0], position[1], yaw)
+            self.logger.debug(f"Generating visualisation with map size : {self.map.width}x{self.map.height}")
 
             # Draw trajectory
             for i in range(1, len(self.global_trajectory)):
