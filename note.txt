@@ -1,0 +1,43 @@
+sudo apt remove --purge cmake
+sudo apt update && sudo apt install -y software-properties-common lsb-release apt-transport-https
+# Add Kitware?s signing key & repo
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc \
+  | gpg --dearmor \
+  | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+echo "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" \
+  | sudo tee /etc/apt/sources.list.d/kitware.list
+sudo apt update
+sudo apt install cmake                # now pulls CMake ? 3.19 (or newer)
+cmake --version
+
+
+cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_CUDA_MODULE=ON \
+  -DBUILD_GUI=ON \
+  -DOpenCV_DIR=/home/nvidia/opencv/build \
+  -DPYTHON_EXECUTABLE=/home/nvidia/driveHalo-py/venv/bin/python3 \
+  ..
+
+  sed -i 's/cmake_minimum_required(VERSION 3\.0\.0)/cmake_minimum_required(VERSION 3.5)/' CMakeLists.txt
+
+  sudo apt install cmake=3.29.2-0kitware1ubuntu20.04.1 cmake-data=3.29.2-0kitware1ubuntu20.04.1
+
+
+cmake \
+  -DCMAKE_C_COMPILER=clang-12 \
+  -DCMAKE_CXX_COMPILER=clang++-12 \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_CUDA_MODULE=ON \
+  -DBUILD_GUI=ON \
+  -DOpenCV_DIR=/home/nvidia/opencv/build \
+  -DPYTHON_EXECUTABLE=/home/nvidia/driveHalo-py/venv/bin/python3 \
+  ..
+
+  cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_CUDA_MODULE=ON \
+  -DBUILD_GUI=OFF \
+  -DOpenCV_DIR=/home/nvidia/opencv/build \
+  -DPYTHON_EXECUTABLE=/home/nvidia/driveHalo-py/venv/bin/python3 \
+  ..
