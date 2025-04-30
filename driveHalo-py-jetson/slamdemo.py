@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Example usage of the SLAM system integrated with the vehicle's sensor systems
+Example usage of the SLAM system integrated with the vehicle's sensors
+with ZMQ-based LiDAR data reception for cross-machine communication
 """
 
 import numpy as np
@@ -25,18 +26,106 @@ from imu_processor import IMUProcessor
 from sensor_fusion import SensorFusion
 from vehicle_state import VehicleStateManager
 
+# Import ZMQ for communication
+import zmq
+
+
+class SensorReceiver:
+    """
+    ZMQ-based sensor data receiver for cross-machine communication
+
+    This replaces direct ROS LiDAR subscription for the Tegra platform
+    """
+
+    def __init__(self, callback, server_address="tcp://SERVER_IP_HERE:5555"):
+        """
+        Initialize the sensor receiver
+
+        Args:
+            callback: Function to call when data is received
+            server_address: ZMQ server address to connect to
+        """
+        self.callback = callback
+        self.context = zmq.Context()
+        self.socket = self.context.socket(zmq.SUB)
+        self.socket.connect(server_address)
+        self.socket.setsockopt_string(zmq.SUBSCRIBE, "pointcloud")
+
+        self.running = False
+        self.thread = None
+
+        self.logger = logging.getLogger("SensorReceiver")
+        self.logger.info(f"Sensor receiver initialized, connecting to {server_address}")
+
+    def start(self):
+        """Start the receiver thread"""
+        self.running = True
+        self.thread = threading.Thread(target=self._receive_loop)
+        self.thread.daemon = True
+        self.thread.start()
+        self.logger.info("Sensor receiver started")
+        return True
+
+    def stop(self):
+        """Stop the receiver thread"""
+        if self.running:
+            self.running = False
+            if self.thread:
+                self.thread.join(timeout=1.0)
+            self.logger.info("Sensor receiver stopped")
+            return True
+        return False
+
+    def _receive_loop(self):
+        """Main reception loop"""
+        self.logger.info("Reception loop started")
+        poll = zmq.Poller()
+        poll.register(self.socket, zmq.POLLIN)
+
+        while self.running:
+            try:
+                # Use polling with timeout to avoid blocking forever
+                socks = dict(poll.poll(100))  # 100ms timeout
+
+                if self.socket in socks and socks[self.socket] == zmq.POLLIN:
+                    multipart = self.socket.recv_multipart()
+
+                    if len(multipart) == 5:
+                        _, timestamp_bytes, size_bytes, points_bytes, intensities_bytes = multipart
+
+                        # Unpack data
+                        timestamp = np.frombuffer(timestamp_bytes, dtype=np.float64)[0]
+                        num_points = np.frombuffer(size_bytes, dtype=np.int32)[0]
+
+                        # Reshape point cloud
+                        points = np.frombuffer(points_bytes, dtype=np.float32).reshape((num_points, 3))
+                        intensities = np.frombuffer(intensities_bytes, dtype=np.float32)
+
+                        # Call processing callback
+                        self.callback(points, intensities, timestamp)
+
+                        self.logger.debug(f"Processed point cloud with {num_points} points")
+                    else:
+                        self.logger.warning(f"Received malformed message: {len(multipart)} parts")
+            except Exception as e:
+                self.logger.error(f"Error in receive loop: {e}")
+                time.sleep(0.1)  # Delay to avoid tight loop on error
+
+        self.logger.info("Reception loop ended")
+
 
 class SLAMDemo:
     """
     Demo class showing how to use the SLAM system with the vehicle's sensors
     """
 
-    def __init__(self, use_ros: bool = True, log_level: int = logging.INFO):
+    def __init__(self, use_ros: bool = True, zmq_server: str = None, log_level: int = logging.INFO):
         """
         Initialize the SLAM demo
 
         Args:
             use_ros: Whether to use ROS for data input
+            zmq_server: ZMQ server address for LiDAR data (e.g., "tcp://192.168.1.100:5555")
             log_level: Logging level
         """
         # Configure logging
@@ -61,24 +150,19 @@ class SLAMDemo:
         self.sensor_fusion = SensorFusion()
         self.imu_processor = IMUProcessor()
 
-        # ROS interface for Livox LiDAR
+        # ZMQ sensor receiver for LiDAR data
+        self.zmq_server = zmq_server
+        self.sensor_receiver = None
+        if self.zmq_server:
+            self.sensor_receiver = SensorReceiver(self._lidar_data_callback, zmq_server)
+            self.logger.info(f"Using ZMQ for LiDAR data from {zmq_server}")
+
+        # ROS interface for IMU data
         self.use_ros = use_ros
         if use_ros:
-            import rospy
-            from sensor_msgs.msg import PointCloud2
-            import sensor_msgs.point_cloud2 as pc2
-            self.lidar_sub = rospy.Subscriber(
-                '/livox/lidar',
-                PointCloud2,
-                self._lidar_callback,
-                queue_size=5
-            )
-            self.logger.info(f"Subscribing to /livox/lidar")
             self.ros_interface = ROSInterface("slam_demo")
-            # Register ROS callbacks
+            # Register ROS callbacks for IMU only
             self.ros_interface.register_imu_callback(self._imu_callback)
-            # For LiDAR point cloud, we need to set up the ROS subscriber separately
-            # since it's not part of the original codebase
         else:
             self.ros_interface = None
 
@@ -86,47 +170,48 @@ class SLAMDemo:
         self.is_running = False
         self.thread = None
 
+        # Visualization flags
+        self.show_visualization = True
+
         # Create output directory
         os.makedirs("slam_output", exist_ok=True)
 
         self.logger.info("SLAM demo initialized")
 
-    def _lidar_callback(self, pointcloud_msg):
+    def _lidar_data_callback(self, points, intensities, timestamp):
         """
-        Callback for LiDAR data from ROS
+        Callback for LiDAR data from ZMQ bridge
 
         Args:
-            pointcloud_msg: ROS PointCloud2 message
+            points: Nx3 array of point coordinates
+            intensities: N array of intensities
+            timestamp: Data timestamp
         """
         try:
-            import sensor_msgs.point_cloud2 as pc2
-
-            # Convert PointCloud2 to numpy array
-            points_list = []
-            intensities_list = []
-
-            # Extract x,y,z points and intensity if available
-            for point in pc2.read_points(pointcloud_msg, field_names=("x", "y", "z", "intensity"), skip_nans=True):
-                points_list.append([point[0], point[1], point[2]])
-                if len(point) > 3:  # If intensity is available
-                    intensities_list.append(point[3])
-
-            if not points_list:
-                self.logger.warning("Received empty point cloud")
-                return
-
-            points = np.array(points_list)
-            intensities = np.array(intensities_list) if intensities_list else None
-
-            # Process with SLAM
             self.logger.debug(f"Processing point cloud with {len(points)} points")
-            result = self._process_lidar_data(points, intensities, pointcloud_msg.header.stamp.to_sec())
+            result = self._process_lidar_data(points, intensities, timestamp)
 
             if result["success"]:
                 self.logger.debug("Successfully processed LiDAR scan")
 
+                # Display visualization if enabled
+                if self.show_visualization:
+                    viz_img = self.slam_integration.get_visualization_image()
+                    if viz_img is not None:
+                        cv2.imshow("SLAM Map", viz_img)
+                        cv2.waitKey(1)
+
+                        # Save latest map periodically (every 5th successful scan)
+                        if not hasattr(self, '_viz_counter'):
+                            self._viz_counter = 0
+                        self._viz_counter += 1
+                        if self._viz_counter % 5 == 0:
+                            cv2.imwrite("slam_output/latest_map.png", viz_img)
+
         except Exception as e:
-            self.logger.error(f"Error in LiDAR callback: {e}")
+            self.logger.error(f"Error in LiDAR data callback: {e}")
+            import traceback
+            self.logger.error(traceback.format_exc())
 
     def _imu_callback(self, imu_msg):
         """
@@ -217,9 +302,13 @@ class SLAMDemo:
         # Start SLAM integration
         self.slam_integration.start()
 
-        # Start ROS interface if using ROS
-        if self.use_ros:
+        # Start ROS interface if using ROS for IMU
+        if self.use_ros and self.ros_interface:
             self.ros_interface.start(imu_topic="/livox/imu")
+
+        # Start ZMQ receiver if using it for LiDAR
+        if self.sensor_receiver:
+            self.sensor_receiver.start()
 
         # Start processing thread
         self.is_running = True
@@ -248,23 +337,36 @@ class SLAMDemo:
 
         # Stop ROS interface if using ROS
         if self.use_ros and self.ros_interface:
-            if hasattr(self, 'lidar_sub'):
-                self.lidar_sub.unregister()
             self.ros_interface.stop()
+
+        # Stop ZMQ receiver
+        if self.sensor_receiver:
+            self.sensor_receiver.stop()
+
+        # Close any open windows
+        cv2.destroyAllWindows()
 
         self.logger.info("SLAM demo stopped")
         return True
 
     def _run(self):
         """Main processing loop"""
-        # For the demo, we'll simulate some LiDAR data if not using ROS
-        if not self.use_ros:
+        # For the demo, we'll simulate some LiDAR data if not using external data sources
+        if not self.use_ros and not self.zmq_server:
             self._simulate_data()
         else:
-            # In a real system, LiDAR data would come from ROS callbacks
+            # In a real system, LiDAR/IMU data would come from callbacks
             # For now, we'll just wait for termination
             while self.is_running:
                 time.sleep(0.1)
+
+                # Periodically save stats
+                if not hasattr(self, '_stats_timer'):
+                    self._stats_timer = time.time()
+
+                if time.time() - self._stats_timer > 10.0:  # Every 10 seconds
+                    self.save_stats()
+                    self._stats_timer = time.time()
 
         self.logger.info("Processing thread terminated")
 
@@ -309,6 +411,13 @@ class SLAMDemo:
 
             if result["success"]:
                 self.logger.debug(f"Processed simulated scan {step}/{total_steps}")
+
+                # Show visualization
+                if self.show_visualization:
+                    viz_img = self.slam_integration.get_visualization_image()
+                    if viz_img is not None:
+                        cv2.imshow("SLAM Map", viz_img)
+                        cv2.waitKey(1)
             else:
                 self.logger.warning(f"Failed to process simulated scan: {result['message']}")
 
@@ -401,12 +510,16 @@ class SLAMDemo:
 def main():
     """Main entry point with argument parsing"""
     parser = argparse.ArgumentParser(description='SLAM Demo')
-    parser.add_argument('--use-ros', action='store_true', help='Use ROS for data input')
+    parser.add_argument('--use-ros', action='store_true', help='Use ROS for IMU data')
+    parser.add_argument('--zmq-server', type=str,
+                        help='ZMQ server address for LiDAR data (e.g., tcp://192.168.1.100:5555)')
     parser.add_argument('--log-level', type=str, default='INFO',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
                         help='Logging level')
     parser.add_argument('--output-dir', type=str, default='slam_output',
                         help='Output directory for maps and statistics')
+    parser.add_argument('--no-visualization', action='store_true',
+                        help='Disable real-time visualization')
 
     args = parser.parse_args()
 
@@ -417,7 +530,10 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     # Initialize and run the demo
-    demo = SLAMDemo(use_ros=args.use_ros, log_level=log_level)
+    demo = SLAMDemo(use_ros=args.use_ros, zmq_server=args.zmq_server, log_level=log_level)
+
+    # Configure visualization
+    demo.show_visualization = not args.no_visualization
 
     try:
         # Start the demo
@@ -426,9 +542,24 @@ def main():
         # In a real application, we would wait for user input to stop
         # For this demo, we'll just run for a fixed amount of time
         print("Running SLAM demo for 60 seconds...")
-        for i in range(60):
-            time.sleep(1)
-            print(f"Time elapsed: {i + 1}s/60s", end='\r')
+        print("Press Ctrl+C to terminate early")
+        running = True
+        start_time = time.time()
+
+        while running and (time.time() - start_time < 60):
+            # Print progress with time remaining
+            elapsed = time.time() - start_time
+            remaining = max(0, 60 - elapsed)
+            print(f"Time elapsed: {int(elapsed)}s, remaining: {int(remaining)}s", end='\r')
+
+            # Short sleep to avoid CPU usage
+            time.sleep(0.5)
+
+            # Process keyboard input
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                print("\nStopped by user (pressed 'q')")
+                running = False
+
         print("\nDemo completed")
 
         # Save final outputs
