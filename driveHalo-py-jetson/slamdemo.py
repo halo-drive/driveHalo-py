@@ -102,8 +102,8 @@ class SensorReceiver:
                         num_points = np.frombuffer(size_bytes, dtype=np.int32)[0]
 
                         # Reshape point cloud
-                        points = np.frombuffer(points_bytes, dtype=np.float32).reshape((num_points, 3))
-                        intensities = np.frombuffer(intensities_bytes, dtype=np.float32)
+                        points = np.frombuffer(points_bytes, dtype=np.float32, count=num_points*3).reshape((num_points, 3)).copy()
+                        intensities = np.frombuffer(intensities_bytes, dtype=np.float32, count=num_points).copy()
 
                         # Call processing callback
                         self.callback(points, intensities, timestamp)
@@ -308,6 +308,11 @@ class SLAMDemo:
         # Start ROS interface if using ROS for IMU
         if self.use_ros and self.ros_interface:
             self.ros_interface.start(imu_topic="/livox/imu")
+            logging.basicConfig(
+                level=logging.DEBUG,  # or self.logger.level
+                format="%(asctime)s  %(levelname)-8s %(name)s: %(message)s",
+                force=True  # wipes rospy?s changes
+            )
 
         # Start ZMQ receiver if using it for LiDAR
         if self.sensor_receiver:
