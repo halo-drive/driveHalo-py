@@ -12,7 +12,11 @@ import logging
 import threading
 import os
 from typing import Dict, Any
-
+logging.basicConfig(
+    level=logging.DEBUG,                         # default, will be tuned in main()
+    format="%(asctime)s  %(levelname)-8s %(name)s: %(message)s",
+    force=True
+)
 # Import SLAM components
 from fast_slam import FastSLAM
 from map_manager import MapManager
@@ -129,10 +133,9 @@ class SLAMDemo:
             log_level: Logging level
         """
         # Configure logging
-        logging.basicConfig(
-            level=log_level,
-            format='%(asctime)s - %(levelname)s - %(name)s - %(message)s'
-        )
+        logging.getLogger().setLevel(log_level)
+        for h in logging.getLogger().handlers:
+            h.setLevel(log_level)
         self.logger = logging.getLogger("SLAMDemo")
         self.logger.info("Initializing SLAM demo")
 

@@ -22,6 +22,12 @@ git clone https://github.com/isl-org/Open3D.git
   -DPYTHON_EXECUTABLE=~/DriveGXO/venv/bin/python3 \
   ..
 
+ 
+ln -s  /home/pomo/.local/lib/python3.8/site-packages/torch/  ~/DriveGXO/venv/lib/python3.8/site-packages/torch
+ln -s <path_to_torchvision> ~/DriveGXO/venv/lib/python3.8/site-packages/torchvision
+
+
+
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
 
 sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
@@ -54,3 +60,8 @@ rostopic echo /livox/lidar --noarr
 
 
 git clone https://github.com/Livox-SDK/livox_ros_driver2.git ws_livox/src/livox_ros_driver2
+
+python3 - <<'PY'
+import logging, rospy
+print("root logger level after importing rospy =", logging.getLogger().level)
+PY
