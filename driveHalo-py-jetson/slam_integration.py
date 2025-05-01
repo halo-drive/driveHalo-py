@@ -191,6 +191,12 @@ class SLAMIntegration:
                     "processing_time": time.time() - start_time
                 }
 
+    def _is_static(self) -> bool:
+        """Determine if the system is static using IMU data"""
+        if hasattr(self.slam, '_detect_static_state'):
+            return self.slam._detect_static_state()
+        return False
+
     def process_imu_data(self, imu_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Process IMU data for SLAM
@@ -204,7 +210,45 @@ class SLAMIntegration:
         start_time = time.time()
 
         with self.lock:
-            # Skip if SLAM is not active
+            # store imu data for static detection
+            if hasattr(self.slam, 'imu_history'):
+                self.slam.imu_history.append({
+                    'data': imu_data,
+                    'timestamp': imu_data.get("timestamp", time.time())
+                })
+                # Keep history bounded
+                while len(self.slam.imu_history) > 100:
+                    self.slam.imu_history.pop(0)
+            else:
+                self.slam.imu_history = [{
+                    'data': imu_data,
+                    'timestamp': imu_data.get('timestamp', time.time())
+                }]
+
+            # When static, use IMU for orientation correction
+            if self._is_static() and len(self.slam.imu_history) > 5:
+                # Get orientation from IMU
+                quat = imu_data.get('orientation_quaternion')
+                if quat is not None and np.linalg.norm(quat) > 0.1:
+                    # Extract yaw from quaternion
+                    r = Rotation.from_quat([quat[1], quat[2], quat[3], quat[0]])
+                    euler = r.as_euler('xyz')
+
+                    # Update heading in SLAM pose (only yaw/heading, not position)
+                    current_pose = self.slam.get_pose()
+                    if np.linalg.norm(current_pose[:3, 3]) > 0:  # If we have valid position
+                        # Create new pose with IMU orientation but keep position
+                        new_rot = Rotation.from_euler('xyz', [0, 0, euler[2]])
+                        new_mat = new_rot.as_matrix()
+
+                        # Only update yaw component of pose
+                        current_pose[:3, :3] = new_mat
+                        self.slam.current_pose = current_pose
+
+                        # Update best particle
+                        if self.slam.best_particle_idx >= 0:
+                            self.slam.particles[self.slam.best_particle_idx].pose = current_pose.copy()
+
             if not self.is_active:
                 return {
                     "success": False,
@@ -229,10 +273,6 @@ class SLAMIntegration:
             # Limit buffer size
             if len(self.imu_data_buffer) > self.max_buffer_size:
                 self.imu_data_buffer.pop(0)
-
-            # Currently, our FastSLAM implementation doesn't use IMU directly
-            # In a more sophisticated system, we would use IMU for motion prediction
-            # or integrate with a more advanced sensor fusion system
 
             return {
                 "success": True,

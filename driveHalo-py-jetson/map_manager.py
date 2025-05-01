@@ -50,8 +50,17 @@ class MapManager:
         self.occupancy_threshold = 0.6
         self.free_threshold = 0.3
 
-        # Initialize the occupancy grid map with unknown values
+        # Dense Map for backward compatibility
         self.occupancy_map = np.ones((height, width), dtype=np.float32) * self.UNKNOWN
+
+        # sparse representation
+        self.sparse_map = {}  # Dictionary of (x,y) -> occupancy value
+        self.active_cells = set()  # Set of (x,y) tuples for non-unknown cells
+        self.min_x, self.min_y = width, height  # Track explored region
+        self.max_x, self.max_y = 0, 0
+
+        # Use sparse by default
+        self.use_sparse = True
 
         # Thread safety
         self.lock = threading.RLock()
@@ -64,6 +73,39 @@ class MapManager:
         self.map_image_timestamp = 0
 
         self.logger.info(f"Map initialized with resolution: {resolution}m and size: {width}x{height} cells")
+
+    def get_occupancy(self, cell_x: int, cell_y: int) -> float:
+        """Get occupancy with sparse map support"""
+        with self.lock:
+            if not self.is_in_bounds(cell_x, cell_y):
+                return self.UNKNOWN
+
+            if self.use_sparse:
+                return self.sparse_map.get((cell_x, cell_y), self.UNKNOWN)
+            else:
+                return self.occupancy_map[cell_y, cell_x]
+
+    def set_occupancy(self, cell_x: int, cell_y: int, value: float):
+        """Set occupancy with sparse map support"""
+        with self.lock:
+            if not self.is_in_bounds(cell_x, cell_y):
+                return
+
+            if self.use_sparse:
+                if value != self.UNKNOWN:
+                    self.sparse_map[(cell_x, cell_y)] = value
+                    self.active_cells.add((cell_x, cell_y))
+
+                    # Update explored region bounds
+                    self.min_x = min(self.min_x, cell_x)
+                    self.min_y = min(self.min_y, cell_y)
+                    self.max_x = max(self.max_x, cell_x)
+                    self.max_y = max(self.max_y, cell_y)
+                elif (cell_x, cell_y) in self.sparse_map:
+                    del self.sparse_map[(cell_x, cell_y)]
+                    self.active_cells.remove((cell_x, cell_y))
+            else:
+                self.occupancy_map[cell_y, cell_x] = value
 
     def world_to_map(self, x: float, y: float) -> Tuple[int, int]:
         """
@@ -108,35 +150,6 @@ class MapManager:
         """
         return (0 <= cell_x < self.width) and (0 <= cell_y < self.height)
 
-    def get_occupancy(self, cell_x: int, cell_y: int) -> float:
-        """
-        Get the occupancy value at a specific cell
-
-        Args:
-            cell_x: X coordinate in map frame
-            cell_y: Y coordinate in map frame
-
-        Returns:
-            Occupancy value (0.0 = free, 0.5 = unknown, 1.0 = occupied)
-        """
-        with self.lock:
-            if not self.is_in_bounds(cell_x, cell_y):
-                return self.UNKNOWN
-            return self.occupancy_map[cell_y, cell_x]
-
-    def set_occupancy(self, cell_x: int, cell_y: int, value: float):
-        """
-        Set the occupancy value at a specific cell
-
-        Args:
-            cell_x: X coordinate in map frame
-            cell_y: Y coordinate in map frame
-            value: Occupancy value to set
-        """
-        with self.lock:
-            if not self.is_in_bounds(cell_x, cell_y):
-                return
-            self.occupancy_map[cell_y, cell_x] = value
 
     def update_occupancy(self, cell_x: int, cell_y: int, is_occupied: bool):
         """
@@ -207,6 +220,41 @@ class MapManager:
 
         return cells
 
+    def _bresenham_ray(self, x0: int, y0: int, x1: int, y1: int) -> List[Tuple[int, int]]:
+        """
+        Optimized Bresenham line algorithm for ray tracing
+        """
+        # Pre-allocate result array for better performance
+        dx = abs(x1 - x0)
+        dy = abs(y1 - y0)
+        max_steps = max(dx, dy) + 1
+        result = []
+        result_size = 0
+
+        sx = 1 if x0 < x1 else -1
+        sy = 1 if y0 < y1 else -1
+        err = dx - dy
+
+        x, y = x0, y0
+
+        while True:
+            if self.is_in_bounds(x, y):
+                result.append((x, y))
+                result_size += 1
+
+            if x == x1 and y == y1:
+                break
+
+            e2 = 2 * err
+            if e2 > -dy:
+                err -= dy
+                x += sx
+            if e2 < dx:
+                err += dx
+                y += sy
+
+        return result
+
     def update_from_scan(self, sensor_x: float, sensor_y: float, points: np.ndarray):
         """
         Update map using a LiDAR scan
@@ -230,33 +278,45 @@ class MapManager:
                 self.logger.warning(f"Sensor position ({sensor_x}, {sensor_y}) is outside map bounds")
                 return
 
-            # Process each point in the scan
-            for i in range(len(points)):
-                # Get endpoint in world coordinates (ignoring z)
-                end_x, end_y = points[i, 0], points[i, 1]
+            # Batch convert all endpoinst to map coordinates
+            end_points_x = points[:, 0]
+            end_points_y = points[:, 1]
+            end_cells_x = np.round(end_points_x / self.resolution + self.origin_x).astype(np.int32)
+            end_cells_y = np.round(end_points_y / self.resolution + self.origin_y).astype(np.int32)
 
-                # Convert endpoint to map coordinates
-                end_cell_x, end_cell_y = self.world_to_map(end_x, end_y)
 
-                # Skip if endpoint is outside map bounds
-                if not self.is_in_bounds(end_cell_x, end_cell_y):
-                    continue
+            # Filter points outside map bounds
+            valid_indices = (end_cells_x >= 0) & (end_cells_x < self.width) & \
+                            (end_cells_y >= 0) & (end_cells_y < self.height)
+            end_cells_x = end_cells_x[valid_indices]
+            end_cells_y = end_cells_y[valid_indices]
 
-                # Get cells along the ray
-                cells = self.trace_ray(sensor_x, sensor_y, end_x, end_y)
+            # Process endpoints in batches to avoid memory issues
+            batch_size = 1000
+            update_count = 0
 
-                if not cells:
-                    continue
+            for batch_start in range(0, len(end_cells_x), batch_size):
+                batch_end = min(batch_start + batch_size, len(end_cells_x))
+                batch_x = end_cells_x[batch_start:batch_end]
+                batch_y = end_cells_y[batch_start:batch_end]
 
-                # Mark cells along the ray as free except the endpoint
-                for j in range(len(cells) - 1):
-                    cell_x, cell_y = cells[j]
-                    self.update_occupancy(cell_x, cell_y, False)
+                # Process this batch
+                for i in range(len(batch_x)):
+                    # Use Bresenham algorithm (optimized version)
+                    ray_cells = self._bresenham_ray(start_cell_x, start_cell_y, batch_x[i], batch_y[i])
+
+                    if not ray_cells:
+                        continue
+
+                    # Mark cells along the ray as free except the endpoint
+                    for j in range(len(ray_cells) - 1):
+                        cell_x, cell_y = ray_cells[j]
+                        self.update_occupancy(cell_x, cell_y, False)
+                        update_count += 1
+
+                    # Mark the endpoint as occupied
+                    self.update_occupancy(batch_x[i], batch_y[i], True)
                     update_count += 1
-
-                # Mark the endpoint as occupied
-                self.update_occupancy(end_cell_x, end_cell_y, True)
-                update_count += 1
 
         process_time = time.time() - start_time
         self.logger.debug(f"Updated map with {len(points)} points in {process_time:.3f} seconds")

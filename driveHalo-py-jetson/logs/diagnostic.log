@@ -4992,3 +4992,440 @@
 2025-04-30 14:29:47.426 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.29ms radius=inf, lateral_offset=0.0
 2025-04-30 14:29:47.430 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.58ms 
 2025-04-30 14:29:47.431 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.10ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:13:21.734 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 15:13:21.734 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 15:13:31.377 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.3%
+2025-04-30 15:13:44.745 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:13:44.756 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.7%, Avg=27.0%, Max=97.3%
+2025-04-30 15:13:44.763 - INFO - diagnostic [MainThread] - Memory Usage: Current=39.8%, Avg=39.8%
+2025-04-30 15:13:44.768 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:13:44.774 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:13:44.783 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:13:47.324 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.9%
+2025-04-30 15:13:50.497 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:13:50.508 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.9%, Avg=30.9%, Max=97.9%
+2025-04-30 15:13:50.513 - INFO - diagnostic [MainThread] - Memory Usage: Current=39.9%, Avg=39.8%
+2025-04-30 15:13:50.519 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:13:50.529 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:13:50.534 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:13:57.283 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:13:57.288 - INFO - diagnostic [MainThread] - CPU Usage: Current=22.5%, Avg=29.5%, Max=97.9%
+2025-04-30 15:13:57.304 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.0%, Avg=39.8%
+2025-04-30 15:13:57.310 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:13:57.320 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:13:57.325 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:01.535 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.3%
+2025-04-30 15:14:02.667 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:02.668 - INFO - diagnostic [MainThread] - CPU Usage: Current=95.3%, Avg=31.8%, Max=97.9%
+2025-04-30 15:14:02.668 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.0%, Avg=39.8%
+2025-04-30 15:14:02.668 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:14:02.668 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:14:02.668 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:08.857 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:08.872 - INFO - diagnostic [MainThread] - CPU Usage: Current=26.5%, Avg=31.9%, Max=97.9%
+2025-04-30 15:14:08.880 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.0%, Avg=39.9%
+2025-04-30 15:14:08.885 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:14:08.896 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:14:08.906 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:15.271 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:15.287 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.6%, Avg=30.6%, Max=97.9%
+2025-04-30 15:14:15.292 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.0%, Avg=39.9%
+2025-04-30 15:14:15.297 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:14:15.303 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:14:15.303 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:16.166 - INFO - diagnostic [MainThread] - Disabled system diagnostics
+2025-04-30 15:14:17.343 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 96.9%
+2025-04-30 15:14:18.369 - INFO - diagnostic [MainThread] - Enabled sync diagnostics
+2025-04-30 15:14:20.562 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:20.562 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:22.140 - INFO - diagnostic [MainThread] - Enabled performance diagnostics
+2025-04-30 15:14:22.150 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:14:34.330 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 15:14:34.330 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 15:14:47.445 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.8%
+2025-04-30 15:14:49.999 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:50.000 - INFO - diagnostic [MainThread] - CPU Usage: Current=51.2%, Avg=40.2%, Max=97.8%
+2025-04-30 15:14:50.001 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.1%, Avg=40.1%
+2025-04-30 15:14:50.001 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:14:50.001 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:14:50.002 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:55.067 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:14:55.068 - INFO - diagnostic [MainThread] - CPU Usage: Current=53.9%, Avg=44.6%, Max=97.8%
+2025-04-30 15:14:55.068 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.2%, Avg=40.1%
+2025-04-30 15:14:55.068 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:14:55.068 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:14:55.068 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:00.192 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:00.193 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.0%, Avg=46.3%, Max=97.8%
+2025-04-30 15:15:00.193 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.3%, Avg=40.1%
+2025-04-30 15:15:00.193 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:00.194 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:00.194 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:02.504 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.6%
+2025-04-30 15:15:05.364 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:05.364 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.1%, Avg=50.9%, Max=97.8%
+2025-04-30 15:15:05.364 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.3%, Avg=40.2%
+2025-04-30 15:15:05.365 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:05.365 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:05.365 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:10.582 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:10.583 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.5%, Avg=51.3%, Max=97.8%
+2025-04-30 15:15:10.583 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.3%, Avg=40.2%
+2025-04-30 15:15:10.583 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:10.583 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:10.583 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:15.809 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:15.810 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.4%, Avg=51.6%, Max=97.8%
+2025-04-30 15:15:15.810 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.3%, Avg=40.2%
+2025-04-30 15:15:15.810 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:15.810 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:15.810 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:17.531 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 99.3%
+2025-04-30 15:15:20.968 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:20.969 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.5%, Avg=54.6%, Max=99.3%
+2025-04-30 15:15:20.969 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.4%, Avg=40.2%
+2025-04-30 15:15:20.969 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:20.969 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:20.969 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:26.068 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:26.068 - INFO - diagnostic [MainThread] - CPU Usage: Current=53.8%, Avg=54.5%, Max=99.3%
+2025-04-30 15:15:26.068 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.4%, Avg=40.2%
+2025-04-30 15:15:26.068 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:26.068 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:26.068 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:31.295 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:31.301 - INFO - diagnostic [MainThread] - CPU Usage: Current=63.2%, Avg=52.0%, Max=99.3%
+2025-04-30 15:15:31.302 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.4%, Avg=40.3%
+2025-04-30 15:15:31.302 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:31.302 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:31.302 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:32.558 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.4%
+2025-04-30 15:15:36.347 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:36.347 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.1%, Avg=51.6%, Max=99.3%
+2025-04-30 15:15:36.347 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.5%, Avg=40.3%
+2025-04-30 15:15:36.347 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:36.348 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:36.348 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:41.432 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:41.433 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.8%, Avg=49.4%, Max=99.3%
+2025-04-30 15:15:41.433 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.5%, Avg=40.3%
+2025-04-30 15:15:41.433 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:41.433 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:41.434 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:46.550 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:46.551 - INFO - diagnostic [MainThread] - CPU Usage: Current=69.9%, Avg=47.9%, Max=99.3%
+2025-04-30 15:15:46.551 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.5%, Avg=40.3%
+2025-04-30 15:15:46.551 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:46.552 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:46.552 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:47.581 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.7%
+2025-04-30 15:15:51.754 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:51.754 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.8%, Avg=47.7%, Max=99.3%
+2025-04-30 15:15:51.754 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.6%, Avg=40.3%
+2025-04-30 15:15:51.755 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:51.755 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:51.755 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:53.845 - INFO - diagnostic [MainThread] - Enabled performance diagnostics
+2025-04-30 15:15:53.845 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:15:53.880 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.65ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:54.092 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.74ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:54.301 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.18ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:54.509 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.40ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:54.717 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.72ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:54.925 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.28ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:55.133 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.34ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:55.339 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 20.44ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:55.550 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.56ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:55.762 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.89ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:55.978 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.77ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:56.192 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.26ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:56.407 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.65ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:56.616 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.16ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:56.825 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.20ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:56.826 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:56.826 - INFO - diagnostic [MainThread] - CPU Usage: Current=18.5%, Avg=45.5%, Max=99.3%
+2025-04-30 15:15:56.826 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.6%, Avg=40.3%
+2025-04-30 15:15:56.826 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:15:56.827 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:15:56.827 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:15:56.827 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:15:57.034 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.81ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:57.252 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.27ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:57.461 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.64ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:57.670 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.24ms radius=-100.0, lateral_offset=725.9821748204525
+2025-04-30 15:15:57.882 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.97ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:58.091 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.63ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:58.301 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.09ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:58.509 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.32ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:58.719 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.28ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:58.929 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.81ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:59.139 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.47ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:59.350 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.94ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:59.558 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.02ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:59.770 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.92ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:15:59.988 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.64ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:00.200 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.16ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:00.409 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.81ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:00.594 - INFO - diagnostic [MainThread] - Disabled system diagnostics
+2025-04-30 15:16:00.619 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.90ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:00.836 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.79ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:01.055 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.33ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:01.270 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.82ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:01.514 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 56.33ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:01.744 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 42.58ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:01.987 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 56.17ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:01.990 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:01.990 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:16:01.990 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:02.231 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 52.54ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:02.520 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 94.36ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:02.604 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 94.5%
+2025-04-30 15:16:02.762 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 42.55ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:03.000 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 47.47ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:03.233 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 41.35ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:03.417 - INFO - diagnostic [MainThread] - Enabled system diagnostics
+2025-04-30 15:16:03.417 - INFO - diagnostic [MainThread] - CPU Usage: Current=94.5%, Avg=45.9%, Max=99.3%
+2025-04-30 15:16:03.418 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.6%, Avg=40.4%
+2025-04-30 15:16:03.418 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:03.418 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:03.448 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.18ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:03.658 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.65ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:03.866 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.41ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:04.080 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.95ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:04.290 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.82ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:04.500 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.59ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:04.709 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 23.54ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:04.922 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.72ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:05.131 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.35ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:05.348 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.78ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:05.530 - INFO - diagnostic [MainThread] - Enabled sync diagnostics
+2025-04-30 15:16:05.555 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 22.55ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:05.764 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.09ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:05.975 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.22ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:06.184 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.59ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:06.393 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.11ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:06.604 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.86ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:06.820 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.39ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:07.030 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.13ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:07.031 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:07.031 - INFO - diagnostic [MainThread] - CPU Usage: Current=19.1%, Avg=45.0%, Max=99.3%
+2025-04-30 15:16:07.031 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.6%, Avg=40.4%
+2025-04-30 15:16:07.031 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:07.032 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:07.032 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:16:07.032 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:07.240 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.25ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:07.454 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 28.63ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:07.666 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.53ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:07.876 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.90ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:08.089 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.66ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:08.300 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.85ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:08.510 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.27ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:08.725 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 30.62ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:08.943 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 32.35ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:09.157 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.63ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:09.368 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 27.50ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:09.584 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.06ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:09.800 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.77ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:10.011 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 26.18ms radius=-100.0, lateral_offset=652.3555500520164
+2025-04-30 15:16:10.192 - INFO - diagnostic [MainThread] - Disabled performance diagnostics
+2025-04-30 15:16:12.117 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:12.118 - INFO - diagnostic [MainThread] - CPU Usage: Current=16.2%, Avg=43.4%, Max=99.3%
+2025-04-30 15:16:12.118 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.6%, Avg=40.4%
+2025-04-30 15:16:12.118 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:12.118 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:12.118 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:17.262 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:17.263 - INFO - diagnostic [MainThread] - CPU Usage: Current=70.7%, Avg=43.0%, Max=99.3%
+2025-04-30 15:16:17.263 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.7%, Avg=40.4%
+2025-04-30 15:16:17.263 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:17.263 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:17.263 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:17.628 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 92.8%
+2025-04-30 15:16:20.018 - INFO - diagnostic [MainThread] - Enabled sensors diagnostics
+2025-04-30 15:16:22.364 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:22.365 - INFO - diagnostic [MainThread] - CPU Usage: Current=17.3%, Avg=42.6%, Max=99.3%
+2025-04-30 15:16:22.365 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.7%, Avg=40.4%
+2025-04-30 15:16:22.365 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:22.365 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:22.366 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:27.462 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:27.463 - INFO - diagnostic [MainThread] - CPU Usage: Current=19.3%, Avg=41.7%, Max=99.3%
+2025-04-30 15:16:27.463 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.7%, Avg=40.4%
+2025-04-30 15:16:27.464 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:27.464 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:27.464 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:32.561 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:32.562 - INFO - diagnostic [MainThread] - CPU Usage: Current=69.1%, Avg=41.5%, Max=99.3%
+2025-04-30 15:16:32.562 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.7%, Avg=40.4%
+2025-04-30 15:16:32.563 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:16:32.563 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:16:32.563 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:16:32.652 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 94.8%
+2025-04-30 15:16:42.838 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 15:16:42.838 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 15:16:46.463 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.7%
+2025-04-30 15:17:00.866 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:00.867 - INFO - diagnostic [MainThread] - CPU Usage: Current=42.3%, Avg=32.4%, Max=95.7%
+2025-04-30 15:17:00.867 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.9%, Avg=40.8%
+2025-04-30 15:17:00.867 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:17:00.867 - INFO - diagnostic [MainThread] - Active threads: 8
+2025-04-30 15:17:00.867 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:02.405 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 95.6%
+2025-04-30 15:17:05.934 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:05.950 - INFO - diagnostic [MainThread] - CPU Usage: Current=19.9%, Avg=34.9%, Max=95.7%
+2025-04-30 15:17:05.955 - INFO - diagnostic [MainThread] - Memory Usage: Current=40.9%, Avg=40.8%
+2025-04-30 15:17:05.961 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:17:05.966 - INFO - diagnostic [MainThread] - Active threads: 8
+2025-04-30 15:17:05.971 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:13.023 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:13.033 - INFO - diagnostic [MainThread] - CPU Usage: Current=20.6%, Avg=31.7%, Max=95.7%
+2025-04-30 15:17:13.044 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.0%, Avg=40.8%
+2025-04-30 15:17:13.049 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:17:13.054 - INFO - diagnostic [MainThread] - Active threads: 8
+2025-04-30 15:17:13.060 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:16.667 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.3%
+2025-04-30 15:17:20.644 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:20.655 - INFO - diagnostic [MainThread] - CPU Usage: Current=19.9%, Avg=34.5%, Max=98.3%
+2025-04-30 15:17:20.660 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.0%, Avg=40.9%
+2025-04-30 15:17:20.665 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:17:20.676 - INFO - diagnostic [MainThread] - Active threads: 8
+2025-04-30 15:17:20.686 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:17:52.355 - INFO - diagnostic [MainThread] - System monitoring thread started
+2025-04-30 15:17:52.355 - INFO - diagnostic [MainThread] - Diagnostic logger initialized
+2025-04-30 15:18:02.346 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 98.8%
+2025-04-30 15:18:07.950 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:07.951 - INFO - diagnostic [MainThread] - CPU Usage: Current=47.1%, Avg=38.3%, Max=98.8%
+2025-04-30 15:18:07.951 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.1%, Avg=41.1%
+2025-04-30 15:18:07.951 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:07.952 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:07.952 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:13.189 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:13.190 - INFO - diagnostic [MainThread] - CPU Usage: Current=53.0%, Avg=42.7%, Max=98.8%
+2025-04-30 15:18:13.190 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.2%, Avg=41.1%
+2025-04-30 15:18:13.190 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:13.190 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:13.190 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:17.377 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 97.7%
+2025-04-30 15:18:18.234 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:18.235 - INFO - diagnostic [MainThread] - CPU Usage: Current=97.7%, Avg=47.6%, Max=98.8%
+2025-04-30 15:18:18.235 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.3%, Avg=41.2%
+2025-04-30 15:18:18.235 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:18.235 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:18.235 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:23.379 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:23.380 - INFO - diagnostic [MainThread] - CPU Usage: Current=56.1%, Avg=49.4%, Max=98.8%
+2025-04-30 15:18:23.380 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.3%, Avg=41.2%
+2025-04-30 15:18:23.380 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:23.380 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:23.380 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:27.273 - INFO - diagnostic [MainThread] - Enabled sync diagnostics
+2025-04-30 15:18:28.517 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:28.518 - INFO - diagnostic [MainThread] - CPU Usage: Current=55.4%, Avg=50.4%, Max=98.8%
+2025-04-30 15:18:28.518 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.3%, Avg=41.2%
+2025-04-30 15:18:28.519 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:28.519 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:28.519 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:32.444 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 96.2%
+2025-04-30 15:18:33.674 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:33.675 - INFO - diagnostic [MainThread] - CPU Usage: Current=96.2%, Avg=52.7%, Max=98.8%
+2025-04-30 15:18:33.675 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.3%, Avg=41.2%
+2025-04-30 15:18:33.675 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:33.675 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:33.675 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:38.476 - INFO - diagnostic [MainThread] - Enabled performance diagnostics
+2025-04-30 15:18:38.477 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:18:38.513 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 33.60ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:38.515 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:38.515 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:38.761 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 51.79ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:38.764 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:38.764 - INFO - diagnostic [MainThread] - CPU Usage: Current=54.8%, Avg=53.4%, Max=98.8%
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.4%, Avg=41.2%
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:38.765 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:39.028 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 63.53ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:39.031 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:39.032 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:39.286 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 57.72ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:39.289 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:39.290 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:39.532 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 42.76ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:39.534 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:39.534 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:39.791 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 61.81ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:39.793 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:39.794 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:40.022 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 38.42ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:40.023 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:40.024 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:40.258 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 39.23ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:40.259 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:40.259 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:40.501 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 47.72ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:40.503 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:40.504 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:40.750 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 48.34ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:40.755 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.04ms 
+2025-04-30 15:18:40.755 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:41.018 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 68.43ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:41.020 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:41.020 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:41.257 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 43.27ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:41.259 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:41.259 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:41.479 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 29.18ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:41.481 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:41.482 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:41.710 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 37.06ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:41.712 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:41.712 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:41.950 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 46.03ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:41.953 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:41.953 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:42.194 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 48.44ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:42.195 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:42.195 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:42.434 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 43.33ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:42.435 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:42.435 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:42.676 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 46.89ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:42.679 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:42.679 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:42.896 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 25.26ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:42.900 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.41ms 
+2025-04-30 15:18:42.901 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:43.151 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 47.67ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:43.153 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:43.154 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.07ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:43.400 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 45.99ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:43.401 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:43.401 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:43.628 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 35.19ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:43.630 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.05ms 
+2025-04-30 15:18:43.631 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:43.843 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 24.94ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:43.848 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:43.849 - INFO - diagnostic [MainThread] - CPU Usage: Current=55.0%, Avg=53.6%, Max=98.8%
+2025-04-30 15:18:43.849 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.4%, Avg=41.2%
+2025-04-30 15:18:43.849 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:43.849 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:43.849 - INFO - diagnostic [MainThread] - Performance metrics available in performance.log
+2025-04-30 15:18:43.850 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:43.850 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:43.850 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.09ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:44.084 - INFO - diagnostic [MainThread] - Performance - LaneDetection: 31.12ms radius=inf, lateral_offset=0.0
+2025-04-30 15:18:44.085 - INFO - diagnostic [MainThread] - Performance - SensorFusion: 0.06ms 
+2025-04-30 15:18:44.086 - INFO - diagnostic [MainThread] - Performance - ControlCalculation: 0.08ms steering=0.0, throttle=0.0, brake=0.1
+2025-04-30 15:18:44.284 - INFO - diagnostic [MainThread] - Disabled performance diagnostics
+2025-04-30 15:18:47.480 - WARNING - diagnostic [SystemMonitor] - CPU usage critical: 96.8%
+2025-04-30 15:18:48.995 - INFO - diagnostic [MainThread] - --- PERIODIC DIAGNOSTICS ---
+2025-04-30 15:18:49.013 - INFO - diagnostic [MainThread] - CPU Usage: Current=68.2%, Avg=55.9%, Max=98.8%
+2025-04-30 15:18:49.014 - INFO - diagnostic [MainThread] - Memory Usage: Current=41.4%, Avg=41.3%
+2025-04-30 15:18:49.015 - INFO - diagnostic [MainThread] - Disk Usage (/): Current=87.7%
+2025-04-30 15:18:49.015 - INFO - diagnostic [MainThread] - Active threads: 7
+2025-04-30 15:18:49.015 - INFO - diagnostic [MainThread] - --- END PERIODIC DIAGNOSTICS ---

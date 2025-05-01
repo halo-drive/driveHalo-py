@@ -139,6 +139,30 @@ class PointCloudProcessor:
             self.logger.warning(f"Failed to estimate normals: {e}")
             return pcd
 
+    def _is_static_scenario(self, source, target):
+        """Quickly determine if point clouds represent a static scenario"""
+        # Quick check: compare point count
+        if abs(len(source.points) - len(target.points)) < 10:
+            # Sample a subset of points (10 points) for fast comparison
+            try:
+                source_sample = np.asarray(source.points)[::len(source.points) // 10][:10]
+                target_sample = np.asarray(target.points)[::len(target.points) // 10][:10]
+
+                # Calculate average displacement
+                if len(source_sample) > 0 and len(target_sample) > 0:
+                    displacements = []
+                    for i in range(min(len(source_sample), len(target_sample))):
+                        dist = np.linalg.norm(source_sample[i] - target_sample[i])
+                        displacements.append(dist)
+
+                    avg_displacement = np.mean(displacements) if displacements else 0
+
+                    # If average displacement is small, consider it static
+                    return avg_displacement < 0.01  # 1cm threshold
+            except:
+                pass
+        return False
+
     def extract_features(self, pcd: o3d.geometry.PointCloud) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         Extract keypoints and features from point cloud
@@ -152,6 +176,10 @@ class PointCloudProcessor:
         if len(pcd.points) < 10:
             return np.array([]), np.array([]), np.array([])
 
+        if hasattr(pcd, 'points') and len(pcd.points) > 0:
+            pcd_hash = hash((len(pcd.points), *pcd.get_min_bound(), *pcd.get_max_bound()))
+            if hasattr(self, '_feature_cache') and pcd_hash in self._feature_cache:
+                return self._feature_cache[pcd_hash]
         try:
             # Ensure normals are computed
             if not pcd.has_normals():
@@ -166,6 +194,12 @@ class PointCloudProcessor:
             # In a more sophisticated implementation, we could use ISS or other keypoint detectors
             keypoints = np.asarray(pcd.points)
             descriptors = np.asarray(fpfh.data).T
+
+            if not hasattr(self, '_feature_cache'):
+                self._feature_cache = {}
+            if len(self._feature_cache) > 10:
+                self._feature_cache.clear()
+            self._feature_cache[pcd_hash] = (keypoints, keypoints, descriptors)
 
             return keypoints, keypoints, descriptors
 
@@ -187,6 +221,10 @@ class PointCloudProcessor:
         """
         if source is None or target is None:
             return np.eye(4), 0.0
+
+        # check for if the scans are identical (static lidar)
+        if self._is_static_scenario(source, target):
+            return np.eye(4), 0.95
 
         if not isinstance(source, o3d.geometry.PointCloud):
             source = o3d.geometry.PointCloud()

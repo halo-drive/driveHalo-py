@@ -31,6 +31,7 @@ class Particle:
         self.weight = weight
         self.trajectory = [self.pose.copy()]
         self.local_map = None  # For particle-specific map (optional)
+        self.last_visualization_time = 0.0
 
     def get_position(self) -> np.ndarray:
         """Get the position part of the pose"""
@@ -156,7 +157,7 @@ class FastSLAM:
             initial_position=(map_size[0] // 2, map_size[1] // 2)
         )
         self.pose_graph = PoseGraph()
-
+        self.last_visualization_time = 0.0
         # Global trajectory
         self.global_trajectory = [np.eye(4)]
         self.last_pose = np.eye(4)
@@ -255,6 +256,18 @@ class FastSLAM:
                     "current_pose": self.current_pose,
                     "processing_time": 0.0
                 }
+            # Add static optimization: detect if scanner hasnt moved using IMU
+            is_static = self._detect_static_state()
+            if is_static and not self.processing_first_scan:
+                # if static, we update visualization occasionaly
+                if (timestamp - self.last_visualization_time) < 5.0:  # Update viz every 5s when static
+                    return {
+                        "success": True,
+                        "message": "Static state, skipping processing",
+                        "current_pose": self.current_pose,
+                        "processing_time": time.time() - start_time
+                    }
+                self.last_visualization_time = timestamp
 
             # Process the point cloud
             scan_result = self.point_cloud_processor.process_scan(points, intensities)
@@ -327,9 +340,10 @@ class FastSLAM:
             delta_rotation = np.linalg.norm(euler)
 
             if delta_translation < self.min_translation and delta_rotation < self.min_rotation:
-                self.logger.debug(f"Skipping update: insufficient motion")
+                self.logger.debug(f"minimal motion detected, skipping updates")
+                self.last_scan_time = timestamp
                 return {
-                    "success": False,
+                    "success": True,
                     "message": "Insufficient motion",
                     "current_pose": self.current_pose,
                     "processing_time": time.time() - start_time
@@ -421,6 +435,26 @@ class FastSLAM:
                 "scan_fitness": scan_fitness,
                 "processing_time": processing_time
             }
+
+    def _detect_static_state(self) -> bool:
+        """
+        Use IMU data to determine if system is static
+        """
+        # Check if we have enough IMU history
+        if not hasattr(self, 'imu_history') or len(self.imu_history) < 10:
+            return False
+
+        # Analyze recent IMU data variance
+        accel_samples = np.array([imu['data'].get('linear_acceleration', [0, 0, 0])
+                                  for imu in self.imu_history[-10:]])
+        gyro_samples = np.array([imu['data'].get('angular_velocity', [0, 0, 0])
+                                 for imu in self.imu_history[-10:]])
+
+        accel_variance = np.var(accel_samples, axis=0).sum()
+        gyro_variance = np.var(gyro_samples, axis=0).sum()
+
+        # Consider static if variances are below thresholds
+        return accel_variance < 0.01 and gyro_variance < 0.001
 
     def _compute_particle_weights(self, scan_points: np.ndarray) -> float:
         """

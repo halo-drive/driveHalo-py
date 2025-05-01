@@ -54,3 +54,16 @@
 2025-04-25 09:39:58.436 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 42.2ms, Max Diff: 130.0ms, Min Diff: 0.1ms
 2025-04-25 09:40:03.544 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 46.3ms, Max Diff: 253.1ms, Min Diff: 0.0ms
 2025-04-25 09:40:08.609 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 41.4ms, Max Diff: 253.1ms, Min Diff: 0.0ms
+2025-04-30 15:16:05.530 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:16:07.031 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:16:12.118 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:16:17.262 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:16:22.365 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:16:27.463 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:16:32.562 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876820.9ms, Min Diff: 69876675.1ms
+2025-04-30 15:18:27.274 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876813.7ms, Max Diff: 69876821.4ms, Min Diff: 69876715.5ms
+2025-04-30 15:18:28.518 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876814.1ms, Max Diff: 69876821.4ms, Min Diff: 69876715.5ms
+2025-04-30 15:18:33.674 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.4ms, Max Diff: 69876821.4ms, Min Diff: 69876715.5ms
+2025-04-30 15:18:38.764 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.5ms, Max Diff: 69876821.8ms, Min Diff: 69876715.5ms
+2025-04-30 15:18:43.849 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876814.3ms, Max Diff: 69876822.1ms, Min Diff: 69876717.1ms
+2025-04-30 15:18:49.013 - INFO - sync [MainThread] - Sync Success Rate: 100.0%, Avg Diff: 69876810.1ms, Max Diff: 69876822.3ms, Min Diff: 69876670.0ms
