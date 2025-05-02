@@ -19,7 +19,7 @@ class PointCloudProcessor:
                  voxel_size: float = 0.05,
                  normal_radius: float = 0.1,
                  feature_radius: float = 0.2,
-                 icp_threshold: float = 0.05):
+                 icp_max_distance: float = 0.05):
         """
         Initialize the point cloud processor
 
@@ -36,7 +36,7 @@ class PointCloudProcessor:
         self.voxel_size = voxel_size
         self.normal_radius = normal_radius
         self.feature_radius = feature_radius
-        self.icp_threshold = icp_threshold
+        self.icp_max_distance = icp_max_distance
 
         # Thread safety
         self.lock = threading.RLock()
@@ -239,50 +239,85 @@ class PointCloudProcessor:
                 # Ensure writeable copy for target
                 target_points = np.array(target, copy=True) if not target.flags.writeable else target
                 target.points = o3d.utility.Vector3dVector(target_points)
+
         if len(source.points) < 10 or len(target.points) < 10:
             return np.eye(4), 0.0
 
         try:
-            # Ensure normals are computed
-            if not source.has_normals():
-                source = self.estimate_normals(source)
-            if not target.has_normals():
-                target = self.estimate_normals(target)
+            # Preprocess point clouds for better results
+            source = self._preprocess_point_cloud(source)
+            target = self._preprocess_point_cloud(target)
 
-            # Compute FPFH features
-            source_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-                source,
-                o3d.geometry.KDTreeSearchParamHybrid(radius=self.feature_radius, max_nn=100))
-
-            target_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-                target,
-                o3d.geometry.KDTreeSearchParamHybrid(radius=self.feature_radius, max_nn=100))
-
-            # Global registration
-            distance_threshold = self.voxel_size * 1.5
-
-            # Use RANSAC for initial alignment
+            # Initial global registration with better parameters
             result_ransac = o3d.pipelines.registration.registration_ransac_based_on_feature_matching(
-                source, target, source_fpfh, target_fpfh, True,
-                distance_threshold,
+                source, target,
+                self._compute_fpfh_features(source),
+                self._compute_fpfh_features(target),
+                True,
+                self.icp_max_distance * 1.5,  # More generous initial distance threshold
                 o3d.pipelines.registration.TransformationEstimationPointToPoint(False),
-                3, [
+                4,  # Increased minimum correspondence points
+                [
                     o3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength(0.9),
-                    o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(distance_threshold)
-                ], o3d.pipelines.registration.RANSACConvergenceCriteria(100000, 0.999))
+                    o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(self.icp_max_distance * 1.5)
+                ],
+                o3d.pipelines.registration.RANSACConvergenceCriteria(4000, 0.999)  # More iterations
+            )
 
-            initial_transformation = result_ransac.transformation
-
-            # Refine with ICP
+            # Refine with ICP using point-to-plane for better accuracy
             result_icp = o3d.pipelines.registration.registration_icp(
-                source, target, distance_threshold, initial_transformation,
-                o3d.pipelines.registration.TransformationEstimationPointToPlane())
-            result_transform = np.array(result_icp.transformation, copy=True)
-            return result_transform, result_icp.fitness
+                source, target,
+                self.icp_max_distance,
+                result_ransac.transformation,
+                o3d.pipelines.registration.TransformationEstimationPointToPlane(),
+                o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=30)
+            )
 
+            # Add confidence check
+            if result_icp.fitness < 0.3:  # Minimum threshold for acceptance
+                self.logger.warning(f"Low ICP fitness: {result_icp.fitness}, using fallback estimation")
+                return self._estimate_motion_from_points(source, target), 0.3
+
+            return result_icp.transformation, result_icp.fitness
         except Exception as e:
-            self.logger.warning(f"Failed to register point clouds: {e}")
+            self.logger.warning(f"Registration failed: {e}")
             return np.eye(4), 0.0
+
+    def _preprocess_point_cloud(self, pcd):
+        """New helper method for point cloud preprocessing"""
+        # Remove statistical outliers
+        if len(pcd.points) > 20:
+            pcd, _ = pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
+
+        # Voxel downsample
+        pcd = pcd.voxel_down_sample(voxel_size=self.voxel_size)
+
+        # Estimate normals if not already present
+        if not pcd.has_normals():
+            pcd.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(
+                radius=self.normal_radius, max_nn=30))
+
+        return pcd
+
+    def _compute_fpfh_features(self, pcd):
+        """Helper method to compute FPFH features"""
+        return o3d.pipelines.registration.compute_fpfh_feature(
+            pcd, o3d.geometry.KDTreeSearchParamHybrid(radius=self.feature_radius, max_nn=100))
+
+    def _estimate_motion_from_points(self, source, target):
+        """Fallback motion estimation when ICP fails"""
+        # Simple centroid-based estimation as fallback
+        source_centroid = np.mean(np.asarray(source.points), axis=0)
+        target_centroid = np.mean(np.asarray(target.points), axis=0)
+
+        # Estimate translation only
+        translation = target_centroid - source_centroid
+
+        # Create transformation matrix
+        result = np.eye(4)
+        result[:3, 3] = translation
+
+        return result
 
     def process_scan(self, points: np.ndarray,
                      intensities: Optional[np.ndarray] = None) -> Dict[str, Any]:

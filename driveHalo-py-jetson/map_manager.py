@@ -268,7 +268,8 @@ class MapManager:
             points = np.array(points, copy=True)
 
         start_time = time.time()
-        update_count = 0
+        points_processed = 0
+        cells_updated = 0
 
         with self.lock:
             # Start position in map coordinates
@@ -278,12 +279,18 @@ class MapManager:
                 self.logger.warning(f"Sensor position ({sensor_x}, {sensor_y}) is outside map bounds")
                 return
 
-            # Batch convert all endpoinst to map coordinates
-            end_points_x = points[:, 0]
-            end_points_y = points[:, 1]
+            # Filter out points that are too far (likely noise)
+            max_range = 50.0  # meters
+            distances = np.sqrt(np.sum((points[:, :2] - np.array([sensor_x, sensor_y])) ** 2, axis=1))
+            valid_indices = distances < max_range
+            filtered_points = points[valid_indices]
+            points_processed = len(filtered_points)
+
+            # Batch convert all endpoints to map coordinates
+            end_points_x = filtered_points[:, 0]
+            end_points_y = filtered_points[:, 1]
             end_cells_x = np.round(end_points_x / self.resolution + self.origin_x).astype(np.int32)
             end_cells_y = np.round(end_points_y / self.resolution + self.origin_y).astype(np.int32)
-
 
             # Filter points outside map bounds
             valid_indices = (end_cells_x >= 0) & (end_cells_x < self.width) & \
@@ -291,9 +298,13 @@ class MapManager:
             end_cells_x = end_cells_x[valid_indices]
             end_cells_y = end_cells_y[valid_indices]
 
-            # Process endpoints in batches to avoid memory issues
-            batch_size = 1000
-            update_count = 0
+            # Improved occupancy update parameters
+            hit_increment = 0.7  # Higher value to mark occupied cells more aggressively
+            miss_decrement = 0.2  # Higher value to clear free cells more aggressively
+
+            # Process endpoints in batches with larger batch size
+            batch_size = 2000
+            cells_updated = 0
 
             for batch_start in range(0, len(end_cells_x), batch_size):
                 batch_end = min(batch_start + batch_size, len(end_cells_x))
@@ -302,25 +313,34 @@ class MapManager:
 
                 # Process this batch
                 for i in range(len(batch_x)):
-                    # Use Bresenham algorithm (optimized version)
+                    # Use optimized Bresenham ray tracing
                     ray_cells = self._bresenham_ray(start_cell_x, start_cell_y, batch_x[i], batch_y[i])
 
                     if not ray_cells:
                         continue
 
-                    # Mark cells along the ray as free except the endpoint
-                    for j in range(len(ray_cells) - 1):
+                    # Mark cells along the ray as free except the endpoint and cells near the endpoint
+                    for j in range(max(0, len(ray_cells) - 2)):  # Skip the last 2 cells
                         cell_x, cell_y = ray_cells[j]
-                        self.update_occupancy(cell_x, cell_y, False)
-                        update_count += 1
+                        current = self.get_occupancy(cell_x, cell_y)
+                        # Update with miss evidence (free)
+                        new_value = max(current - miss_decrement, self.FREE)
+                        self.set_occupancy(cell_x, cell_y, new_value)
+                        cells_updated += 1
 
-                    # Mark the endpoint as occupied
-                    self.update_occupancy(batch_x[i], batch_y[i], True)
-                    update_count += 1
+                    # Mark the endpoint as occupied with higher confidence
+                    if len(ray_cells) > 0:
+                        cell_x, cell_y = ray_cells[-1]
+                        current = self.get_occupancy(cell_x, cell_y)
+                        # Update with hit evidence (occupied)
+                        new_value = min(current + hit_increment, self.OCCUPIED)
+                        self.set_occupancy(cell_x, cell_y, new_value)
+                        cells_updated += 1
 
-        process_time = time.time() - start_time
-        self.logger.debug(f"Updated map with {len(points)} points in {process_time:.3f} seconds")
-        self.logger.debug(f"Updated {update_count} cells")
+            process_time = time.time() - start_time
+            self.logger.debug(
+                f"Updated map with {points_processed} points in {process_time:.3f}s, cells: {cells_updated}")
+            self.update_count += 1
 
     def save_map(self, filename: str) -> bool:
         """

@@ -398,6 +398,20 @@ class FastSLAM:
                     information = np.identity(6)
                     self.pose_graph.add_edge(prev_node_id, current_node_id, relative_transform, information)
 
+            # ENHANCEMENT: Periodically optimize pose graph even without loop closures
+            if len(self.pose_graph.nodes) % 10 == 0 and len(self.pose_graph.nodes) > 5:
+                self.logger.info(f"Performing periodic pose graph optimization with {len(self.pose_graph.nodes)} nodes")
+                optimization_success = self.pose_graph.optimize(max_iterations=30)
+                if optimization_success:
+                    self.logger.info(f"Optimization succeeded: error={self.pose_graph.last_optimization_error:.6f}")
+                    # Update trajectory based on optimized poses
+                    self._update_trajectory_from_pose_graph()
+
+                    # Also update map with improved trajectory - visualization will reflect the optimized path
+                    self.logger.info("Trajectory updated based on optimized pose graph")
+                else:
+                    self.logger.warning("Periodic pose graph optimization failed")
+
             # Check for loop closures
             if timestamp - self.last_keyframe_time > self.keyframe_interval:
                 # Store keyframe
@@ -474,6 +488,7 @@ class FastSLAM:
 
             # Count matched points
             matched_count = 0
+            miss_count = 0
             total_count = len(world_points)
 
             if total_count == 0:
@@ -487,20 +502,33 @@ class FastSLAM:
 
                 # Check if point is in a mapped cell
                 if self.map.is_explored(x, y):
-                    # Match if observed occupancy matches map
-                    if ((self.map.is_occupied(x, y) and True) or
-                            (self.map.is_free(x, y) and False)):
+                    # Match with score based on certainity
+                    if self.map.is_occupied(x, y):
+                        # point matched an occupied cell
                         matched_count += 1
+                    else:
+                        # point contradicts with map
+                        miss_count += 1
 
-            # Compute weight based on match ratio
-            match_ratio = matched_count / total_count if total_count > 0 else 0
+            # Compute weight based on match quality
+            if total_count > 0:
+                # Include both matches and misses in the score
+                match_ratio = matched_count / total_count
+                mismatch_ratio = miss_count / total_count
 
-            # Scale by previous weight
-            weight = particle.weight * (0.1 + 0.9 * (match_ratio ** 2))
+                # Weight calculation with penalty for contradictions
+                score = 0.7 * match_ratio - 0.3 * mismatch_ratio
+                weight = max(particle.weight * (0.1 + 0.9 * (max(score, 0) ** 2)), 1e-10)
 
-            # Ensure non-zero weight
-            particle.weight = max(weight, 1e-10)
-            total_weight += particle.weight
+                # Add small random noise to prevent identical weights
+                weight *= (1.0 + random.uniform(-0.01, 0.01))
+
+                particle.weight = weight
+                total_weight += weight
+
+                # Log weights periodically
+                if i % 10 == 0:
+                    self.logger.debug(f"Particle {i} weight: {weight:.6f}, match ratio: {match_ratio:.3f}")
 
         return total_weight
 
@@ -534,6 +562,12 @@ class FastSLAM:
         # Get weights
         weights = np.array([p.weight for p in self.particles])
 
+        # Calculate effective sample size
+        effective_sample_size = 1.0 / np.sum(weights ** 2)
+        effective_sample_ratio = effective_sample_size / self.num_particles
+
+        self.logger.info(f"Resampling particales. Effective sample size: {effective_sample_ratio:.4f}")
+
         # Create new particle set
         new_particles = []
 
@@ -551,17 +585,27 @@ class FastSLAM:
                     i = M - 1
                 c += weights[i]
 
-            # Copy particle (deep copy)
             new_particle = Particle(
-                pose=self.particles[i].pose.copy(),
+                pose=self._add_noise_to_transform(self.particles[i].pose, self.motion_noise * 0.5),
                 weight=1.0 / M  # Equal weights after resampling
             )
+
+            # Copy trajectory with noise
             new_particle.trajectory = self.particles[i].trajectory.copy()
             new_particles.append(new_particle)
+
+            # Ensure best particle is preserved (elitist approach)
+        best_idx = np.argmax(weights)
+        new_particles[0] = Particle(
+            pose=self.particles[best_idx].pose.copy(),
+            weight=1.0 / M
+        )
+        new_particles[0].trajectory = self.particles[best_idx].trajectory.copy()
 
         # Replace particles
         self.particles = new_particles
         self.logger.debug("Particles resampled")
+
 
     def _add_keyframe(self, pcd: o3d.geometry.PointCloud, pose: np.ndarray):
         """

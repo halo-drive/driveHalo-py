@@ -175,10 +175,11 @@ class PoseGraph:
 
         with self.lock:
             if len(self.nodes) < 2 or len(self.edges) < 1:
-                self.logger.warning("Cannot optimize: not enough nodes or edges")
+                self.logger.info(f"Not enough nodes ({len(self.nodes)}) or edges ({len(self.edges)}) to optimize")
                 return False
 
             try:
+                self.logger.info(f"Optimizing pose graph with {len(self.nodes)} nodes and {len(self.edges)} edges")
                 import numpy as np
                 from scipy.optimize import minimize
                 from scipy.spatial.transform import Rotation
@@ -267,7 +268,17 @@ class PoseGraph:
 
                         # Combine errors with information matrix weighting
                         error_vector = np.concatenate([trans_error, rot_vec])
-                        weighted_error = error_vector @ edge.information @ error_vector
+                        weighted_error = 0
+
+                        # Apply Hubber loss for robustness to outliers
+                        delta = 1.0
+                        for i, err in enumerate(error_vector):
+                            weight = edge.information[i, i]
+                            abs_err = abs(err * weight)
+                            if abs_err < delta:
+                                weighted_error += 0.5 * abs_err**2
+                            else:
+                                weighted_error += delta * (abs_err - 0.5 * delta)
 
                         total_error += weighted_error
 
@@ -278,7 +289,7 @@ class PoseGraph:
                     pose_graph_error,
                     initial_params,
                     method='L-BFGS-B',
-                    options={'maxiter': max_iterations, 'disp': False}
+                    options={'maxiter': max_iterations, 'ftol': 1e-5, 'gtol': 1e-5, 'disp': True}
                 )
 
                 # Update node poses with optimized values
@@ -310,7 +321,10 @@ class PoseGraph:
 
             except Exception as e:
                 self.logger.error(f"Optimization failed: {e}")
+                import traceback
+                self.logger.error(traceback.format_exc())
                 return False
+
     def get_trajectory(self) -> List[np.ndarray]:
         """
         Get the optimized trajectory as a list of poses
